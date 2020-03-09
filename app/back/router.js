@@ -34,6 +34,17 @@ router
 //     People.updatePerson(req.body);
 //     res.status(200).json(req.body);
 // })
+
+//Afficher une image
+    .post('/upload', (req, res) => {
+    req.files.file.mv(__dirname + '/resources/pictures/' + req.files.file.name,
+        (err) => {
+            if (err)
+            return res.status(500).send(err);
+            res.json({file: req.files.file.name});
+        }
+        );
+    })   
 //Error 404
     .use((req, res) => {
     res.status(404);
