@@ -1,43 +1,59 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const router = express.Router();
-// const Home = require('./data/data');
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database('db/quizzes');
+
+// POST : to insert data
+// PUT/PATCH : to modify/replace data.
+// GET : to get data.
+// DELETE : to delete data.
+
 
 router
 //A la racine j'affiche "Hello world!!"
-    .get("/", (req, res) => {
-    res.json("Hello world!!");
-})
-//J'affiche toutes les quizz de ma BDD
-    .get("/quizz", (req, res) => {
-    res.json(People.getPersons());
-})
-// //J'affiche UNE personne de ma BDD (grâce à son id)
-//     .get("/persons/:id",(req,res)=>{
-//     res.json(People.getPerson(req.params.id));
+//     .get("/", (req, res) => {
+//     res.json("Hello world!!");
 // })
-// //Insert Person
-//     .post('/persons',
-//           (req, res) => {
-//     const p = People.insertPerson(req.body);
-//     res.status(201).json(p);
-// })
-// //Remove/Delete a person
-//     .delete('/persons/:id',
-//             (req, res) => {
-//     People.removePerson(req.params.id);
-//     res.status(204).end();
-// })
-// //Update a person
-//     .patch('/persons',
-//            (req, res) => {
-//     People.updatePerson(req.body);
-//     res.status(200).json(req.body);
-// })
-
-//Afficher une image
+//Tous les quizzes
+    .get("/quizzes", 
+        (req, res) => {
+            db.all( "SELECT * FROM quizzes", (err, rows) => {
+                res.json(rows);
+            });
+    })
+//Un quizz
+    .get('/quizzes/:id', 
+        (req, res) => {
+            db.get(
+                "SELECT * FROM quizzes WHERE id=?",
+                req.params.id,
+                (err, row) => {
+                    res.json(row)
+                }
+            );
+    })
+//Inserer un quizz
+    .post('/quizzes',
+        (req, res) => {
+            db.run("INSERT INTO quizzes(name, picture_url, keywords) values(?,?,?)",[name]);
+            res.redirect(303, '/quizzes');
+        })
+//Modifier un quizz
+    .patch('/quizzes/:id',
+        (req, res) => {
+            db.run("UPDATE quizzes set name=? WHERE id=?",[req.body,req.params.id]);
+            res.status(200).json(req.body);
+    })
+//Supprimer un quizz
+    .delete('/quizzes/:id', 
+        (req, res) => {
+            db.run('DELETE FROM quizzes WHERE id=?', [req.params.id]);
+            res.redirect(204, "/quizzes");
+    })
+//Upload une image
     .post('/upload', (req, res) => {
-    req.files.file.mv(__dirname + '/resources/pictures/' + req.files.file.name,
+    req.files.file.mv(__dirname + '/public/pictures/' + req.files.file.name,
         (err) => {
             if (err)
             return res.status(500).send(err);
