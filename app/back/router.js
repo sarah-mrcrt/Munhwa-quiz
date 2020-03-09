@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const router = express.Router();
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('db/quizzes');
+const db = new sqlite3.Database('db/quiz');
 
 // POST : to insert data
 // PUT/PATCH : to modify/replace data.
@@ -12,9 +12,9 @@ const db = new sqlite3.Database('db/quizzes');
 
 router
 //A la racine j'affiche "Hello world!!"
-//     .get("/", (req, res) => {
-//     res.json("Hello world!!");
-// })
+    .get("/", (req, res) => {
+    res.json("Hello world!!");
+})
 //Tous les quizzes
     .get("/quizzes", 
         (req, res) => {
