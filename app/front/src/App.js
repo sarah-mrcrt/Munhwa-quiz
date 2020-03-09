@@ -10,10 +10,10 @@ function App() {
     <div className="App">
       <header className="App-header">    
         <BrowserRouter>
-          <Link  to={'/home'}>Home</Link> 
+          <Link  to={'/'}>Home</Link> 
           <Link  to={'/about'}>About</Link> 
           <Switch>
-             <Route exact={true} path="/home" component={Home} />
+             <Route exact={true} path="/" component={Home} />
              <Route exact={true} path="/about" component={About} />
              <Route path="*" component={() => <p>Page 404</p>} />
            </Switch>
