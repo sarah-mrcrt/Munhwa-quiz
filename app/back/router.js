@@ -38,7 +38,7 @@ router
         (req, res) => {
             console.log('Quizz');
             const q = req.body;
-            db.run("INSERT INTO quizzes(id, name, picture_url, keywords) values(?,?,?,?)",[q.name, q.picture_url, q.keywords, 1]);
+            db.run("INSERT INTO quizzes(name, picture_url, keywords) values(?,?,?)",[q.name, q.picture_url, q.keywords]);
             res.redirect(303, '/quizzes');
         })
 //Modifier un quizz
