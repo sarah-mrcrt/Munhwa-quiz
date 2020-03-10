@@ -39,8 +39,10 @@ CREATE TABLE persons (
 );
 
 CREATE TABLE personsQuizz (
-   user_id INTEGER,
-   quizzes_id INTEGER,
+    id INTEGER NOT NULL PRIMARY KEY,
+    user_id INTEGER references persons(id),
+    quizzes_id INTEGER references quizzes(id),
+    score INTEGER REFERENCES questions(score),
 );
 
 INSERT INTO quizzes (name,picture_url,keywords)
@@ -75,3 +77,8 @@ VALUES
    ("a girl", NULL, 0, 5);
 
 INSERT INTO persons VALUES('Jane'),('John'),('Jack');
+
+INSERT INTO personsQuizzes VALUES
+    (1, 2, ""),
+    (1, 3, ""),
+    (1, 1, "");
