@@ -33,7 +33,6 @@ router
     .post('/quizzes',
         (req, res) => {
             console.log('Quizz');
-            
             const q = req.body;
             db.run("INSERT INTO quizzes(name, picture_url, keywords) values(?,?,?)",[q.name, q.picture_url, q.keywords]);
             res.redirect(303, '/quizzes/questions');

@@ -58,8 +58,11 @@ function Quizz (props){
                 <br/>
                 <form id='formQuizz' action="#" onSubmit={e=> addQuizz(e)}>
                 <p><b>Nom du quizz</b><input name="name" /></p>
+
                 {/* <p><b>Icône</b><input name="picture_url" /></p> */}
-                <p><b>Icone</b><input type="file" id="picture_url" name="myfile" onChange={e=> iconQuizz(e)} accept="image/*"/></p>
+                {/* <p><b>Icone</b><input type="file" id="picture_url" name="myfile" onChange={e=> iconQuizz(e)} accept="image/*"/></p> */}
+                <p><b>Icône</b><input type="file" id="picture_url" name="myfile" accept="image/*"/></p>
+
                 <p><b>keywords</b><input name="keywords" placeholder="; entre chaque keywords"/></p>
 
                 <button type="submit">Envoyez</button>
