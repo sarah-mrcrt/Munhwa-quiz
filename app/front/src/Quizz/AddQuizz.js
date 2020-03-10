@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from "react";
-// import axios from 'axios';
+import axios from 'axios';
+
+let idx = 0;
 
 function AddQuizz (props){
     if(props.display == false)
@@ -68,17 +70,38 @@ function AddQuizz (props){
 
 
 function QuizzLOL(props){
-    // const [minimumScore, setMinimumScore] = useState(0);
-    async function addPerson(e){
+    const [quizzes , setQuizz] = useState([]);
+
+    async function getQuizz() {
+        const data = (await axios.get("http://localhost:8000")).data;
+        setQuizz(data);
+    }
+    useEffect(() => {
+        getQuizz()
+    },[]);
+
+    async function deleteQuizz(e,id){
         e.preventDefault();
-        let p = {
+        await axios.delete("http://localhost:8000"  + "quizzes" + id);
+        getQuizz()
+    }
+
+     async function addQuizz(e){
+        e.preventDefault();
+        let q = {
             id : idx++,
-            firstname : e.target.elements[0].value,
-            lastname : e.target.elements[1].value,
-            avatar : e.target.elements[2].value,
-            score : e.target.elements[3].value
+            name : e.target.elements[0].value,
+            picture_url : e.target.elements[1].value,
+            keywords : e.target.elements[2].value,
+            users_id : e.target.elements[3].value
+            // score : e.target.elements[3].value
         }
-        insertPerson(p);
+        insertQuizz(q);
+    }
+
+    async function insertQuizz(q) {
+        await axios.post( "http://localhost:8000", q);
+        getQuizz();
     }
 }
 

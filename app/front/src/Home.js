@@ -10,7 +10,7 @@ function Home() {
   return (
     <div className="Home">
         {/* <Route exact={true} path="/quote/:id" component={Quizz}/> */}
-        { <Route exact={true} path="/quote/:id" component={QuizzThumbnail}/> }
+        { /*<Route exact={true} path="/quote/:id" component={QuizzThumbnail}/> */}
       
     </div>
   );
