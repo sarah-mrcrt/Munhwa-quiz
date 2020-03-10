@@ -1,9 +1,4 @@
 import React, {Component} from "react";
-<<<<<<< HEAD
-=======
-// import './App.css';
->>>>>>> f0c5ec65fd1cdc65194776afc3f64ba971bc0389
-
 //Lancer le quiz.
 
 function QuizzThumbnail(quizzes) {

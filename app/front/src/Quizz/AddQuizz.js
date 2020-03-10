@@ -1,10 +1,5 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios';
-<<<<<<< HEAD
-
-let idx = 0;
-=======
->>>>>>> f0c5ec65fd1cdc65194776afc3f64ba971bc0389
 
 let idx = 0;
 
@@ -103,47 +98,4 @@ function Quizz (props){
         );
 }
 
-
-<<<<<<< HEAD
-function QuizzLOL(props){
-    const [quizzes , setQuizz] = useState([]);
-
-    async function getQuizz() {
-        const data = (await axios.get("http://localhost:8000")).data;
-        setQuizz(data);
-    }
-    useEffect(() => {
-        getQuizz()
-    },[]);
-
-    async function deleteQuizz(e,id){
-        e.preventDefault();
-        await axios.delete("http://localhost:8000"  + "quizzes" + id);
-        getQuizz()
-    }
-
-     async function addQuizz(e){
-        e.preventDefault();
-        let q = {
-            id : idx++,
-            name : e.target.elements[0].value,
-            picture_url : e.target.elements[1].value,
-            keywords : e.target.elements[2].value,
-            users_id : e.target.elements[3].value
-            // score : e.target.elements[3].value
-        }
-        insertQuizz(q);
-    }
-
-    async function insertQuizz(q) {
-        await axios.post( "http://localhost:8000", q);
-        getQuizz();
-    }
-}
-
-export default QuizzLOL;
-=======
-
-
 export default Quizz;
->>>>>>> f0c5ec65fd1cdc65194776afc3f64ba971bc0389
