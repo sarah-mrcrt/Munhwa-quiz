@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS quizzes;
 DROP TABLE IF EXISTS questions;
 DROP TABLE IF EXISTS answers;
 DROP TABLE IF EXISTS persons;
-DROP TABLE IF EXISTS personsQuizz;
+DROP TABLE IF EXISTS personsQuizzes;
 
 PRAGMA foreign_keys = ON;
 
@@ -11,7 +11,7 @@ CREATE TABLE quizzes (
    name TEXT,
    picture_url TEXT,
    keywords TEXT,
-   user_id INTEGER,
+   user_id INTEGER
 );
 
 CREATE TABLE questions (
@@ -34,19 +34,19 @@ CREATE TABLE persons (
    id INTEGER NOT NULL PRIMARY KEY,
    name TEXT,
    mail TEXT,
-   passwords TEXT,
-   user_id INTEGER,
+   passwords TEXT
 );
 
-CREATE TABLE personsQuizz (
+CREATE TABLE personsQuizzes (
     id INTEGER NOT NULL PRIMARY KEY,
     user_id INTEGER references persons(id),
     quizzes_id INTEGER references quizzes(id),
-    score INTEGER REFERENCES questions(score),
+    score INTEGER
 );
 
 INSERT INTO quizzes (name,picture_url,keywords)
 VALUES
+   ("quizz1", "Aix/aix.jpg", "brian;people"),
    ("quizz1", "Aix/aix.jpg", "brian;people"),
    ("quizz2", "Aix/aix.jpg", "toto;people");
 
@@ -76,9 +76,9 @@ VALUES
    ("a boy", NULL, 1, 5),
    ("a girl", NULL, 0, 5);
 
-INSERT INTO persons VALUES('Jane'),('John'),('Jack');
+INSERT INTO persons VALUES(1,'Jane','',''),(2,'John','',''),(3,'Jack','','');
 
 INSERT INTO personsQuizzes VALUES
-    (1, 2, ""),
-    (1, 3, ""),
-    (1, 1, "");
+    (1, 2, 1,10),
+    (2, 3, 1,2),
+    (3, 1, 1,6);

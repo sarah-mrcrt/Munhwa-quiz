@@ -1,30 +1,23 @@
 import React,  { useState, useEffect, Component} from "react";
-
 // import './App.css';
-
-
-
 import { Link} from "react-router-dom";
 import axios from 'axios';
 
- function Quizz(props) {
-      let [quizz, setQuizz ] = useState(null);
+ function Jouer(props) {
+      let [question, setQuestion ] = useState([]);
+      const [current, setCurrent] = useState(0);
 
-     async function getQuizz() {  // The function is asynchronous
-                 const q = (await axios.get('http://localhost:8000/quizz/'+props.match.params.id)).data;
+     async function getJouer() {  // The function is asynchronous
+                 const q = (await axios.get('http://localhost:8000/quizz/jouer/id')).data;
                  setQuizz(q);
 
              }
 
       useEffect(() => {
-              getQuizz()
+              getJouer()
      }, []);
 
 console.log("zz", props);
-
-if(quizz==null){
-  return <div>Chargement</div>
-}
    return (
      <div className="Home">
       Bonjour je suis le quiz {props.match.params.id}
@@ -33,4 +26,4 @@ if(quizz==null){
    );
  }
 
- export default Quizz;
+ export default Jouer;
