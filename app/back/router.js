@@ -36,7 +36,7 @@ router
 //Inserer un quizz
     .post('/quizzes',
         (req, res) => {
-            db.run("INSERT INTO quizzes(name, picture_url, keywords) values(?,?,?)",[name]);
+            db.run("INSERT INTO quizzes(name, picture_url, keywords, user_id) values(?,?,?,?)",[name]);
             res.redirect(303, '/quizzes');
         })
 //Modifier un quizz
@@ -86,7 +86,12 @@ router
         db.run("update persons set name=? where id=?",[req.body,req.params.id]);
         res.status(200).json(req.body);
     })
-
+//supprimer une personne
+    .delete('/persons/:id', 
+        (req, res) => {
+            db.run('DELETE FROM persons WHERE id=?', [req.params.id]);
+            res.redirect(204, "/persons");
+    })
 //Error 404
     .use((req, res) => {
     res.status(404);
