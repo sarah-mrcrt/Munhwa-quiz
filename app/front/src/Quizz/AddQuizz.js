@@ -49,8 +49,8 @@ function Quizz (){
                 <br/>
                 <form id='formQuizz' action="#" onSubmit={e=> addQuizz(e)}>
                 <p><b>Nom du quizz</b><input name="name" /></p>
-                <p><b>Icône</b><input name="picture_url" /></p>
-                {/* <p><b>Icone</b><input type="file" id="image" name="image" accept="image/png, image/jpg"/></p> */}
+                {/* <p><b>Icône</b><input name="picture_url" /></p> */}
+                <p><b>Icone</b><input type="file" id="picture_url" name="picture_url" accept="image/png, image/jpg"/></p>
                 <p><b>keywords</b><input name="keywords" placeholder="; entre chaque keywords"/></p>
 
                 <button type="submit">Envoyez</button>
