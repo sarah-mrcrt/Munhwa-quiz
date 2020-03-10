@@ -5,7 +5,6 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('db/quiz');
 // const verify=require('./connectionRouter').verify;
 
-
 router
 //A la racine j'affiche "Hello world!!"
     .get("/", (req, res) => {
@@ -39,7 +38,6 @@ router
             db.run("INSERT INTO quizzes(name, picture_url, keywords) values(?,?,?)",[q.name, q.picture_url, q.keywords]);
             res.redirect(303, '/quizzes/questions');
         })
-
     // .get("/cities", verify, (req, res) => {
     //     db.all('select * from city',
     //         (err, rows) => {
@@ -52,11 +50,10 @@ router
     //         }
     //     );
     // })
-
 //Modifier un quizz
     .patch('/quizzes/:id',
         (req, res) => {
-            db.run("UPDATE quizzes set name=? WHERE id=?",[req.body,req.params.id]);
+            db.run("UPDATE quizzes set name=? WHERE id=?",[req.body,req.params.id, req.body,req.params.name]);
             res.status(200).json(req.body);
     })
 //Supprimer un quizz
@@ -65,36 +62,68 @@ router
             db.run('DELETE FROM quizzes WHERE id=?', [req.params.id]);
             res.redirect(204, "/quizzes");
     })
-//Upload une image
-    .post('/upload', (req, res) => {
-    req.files.file.mv(__dirname + '/public/pictures/' + req.files.file.name,
-        (err) => {
-            if (err)
-            return res.status(500).send(err);
-            res.json({file: req.files.file.name});
-        }
+//Upload l'icône du quizz
+    .post('/upload', 
+        (req, res) => {
+        req.files.file.mv(__dirname + '/pictures/' + req.files.file.name,
+            (err) => {
+                if (err){
+                    console.log(err);
+                    return res.status(500).send(err);
+                }
+                res.json({name: req.files.file.name});
+            }
         );
     })
+
 ////////////////////////////////////////////
+//Afficher toutes les questions du Quizz numéro X
+    .get('/questions/:id',
+        (req, res) => {
+            db.all(
+                "SELECT * FROM questions where quizzes_id=?",
+                req.params.id,
+                (err, row) => {
+                    res.json(row)
+                }
+            );
+    })
 // Insérer une question 
     .post('/questions',
         (req, res) => {
             const q = req.body;
-            db.run("INSERT INTO questions(sentence, score) values(?,?)",[q.sentence, q.score]);
+            db.run("INSERT INTO questions(sentence,video_url,score) values(?,?,?)",[q.sentence, q.video_url, q.score]);
             res.redirect(303, '/quizzes/');
         })
+//Upload une vidéo
+//Supprimer la question
+//Modifier la question
 
 
-        
 ////////////////////////////////////////////
-//Affiche la réponse de la question X du quizz X
-
+//Affiche toutes les réponses de la question X du quizz X
+    .get('/answers/:id',
+        (req, res) => {
+            db.all(
+                "select * from answers WHERE questions_id=?",
+                req.params.id,
+                (err, row) => {
+                    res.json(row)
+                }
+            );
+    })
 // Insérer une réponse 
+    //Si c'est une image j'affiche : picture_url
+    //Si c'est du texte j'affiche : sentence
     .post('/answers',
     (req, res) => {
-        db.run("insert into answers(sentence, picture_url, solution, questions_id) values(?,?,?,?)",[name]);
+        db.run("insert into answers(sentence, picture_url, solution) values(?,?,?)",[q.sentence, q.picture_url, q.solution]);
         res.redirect(303, '/answers');
     })
+//Suppromer une réponse
+//Modifier une réponse
+//Mettre une image
+
 ////////////////////////////////////////////
 //Afficher une personne
     .get('/persons/:id',
@@ -125,6 +154,8 @@ router
             db.run('DELETE FROM persons WHERE id=?', [req.params.id]);
             res.redirect(204, "/persons");
     })
+
+////////////////////////////////////////////
 //Error 404
     .use((req, res) => {
     res.status(404);

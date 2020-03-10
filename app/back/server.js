@@ -27,6 +27,7 @@ app.get('/', (req, res) => {
 console.log("This is the back !! Let's have fun with express.js");
 
 // app.use('/public/pictures',express.static('data/img'));
+app.use('/imgs',express.static('/public/pictures'));
 
 // app.use(connectionRouter);
 

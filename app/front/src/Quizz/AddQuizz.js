@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios';
-import {HTTP_SERVER_PORT} from "../constantes";
+import { HTTP_SERVER_PORT, HTTP_SERVER_PORT_PICTURES,HTTP_SERVER_PORT_VIDEOS} from "../constantes";
 
 function Quizz (props){
     // axios.defaults.headers.common['Authorization'] = 'Bearer ' + props.token;
@@ -21,6 +21,15 @@ function Quizz (props){
         getQuizz()
     }
 
+    async function iconQuizz(e){
+        e.preventDefault();
+        console.log('image');
+        const selectedFile = e.target.myfile.files[0];
+        const data = new FormData();
+        data.append('file', selectedFile, selectedFile.name);
+        await axios.post(HTTP_SERVER_PORT + "upload", data).then(res => console.log("Res", res));
+    }
+
      async function addQuizz(e){
         e.preventDefault();
         console.log(e.target);
@@ -33,28 +42,30 @@ function Quizz (props){
     }
 
     async function insertQuizz(q) {
-        await axios.post( HTTP_SERVER_PORT+"quizzes", q);
+        await axios.post( HTTP_SERVER_PORT + "quizzes", q);
         getQuizz();
     }
+
+   
 
     return(
         <>
                 {/* {cities.map(c => 
                     <li key={c.id}>{c.id} : {c.cityname}</li>
                 )} */}
-
             <div className="quizz">
                 <h1>Add a new quizz</h1>
                 <br/>
                 <form id='formQuizz' action="#" onSubmit={e=> addQuizz(e)}>
                 <p><b>Nom du quizz</b><input name="name" /></p>
                 {/* <p><b>Icône</b><input name="picture_url" /></p> */}
-                <p><b>Icone</b><input type="file" id="picture_url" name="picture_url" accept="image/png, image/jpg"/></p>
+                <p><b>Icone</b><input type="file" id="picture_url" name="myfile" onChange={e=> iconQuizz(e)} accept="image/*"/></p>
                 <p><b>keywords</b><input name="keywords" placeholder="; entre chaque keywords"/></p>
 
                 <button type="submit">Envoyez</button>
                 </form>
             </div>
+            
         </>
         )
 }
