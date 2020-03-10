@@ -36,7 +36,9 @@ router
 //Inserer un quizz
     .post('/quizzes',
         (req, res) => {
-            db.run("INSERT INTO quizzes(name, picture_url, keywords, user_id) values(?,?,?,?)",[name]);
+            console.log('Quizz');
+            const q = req.body;
+            db.run("INSERT INTO quizzes(id, name, picture_url, keywords) values(?,?,?,?)",[q.name, q.picture_url, q.keywords, 1]);
             res.redirect(303, '/quizzes');
         })
 //Modifier un quizz
@@ -61,7 +63,20 @@ router
         }
         );
     })
-
+////////////////////////////////////////////
+// Insérer une question 
+    .post('/questions',
+    (req, res) => {
+        db.run("insert into questions(sentence, score, quizzes_id) values(?,?,?)",[name]);
+        res.redirect(303, '/questions');
+    })
+////////////////////////////////////////////
+// Insérer une réponse 
+    .post('/answers',
+    (req, res) => {
+        db.run("insert into answers(sentence, picture_url, solution, questions_id) values(?,?,?,?)",[name]);
+        res.redirect(303, '/answers');
+    })
 ////////////////////////////////////////////
 //get person
     .get('/persons/:id',
@@ -77,7 +92,7 @@ router
 //inserer une personne
     .post('/persons',
     (req, res) => {
-        db.run("insert into persons(name) values(?)",[name]);
+        db.run("insert into persons(id, name, mail, passwords, user_id) values(?,?,?,?,?)",[name]);
         res.redirect(303, '/persons');
     })
 //modifer une personne
