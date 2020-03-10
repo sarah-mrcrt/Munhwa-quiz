@@ -17,7 +17,8 @@ app.use(bodyParser.urlencoded({
 
 app.get('/', (req, res) => {
     res.set('Content-Type', 'text/html');
-    res.send('Hello world !!');
+    //res.send('Hello world !!');
+    res.send('<a href="http://localhost:8000/quizzes">Quizzes</a>' + '<a href="http://localhost:8000/quizzes/1">Quizz1</a>');
 });
 
 
