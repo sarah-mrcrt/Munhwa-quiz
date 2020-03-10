@@ -3,11 +3,7 @@ const bodyParser = require("body-parser");
 const router = express.Router();
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('db/quiz');
-
-// POST : to insert data
-// PUT/PATCH : to modify/replace data.
-// GET : to get data.
-// DELETE : to delete data.
+// const verify=require('./connectionRouter').verify;
 
 
 router
@@ -38,10 +34,25 @@ router
     .post('/quizzes',
         (req, res) => {
             console.log('Quizz');
+            
             const q = req.body;
             db.run("INSERT INTO quizzes(name, picture_url, keywords) values(?,?,?)",[q.name, q.picture_url, q.keywords]);
-            res.redirect(303, '/quizzes');
+            res.redirect(303, '/quizzes/questions');
         })
+
+    // .get("/cities", verify, (req, res) => {
+    //     db.all('select * from city',
+    //         (err, rows) => {
+    //             if (err) {
+    //                 console.log("err : ", err);
+    //                 res.status(500).end();
+    //             }else{
+    //                 res.status(200).json(rows);
+    //             }
+    //         }
+    //     );
+    // })
+
 //Modifier un quizz
     .patch('/quizzes/:id',
         (req, res) => {
@@ -67,11 +78,17 @@ router
 ////////////////////////////////////////////
 // Insérer une question 
     .post('/questions',
-    (req, res) => {
-        db.run("insert into questions(sentence, score, quizzes_id) values(?,?,?)",[name]);
-        res.redirect(303, '/questions');
-    })
+        (req, res) => {
+            const q = req.body;
+            db.run("INSERT INTO questions(sentence, score) values(?,?)",[q.sentence, q.score]);
+            res.redirect(303, '/quizzes/');
+        })
+
+
+        
 ////////////////////////////////////////////
+//Affiche la réponse de la question X du quizz X
+
 // Insérer une réponse 
     .post('/answers',
     (req, res) => {
@@ -79,7 +96,7 @@ router
         res.redirect(303, '/answers');
     })
 ////////////////////////////////////////////
-//get person
+//Afficher une personne
     .get('/persons/:id',
     (req, res) => {
         db.get(
@@ -93,7 +110,7 @@ router
 //inserer une personne
     .post('/persons',
     (req, res) => {
-        db.run("insert into persons(id, name, mail, passwords, user_id) values(?,?,?,?,?)",[name]);
+        db.run("INSERT INTO persons(id, name, mail, passwords, user_id) values(?,?,?,?,?)",[q.name, q.mail, q.keywords, q.passwords]);
         res.redirect(303, '/persons');
     })
 //modifer une personne

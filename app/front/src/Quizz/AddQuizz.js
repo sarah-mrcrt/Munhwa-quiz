@@ -1,16 +1,11 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios';
-const HTTP_SERVER_PORT = "http://localhost:8000/";
+import {HTTP_SERVER_PORT} from "../constantes";
 
-function Quizz (){
-        const [quizzes , setQuizz] = useState([]);
+function Quizz (props){
+    // axios.defaults.headers.common['Authorization'] = 'Bearer ' + props.token;
 
-    // let jsxQuizzes = quizzes
-    // .map(q=>
-    //      <Quizzes
-    //      id={q.id}
-    //      deleteQuizzes={deleteQuizzes} />
-    //     );
+    const [quizzes , setQuizz] = useState([]);
 
     async function getQuizz() {
         const data = (await axios.get(HTTP_SERVER_PORT)).data;
@@ -33,7 +28,6 @@ function Quizz (){
             name : e.target.elements[0].value,
             picture_url : e.target.elements[1].value,
             keywords : e.target.elements[2].value,
-            // users_id : e.target.elements[3].value
         }
         insertQuizz(q);
     }
@@ -44,19 +38,25 @@ function Quizz (){
     }
 
     return(
+        <>
+                {/* {cities.map(c => 
+                    <li key={c.id}>{c.id} : {c.cityname}</li>
+                )} */}
+
             <div className="quizz">
                 <h1>Add a new quizz</h1>
                 <br/>
                 <form id='formQuizz' action="#" onSubmit={e=> addQuizz(e)}>
                 <p><b>Nom du quizz</b><input name="name" /></p>
-                <p><b>Icône</b><input name="picture_url" /></p>
-                {/* <p><b>Icone</b><input type="file" id="picture_url" name="picture_url" accept="image/png, image/jpg"/></p> */}
+                {/* <p><b>Icône</b><input name="picture_url" /></p> */}
+                <p><b>Icone</b><input type="file" id="picture_url" name="picture_url" accept="image/png, image/jpg"/></p>
                 <p><b>keywords</b><input name="keywords" placeholder="; entre chaque keywords"/></p>
 
                 <button type="submit">Envoyez</button>
                 </form>
             </div>
-        );
+        </>
+        )
 }
 
 export default Quizz;

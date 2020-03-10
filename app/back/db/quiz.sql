@@ -76,7 +76,10 @@ VALUES
    ("a boy", NULL, 1, 5),
    ("a girl", NULL, 0, 5);
 
-INSERT INTO persons VALUES(1,'Jane','',''),(2,'John','',''),(3,'Jack','','');
+INSERT INTO persons VALUES
+   (1,'Jane','jane@toto.fr','1234'),
+   (2,'John','john@toto.fr','1234'),
+   (3,'Jack','jack@toto.fr','1234');
 
 INSERT INTO personsQuizzes VALUES
     (1, 2, 1,10),
