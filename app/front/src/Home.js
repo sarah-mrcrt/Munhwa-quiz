@@ -1,4 +1,4 @@
-import React,  { useState },  { useEffect }, {Component} from "react";
+import React,  { useState, useEffect, Component} from "react";
 import logo from './logo.svg';
 // import './App.css';
 import QuizzThumbnail from "./Quizz/QuizzThumbnail";
