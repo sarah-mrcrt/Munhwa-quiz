@@ -60,7 +60,31 @@ router
             res.json({file: req.files.file.name});
         }
         );
-    })   
+    })
+//get person
+    .get('/persons/:id',
+    (req, res) => {
+        db.get(
+            "select * from persons where id=?",
+            req.params.id,
+            (err, row) => {
+                res.json(row)
+            }
+        );
+    })
+//inserer une personne
+    .post('/persons',
+    (req, res) => {
+        db.run("insert into persons(name) values(?)",[name]);
+        res.redirect(303, '/persons');
+    })
+//modifer une personne
+    .patch('/persons/:id',
+    (req, res) => {
+        db.run("update persons set name=? where id=?",[req.body,req.params.id]);
+        res.status(200).json(req.body);
+    })
+
 //Error 404
     .use((req, res) => {
     res.status(404);

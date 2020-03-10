@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS quizzes;
 DROP TABLE IF EXISTS questions;
 DROP TABLE IF EXISTS answers;
+DROP TABLE IF EXISTS persons;
 -- DROP TABLE IF EXISTS users;
 
 PRAGMA foreign_keys = ON;
@@ -34,6 +35,11 @@ CREATE TABLE answers (
    questions_id INTEGER REFERENCES questions(id)
 );
 
+CREATE TABLE persons (
+   id INTEGER PRIMARY KEY,
+   name TEXT
+);
+
 INSERT INTO quizzes (name,picture_url,keywords)
 VALUES
    ("quizz1", "Aix/aix.jpg", "brian;people"),
@@ -64,3 +70,5 @@ VALUES
    ("in the bathroom", NULL, 0, 4),
    ("a boy", NULL, 1, 5),
    ("a girl", NULL, 0, 5);
+
+INSERT INTO persons VALUES('Jane'),('John'),('Jack');
