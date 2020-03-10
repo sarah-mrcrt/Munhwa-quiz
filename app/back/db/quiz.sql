@@ -2,21 +2,15 @@ DROP TABLE IF EXISTS quizzes;
 DROP TABLE IF EXISTS questions;
 DROP TABLE IF EXISTS answers;
 DROP TABLE IF EXISTS persons;
--- DROP TABLE IF EXISTS users;
 
 PRAGMA foreign_keys = ON;
-
--- CREATE TABLE users (
---   id INTEGER NOT NULL PRIMARY KEY,
---   remember INTEGER
--- );
 
 CREATE TABLE quizzes (
    id INTEGER NOT NULL PRIMARY KEY,
    name TEXT,
    picture_url TEXT,
    keywords TEXT,
-   -- user_id INTEGER,
+   user_id INTEGER,
 );
 
 CREATE TABLE questions (
@@ -36,8 +30,11 @@ CREATE TABLE answers (
 );
 
 CREATE TABLE persons (
-   id INTEGER PRIMARY KEY,
-   name TEXT
+   id INTEGER NOT NULL PRIMARY KEY,
+   name TEXT,
+   picture_url TEXT,
+   keywords TEXT,
+   user_id INTEGER,
 );
 
 INSERT INTO quizzes (name,picture_url,keywords)
