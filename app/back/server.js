@@ -6,7 +6,7 @@ const morgan = require('morgan');
 const bodyParser = require("body-parser");
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 
 app.use(morgan('combined')); //to get informations from the requete
 app.use(cors()); //to allow requests from another application
