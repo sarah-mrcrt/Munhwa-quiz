@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios';
-import HTTP_SERVER_PORT from "Constante.js";
+
+const HTTP_SERVER_PORT = "http://localhost:8000";
 
 let idx = 0;
 
