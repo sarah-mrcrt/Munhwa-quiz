@@ -19,6 +19,7 @@ router
     .get("/quizzes", 
         (req, res) => {
             db.all( "SELECT * FROM quizzes", (err, rows) => {
+                console.log(rows);
                 res.json(rows);
             });
     })
