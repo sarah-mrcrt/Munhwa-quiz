@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios';
+import HTTP_SERVER_PORT from "Constante.js";
 
 let idx = 0;
 
@@ -7,7 +8,7 @@ function Quizz (props){
     const [quizzes , setQuizz] = useState([]);
 
     async function getQuizz() {
-        const data = (await axios.get("http://localhost:8000")).data;
+        const data = (await axios.get(HTTP_SERVER_PORT)).data;
         setQuizz(data);
     }
     useEffect(() => {
@@ -16,7 +17,7 @@ function Quizz (props){
 
     async function deleteQuizz(e,id){
         e.preventDefault();
-        await axios.delete("http://localhost:8000/quizzes" + id);
+        await axios.delete(HTTP_SERVER_PORT + "quizzes" + id);
         getQuizz()
     }
 
@@ -35,7 +36,7 @@ function Quizz (props){
     }
 
     async function insertQuizz(q) {
-        await axios.post( "http://localhost:8000", q);
+        await axios.post( HTTP_SERVER_PORT, q);
         getQuizz();
     }
     

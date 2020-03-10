@@ -1,1 +1,1 @@
-const http = HTTP_SERVER_PORT;
+const HTTP_SERVER_PORT = "http://localhost:8000";
