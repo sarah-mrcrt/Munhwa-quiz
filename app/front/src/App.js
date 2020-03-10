@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import logo from './logo.svg';
-import './App.css';
+// import './App.css';
 import Home from "./Home.js";
 import About from "./About.js";
 import AddQuizz from "./Quizz/AddQuizz.js";
