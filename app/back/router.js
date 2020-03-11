@@ -64,17 +64,12 @@ router
             res.redirect(204, "/quizzes");
     })
 //Upload l'icône du quizz
-<<<<<<< HEAD
+
     .post('/uploadIcon',
         (req, res) => {
         console.log("toto",req.files);
         req.files.file.mv(__dirname + '/public/pictures/icons/' + req.files.file.name,
-=======
-    .post('/uploadIcon', 
-        (req, res) => {
-        console.log("toto",req.files);
-        req.files.file.mv(__dirname + '/public/pictures/icons/quizzesIcons' + req.files.file.name,
->>>>>>> 2da6bdbbe955c1ed08f9a33b1ef0ddd70013adb6
+
             (err) => {
                 if (err){
                     console.log(err);
@@ -109,7 +104,7 @@ router
 <<<<<<< HEAD
     .post('/uploadVideo',
 =======
-    .post('/uploadVideo', 
+    .post('/uploadVideo',
 >>>>>>> 2da6bdbbe955c1ed08f9a33b1ef0ddd70013adb6
         (req, res) => {
         console.log("toto",req.files);

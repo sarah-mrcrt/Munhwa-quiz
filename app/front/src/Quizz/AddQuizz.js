@@ -46,7 +46,7 @@ function Quizz (props){
         getQuizz();
     }
 
-<<<<<<< HEAD
+
     return(
         <>
                 {/* {cities.map(c =>
@@ -54,11 +54,11 @@ function Quizz (props){
    // if (redirection) {
         return(
             <>
-                {/* {cities.map(c => 
+                {/* {cities.map(c =>
 >>>>>>> 2da6bdbbe955c1ed08f9a33b1ef0ddd70013adb6
                     <li key={c.id}>{c.id} : {c.cityname}</li>
                 )} */}
-            
+
             <div className="quizz">
                 <h1>Add a new quizz</h1>
                 <br/>
@@ -71,15 +71,12 @@ function Quizz (props){
                 <Redirect to='/' />;
                 </form>
             </div>
-<<<<<<< HEAD
 
         </>
         )
-=======
-            
-        </>)
+
    // }
->>>>>>> 2da6bdbbe955c1ed08f9a33b1ef0ddd70013adb6
+
 }
 
 export default Quizz;
