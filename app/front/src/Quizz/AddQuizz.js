@@ -1,15 +1,15 @@
 import React, {useState, useEffect, Redirect} from "react";
 import axios from 'axios';
 import { HTTP_SERVER_PORT, HTTP_SERVER_PORT_PICTURES,HTTP_SERVER_PORT_VIDEOS} from "../constantes";
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 
 function Quizz (props){
     // axios.defaults.headers.common['Authorization'] = 'Bearer ' + props.token;
 
-    const { redirection } = (e) => {
-        e.preventDefault();
-         this.state;
-    }
+    // const { redirection } = (e) => {
+    //     e.preventDefault();
+    //      this.state;
+    // }
     const [ quizzes, setQuizz] = useState([]);
     async function getQuizz() {
         const data = (await axios.get(HTTP_SERVER_PORT)).data;
@@ -46,7 +46,7 @@ function Quizz (props){
         getQuizz();
     }
 
-    if (redirection) {
+   // if (redirection) {
         return(
             <>
                 {/* {cities.map(c => 
@@ -67,7 +67,7 @@ function Quizz (props){
             </div>
             
         </>)
-    }
+   // }
 }
 
 export default Quizz;
