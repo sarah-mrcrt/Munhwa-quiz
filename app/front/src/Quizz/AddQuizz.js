@@ -24,7 +24,7 @@ function Quizz (props){
      async function addQuizz(e){
         e.preventDefault();
         //Upload d'image
-        console.log(e.target.picture_url);      
+        console.log(e.target.picture_url); 
         const selectedFile = e.target.picture_url.files[0];
         console.log(e.target.picture_url.files[0]);  
         const data = new FormData();
@@ -54,13 +54,8 @@ function Quizz (props){
                 <h1>Add a new quizz</h1>
                 <br/>
                 <form id='formQuizz' action="#" onSubmit={e=> addQuizz(e)}>
-                <p><b>Nom du quizz</b><input name="name" /></p>
-
-                {/* <p><b>Icône</b><input name="picture_url" /></p> */}
-                <b>Icone</b><input type="file" id="picture_url" name="picture_url"/>
-
-                {/* <p><b>Icône</b><input type="file" id="picture_url" name="myfile" accept="image/*"/></p> */}
-
+                <p><b>Nom du quizz</b><input name="name" required/></p>
+                <b>Icone</b><input type="file" name="picture_url" accept="image/*" required/>
                 <p><b>keywords</b><input name="keywords" placeholder="; entre chaque keywords"/></p>
 
                 <button type="submit">Envoyez</button>
