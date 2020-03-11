@@ -1,0 +1,24 @@
+@media (max-width: 360px){
+.container_login{
+   position: absolute;
+   left:50%;
+   top: 20%;
+   transform: translateX(-50%);
+    h3{
+        font-family: $montserrat;
+    }
+       form{
+           display: flex;
+           flex-direction: column;
+           text-align: center;
+           input{
+               width:50vw;
+           }
+           .button_form{
+               margin-top: 1em;
+               background-color: $ecume;
+           }
+       }
+}
+
+}

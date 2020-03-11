@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "",
-"sources": [],
+"mappings": "AAAA,yBAAyB,CACzB,gBAAgB,CACb,QAAQ,CAAE,QAAQ,CAClB,IAAI,CAAC,GAAG,CACR,GAAG,CAAE,GAAG,CACR,SAAS,CAAE,gBAAgB,CAC1B,mBAAE,CACE,WAAW,CAAE,YAAY,CAE1B,qBAAI,CACA,OAAO,CAAE,IAAI,CACb,cAAc,CAAE,MAAM,CACtB,UAAU,CAAE,MAAM,CAClB,2BAAK,CACD,KAAK,CAAC,IAAI,CAEd,kCAAY,CACR,UAAU,CAAE,GAAG,CACf,gBAAgB,CAAE,IAAI",
+"sources": ["../../scss/page/register.scss"],
 "names": [],
 "file": "register.css"
 }
