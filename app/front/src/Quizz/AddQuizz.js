@@ -49,7 +49,13 @@ function Quizz (props){
 
     return(
         <>
-
+                {/* {cities.map(c =>
+   // if (redirection) {
+        return(
+            <>
+                {/* {cities.map(c =>
+                    <li key={c.id}>{c.id} : {c.cityname}</li>
+                )} */}
 
             <div className="quizz">
                 <h1>Add a new quizz</h1>
@@ -68,6 +74,9 @@ function Quizz (props){
 
         </>
         )
+
+   // }
+
 }
 
 export default Quizz;
