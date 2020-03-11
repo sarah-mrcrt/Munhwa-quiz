@@ -48,7 +48,7 @@ INSERT INTO quizzes (name,picture_url,keywords)
 VALUES
    ("quizz1", "Aix/aix.jpg", "brian;people"),
    ("quizz1", "Aix/aix.jpg", "brian;people"),
-   ("quizz2", "Aix/aix.jpg", "toto;people");
+   ("quizz2", "Aix/aix.jpsenteng", "toto;people");
 
 INSERT INTO questions (sentence, score, quizzes_id)
 VALUES
