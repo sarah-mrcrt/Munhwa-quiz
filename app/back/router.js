@@ -66,7 +66,8 @@ router
 //Upload l'icône du quizz
     .post('/upload', 
         (req, res) => {
-        req.files.file.mv(__dirname + '/pictures/' + req.files.file.name,
+        console.log("toto",req.files);
+        req.files.file.mv(__dirname + '/public/pictures/icons/quizzesIcons' + req.files.file.name,
             (err) => {
                 if (err){
                     console.log(err);

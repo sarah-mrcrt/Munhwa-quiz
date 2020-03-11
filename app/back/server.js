@@ -1,6 +1,7 @@
 const express = require('express');
 const router = require('./router');
 // const connectionRouter = require('./connectionRouter').router;
+const fileUpload = require('express-fileUpload');
 
 const cors = require('cors');
 const morgan = require('morgan');
@@ -27,8 +28,11 @@ app.get('/', (req, res) => {
 console.log("This is the back !! Let's have fun with express.js");
 
 // app.use('/public/pictures',express.static('data/img'));
-app.use('/imgs',express.static('/public/pictures'));
-
+app.use('/imgs',express.static('/public/'));
+app.use(fileUpload({
+    useTemplates: 'true',
+    tempFileDir: '/tmp/'
+}))
 // app.use(connectionRouter);
 
 app.use(router); // Requests processing will be defined in the file router
