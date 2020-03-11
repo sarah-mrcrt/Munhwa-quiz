@@ -3,12 +3,7 @@ const bodyParser = require("body-parser");
 const router = express.Router();
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('db/quiz');
-
-// POST : to insert data
-// PUT/PATCH : to modify/replace data.
-// GET : to get data.
-// DELETE : to delete data.
-
+// const verify=require('./connectionRouter').verify;
 
 router
 //A la racine j'affiche "Hello world!!"
@@ -44,10 +39,22 @@ router
             db.run("INSERT INTO quizzes(name, picture_url, keywords) values(?,?,?)",[q.name, q.picture_url, q.keywords]);
             res.redirect(303, '/quizzes');
         })
+    // .get("/cities", verify, (req, res) => {
+    //     db.all('select * from city',
+    //         (err, rows) => {
+    //             if (err) {
+    //                 console.log("err : ", err);
+    //                 res.status(500).end();
+    //             }else{
+    //                 res.status(200).json(rows);
+    //             }
+    //         }
+    //     );
+    // })
 //Modifier un quizz
     .patch('/quizzes/:id',
         (req, res) => {
-            db.run("UPDATE quizzes set name=? WHERE id=?",[req.body,req.params.id]);
+            db.run("UPDATE quizzes set name=? WHERE id=?",[req.body,req.params.id, req.body,req.params.name]);
             res.status(200).json(req.body);
     })
 //Supprimer un quizz
@@ -56,32 +63,78 @@ router
             db.run('DELETE FROM quizzes WHERE id=?', [req.params.id]);
             res.redirect(204, "/quizzes");
     })
-//Upload une image
-    .post('/upload', (req, res) => {
-    req.files.file.mv(__dirname + '/public/pictures/' + req.files.file.name,
-        (err) => {
-            if (err)
-            return res.status(500).send(err);
-            res.json({file: req.files.file.name});
-        }
+//Upload l'icône du quizz
+    .post('/upload', 
+        (req, res) => {
+        req.files.file.mv(__dirname + '/pictures/' + req.files.file.name,
+            (err) => {
+                if (err){
+                    console.log(err);
+                    return res.status(500).send(err);
+                }
+                res.json({name: req.files.file.name});
+            }
         );
     })
+
 ////////////////////////////////////////////
+<<<<<<< HEAD
 // Insérer une question
-    .post('/questions',
-    (req, res) => {
-        db.run("insert into questions(sentence, score, quizzes_id) values(?,?,?)",[name]);
-        res.redirect(303, '/questions');
+=======
+//Afficher toutes les questions du Quizz numéro X
+    .get('/questions/:id',
+        (req, res) => {
+            db.all(
+                "SELECT * FROM questions where quizzes_id=?",
+                req.params.id,
+                (err, row) => {
+                    res.json(row)
+                }
+            );
     })
+// Insérer une question 
+>>>>>>> 14aa7facf8a9897856934591312a398f41242837
+    .post('/questions',
+        (req, res) => {
+            const q = req.body;
+            db.run("INSERT INTO questions(sentence,video_url,score) values(?,?,?)",[q.sentence, q.video_url, q.score]);
+            res.redirect(303, '/questions/');
+        })
+//Upload une vidéo
+//Supprimer la question
+//Modifier la question
+
+
 ////////////////////////////////////////////
+<<<<<<< HEAD
 // Insérer une réponse
+=======
+//Affiche toutes les réponses de la question X du quizz X
+    .get('/answers/:id',
+        (req, res) => {
+            db.all(
+                "select * from answers WHERE questions_id=?",
+                req.params.id,
+                (err, row) => {
+                    res.json(row)
+                }
+            );
+    })
+// Insérer une réponse 
+    //Si c'est une image j'affiche : picture_url
+    //Si c'est du texte j'affiche : sentence
+>>>>>>> 14aa7facf8a9897856934591312a398f41242837
     .post('/answers',
     (req, res) => {
-        db.run("insert into answers(sentence, picture_url, solution, questions_id) values(?,?,?,?)",[name]);
+        db.run("insert into answers(sentence, picture_url, solution) values(?,?,?)",[q.sentence, q.picture_url, q.solution]);
         res.redirect(303, '/answers');
     })
+//Suppromer une réponse
+//Modifier une réponse
+//Mettre une image
+
 ////////////////////////////////////////////
-//get person
+//Afficher une personne
     .get('/persons/:id',
     (req, res) => {
         db.get(
@@ -95,7 +148,7 @@ router
 //inserer une personne
     .post('/persons',
     (req, res) => {
-        db.run("insert into persons(id, name, mail, passwords, user_id) values(?,?,?,?,?)",[name]);
+        db.run("INSERT INTO persons(id, name, mail, passwords, user_id) values(?,?,?,?,?)",[q.name, q.mail, q.keywords, q.passwords]);
         res.redirect(303, '/persons');
     })
 //modifer une personne
@@ -110,6 +163,8 @@ router
             db.run('DELETE FROM persons WHERE id=?', [req.params.id]);
             res.redirect(204, "/persons");
     })
+
+////////////////////////////////////////////
 //Error 404
     .use((req, res) => {
     res.status(404);

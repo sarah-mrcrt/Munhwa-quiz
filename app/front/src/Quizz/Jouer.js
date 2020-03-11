@@ -9,8 +9,15 @@ import axios from 'axios';
 
      async function getJouer() {  // The function is asynchronous
                  const q = (await axios.get('http://localhost:8000/quizz/jouer/id')).data;
+<<<<<<< HEAD
                  setQuestion(q);
              }
+=======
+                 setQuizz(q);
+
+             }
+
+>>>>>>> 14aa7facf8a9897856934591312a398f41242837
       useEffect(() => {
               getJouer()
      }, []);
@@ -18,7 +25,11 @@ import axios from 'axios';
 console.log("zz", props);
    return (
      <div className="Home">
+<<<<<<< HEAD
       Bonjour je suis les questions {props.match.params.sentence}
+=======
+      Bonjour je suis le quiz {props.match.params.id}
+>>>>>>> 14aa7facf8a9897856934591312a398f41242837
 
      </div>
    );
