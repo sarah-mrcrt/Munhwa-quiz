@@ -52,26 +52,14 @@ if(questions.length == null){
       Bonjour je suis les questions
       <br/> Courage mes petites CSS 😗
         <p>{questions[current].sentence} </p>
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <li onClick={(e) => answer(e)}>{}</li>
-
-=======
-=======
->>>>>>> 20fa36608133deb8f430d8fa1dd9a78ef7c9ebf0
-        // <li onClick={(e) => answer(e)}>{answers.sentence}</li>
-         <li> {answers.sentence } {console.log(answers)} </li>
+    
          {answers.map((item, i) => {
            return(
-             <li>{item.sentence}</li>
+             <li onClick={(e) => answer(e)}>{item.sentence}</li>
            )
 
          })
          }
-<<<<<<< HEAD
->>>>>>> 079c190e4dfc992f331b983eddb1ce4e5f8d11a5
-=======
->>>>>>> 20fa36608133deb8f430d8fa1dd9a78ef7c9ebf0
         <button onClick={e => suivant(e)}>Next</button>
         </div>
 
