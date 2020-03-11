@@ -41,8 +41,7 @@ function suivant(e) {
       console.log('Gagne');
 
        let resultat = setScore(questions[current].score);
-       // console.log(score);
-       console.log(resultat);
+        console.log(score);
     } else {
       console.log('perdu');
     }
