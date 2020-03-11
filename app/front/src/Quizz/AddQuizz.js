@@ -26,9 +26,9 @@ function Quizz (props){
      async function addQuizz(e){
         e.preventDefault();
         //Upload d'image
-        console.log(e.target.picture_url); 
+        console.log(e.target.picture_url);
         const selectedFile = e.target.picture_url.files[0];
-        console.log(e.target.picture_url.files[0]);  
+        console.log(e.target.picture_url.files[0]);
         const data = new FormData();
         data.append('file', selectedFile, selectedFile.name);
         axios.post(HTTP_SERVER_PORT + "uploadIcon", data).then(res => console.log("Res", res));
@@ -36,7 +36,7 @@ function Quizz (props){
         //Upload sur le serveur
         let q = {
             name : e.target.elements[0].value,
-            picture_url : e.target.elements[1].value,
+            picture_url :selectedFile.name,
             keywords : e.target.elements[2].value,
         }
         insertQuizz(q);
@@ -46,13 +46,11 @@ function Quizz (props){
         getQuizz();
     }
 
-   // if (redirection) {
-        return(
-            <>
-                {/* {cities.map(c => 
-                    <li key={c.id}>{c.id} : {c.cityname}</li>
-                )} */}
-            
+
+    return(
+        <>
+
+
             <div className="quizz">
                 <h1>Add a new quizz</h1>
                 <br/>
@@ -61,13 +59,15 @@ function Quizz (props){
                 <b>Icone</b><input type="file" name="picture_url" accept="image/*" required/>
                 <p><b>keywords</b><input name="keywords" placeholder="; entre chaque keywords"/></p>
 
-                <button onClick={this.redirection} type="submit">Envoyez</button>
-                <Redirect to='/' />;
+                <button type="submit">Envoyez</button>
+                
+                {/* onClick={this.redirection}
+                <Redirect to='/' />; */}
                 </form>
             </div>
-            
-        </>)
-   // }
+
+        </>
+        )
 }
 
 export default Quizz;

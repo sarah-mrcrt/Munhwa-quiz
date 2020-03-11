@@ -64,10 +64,12 @@ router
             res.redirect(204, "/quizzes");
     })
 //Upload l'icône du quizz
-    .post('/uploadIcon', 
+
+    .post('/uploadIcon',
         (req, res) => {
         console.log("toto",req.files);
-        req.files.file.mv(__dirname + '/public/pictures/icons/quizzesIcons' + req.files.file.name,
+        req.files.file.mv(__dirname + '/public/pictures/icons/' + req.files.file.name,
+
             (err) => {
                 if (err){
                     console.log(err);
@@ -91,7 +93,7 @@ router
                 }
             );
     })
-// Insérer une question 
+// Insérer une question
     .post('/questions',
         (req, res) => {
             const q = req.body;
@@ -99,7 +101,7 @@ router
             res.redirect(303, '/questions/');
         })
 //Upload une vidéo
-    .post('/uploadVideo', 
+    .post('/uploadVideo',
         (req, res) => {
         console.log("toto",req.files);
         req.files.file.mv(__dirname + '/public/pictures/videos/qstVideo' + req.files.file.name,
@@ -130,7 +132,7 @@ router
                 }
             );
     })
-// Insérer une réponse 
+// Insérer une réponse
     //Si c'est une image j'affiche : picture_url
     //Si c'est du texte j'affiche : sentence
     .post('/answers',

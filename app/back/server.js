@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
 
 
 console.log("This is the back !! Let's have fun with express.js");
-app.use('/imgs',express.static('/public/'));
+app.use(express.static('public/'));
 app.use(fileUpload({
     useTemplates: 'true',
     tempFileDir: '/tmp/'

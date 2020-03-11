@@ -10,10 +10,11 @@ function QuizzThumbnail(props) {
     <div className="QuizzThumbnail">
 
       <Link  to={'/quizz/'+props.id}>{props.name}</Link>
-      {props.picture_url}
+
+      <img src={HTTP_SERVER_PORT_PICTURES + props.picture} />
       {/* {props.picture_url} */}
       {/* <img src={HTTP_SERVER_PORT_PICTURES + props.picture_url} />             */}
-      
+
     </div>
     </>
   );

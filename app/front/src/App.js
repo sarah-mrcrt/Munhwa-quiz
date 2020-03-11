@@ -37,7 +37,7 @@ function App() {
             <Route exact={true} path="/home" component={Home}/>
             <Route exact={true} path="/addQuizz" component={AddQuizz} />
             <Route exact={true} path="/quizz/:id" component={Quizz}/>
-            <Route exact={true} path="/quizz/Jouer/:sentence" component={Jouer}/>
+            <Route exact={true} path="/Jouer/:id" component={Jouer}/>
             <Route exact={true} path="/addQuestion" component={AddQuestion} />
             <ProtectedRoute exact={true} path="/addQuizz" component={AddQuizz} />
 

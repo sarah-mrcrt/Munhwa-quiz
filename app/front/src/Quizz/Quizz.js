@@ -31,7 +31,7 @@ if(quizz == null){
      <div className="Home">
       Bonjour je suis le quiz {props.match.params.id}
 
-        <Link  to={'/quizz/Jouer/:sentence'}>Jouer</Link>
+        <Link  to={'/Jouer/'+props.match.params.id}>Commencer</Link>
 
       </div>
    );
