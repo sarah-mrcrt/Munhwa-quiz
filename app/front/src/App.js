@@ -3,15 +3,12 @@ import logo from './logo.svg';
 import Login, {ProtectedRoute} from "./Login";
 import {useCookies} from 'react-cookie';
 
-
-// import './App.css';
 import Home from "./Home.js";
-
-import AddQuestion from "./Quizz/AddQuestion.js";
-import AddQuizz from "./Quizz/AddQuizz.js";
-//import Jouer from "./Quizz/Jouer.js";
-// import Questions from "./Quizz/Questions.js";
 import Quizz from "./Quizz/Quizz.js";
+import Jouer from "./Quizz/Jouer.js";
+
+import AddQuizz from "./Quizz/AddQuizz.js";
+import AddQuestion from "./Quizz/AddQuestion.js";
 // import QuizzThumbnail from "./Quizz/QuizzThumbnail.js";
 
 
@@ -36,13 +33,12 @@ function App() {
 
         </header>
           <Switch>
-             <Route exact={true} path="/" component={Home} />
-             <Route exact={true} path="/home" component={Home}/>
-             <Route exact={true} path="/addQuizz" component={AddQuizz} />
-              <Route exact={true} path="/addQuestion" component={AddQuestion} />
-             <Route exact={true} path="/quizz/:id" component={Quizz}/>
-             {/* <Route exact={true} path="/quizz/jouer/:id" component={Jouer}/> */}
-
+            <Route exact={true} path="/" component={Home} />
+            <Route exact={true} path="/home" component={Home}/>
+            <Route exact={true} path="/addQuizz" component={AddQuizz} />
+            <Route exact={true} path="/quizz/:id" component={Quizz}/>
+            <Route exact={true} path="/quizz/Jouer/:sentence" component={Jouer}/>
+            <Route exact={true} path="/addQuestion" component={AddQuestion} />
             <ProtectedRoute exact={true} path="/addQuizz" component={AddQuizz} />
 
             <Route exact={true} path="/login" component={Login}/>

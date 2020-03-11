@@ -1,13 +1,16 @@
 import React,  { useState, useEffect, Component} from "react";
-import { Link } from "react-router-dom";
+import {BrowserRouter, Switch, Route, Link} from "react-router-dom";
 import axios from 'axios';
+// import './App.css';
+import Jouer from "./Jouer";
 import { HTTP_SERVER_PORT, HTTP_SERVER_PORT_PICTURES,HTTP_SERVER_PORT_VIDEOS} from "../constantes";
 
  function Quizz(props) {
     let [quizz, setQuizz ] = useState(null);
 
      async function getQuizz() {
-        const q = (await axios.get('http://localhost:8000/quizz/'+props.match.params)).data;
+        const q = (await axios.get(HTTP_SERVER_PORT +'quizzes/'+props.match.params.id)).data;
+        console.log(q);
         setQuizz(q);
      }
 
@@ -15,25 +18,24 @@ import { HTTP_SERVER_PORT, HTTP_SERVER_PORT_PICTURES,HTTP_SERVER_PORT_VIDEOS} fr
               getQuizz()
      }, []);
 
-     async function deleteQuizz(e,id){
-        e.preventDefault();
-        await axios.delete(HTTP_SERVER_PORT + "quizzes" + id);
-        getQuizz()
-    }
 
-console.log("zz", props);
-if(quizz!=null){
-  return <div>Chargement</div>
-}
+// if(quizz==null){
+//   return <div>Chargement</div>
+// }
+
+
+if(quizz == null){
+    return 'En cours de chargement'
+    }
    return (
      <div className="Home">
       Bonjour je suis le quiz {props.match.params.id}
-      <form id='formQuizz' action="#" onSubmit={e=> deleteQuizz(e)}>
-        <button type="submit">supp</button>
-      </form>
 
-     </div>
+        <Link  to={'/quizz/Jouer/:sentence'}>Jouer</Link>
+
+      </div>
    );
+
  }
 
  export default Quizz;
