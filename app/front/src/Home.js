@@ -1,9 +1,6 @@
 import React,  { useState, useEffect, Component} from "react";
-import logo from './logo.svg';
-// import './App.css';
 import QuizzThumbnail from "./Quizz/QuizzThumbnail";
 import App from "./App.js";
-import About from "./About.js";
 import {BrowserRouter, Switch, Route, Link} from "react-router-dom";
 import axios from 'axios';
 

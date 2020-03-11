@@ -16,7 +16,7 @@ router
     res.json("Hello world!!");
 })
 //Tous les quizzes
-    .get("/quizzes", 
+    .get("/quizzes",
         (req, res) => {
             db.all( "SELECT * FROM quizzes", (err, rows) => {
                 console.log(rows);
@@ -24,12 +24,14 @@ router
             });
     })
 //Un quizz
-    .get('/quizzes/:id', 
+    .get('/quizzes/:id',
         (req, res) => {
             db.get(
                 "SELECT * FROM quizzes WHERE id=?",
                 req.params.id,
                 (err, row) => {
+                    console.log(row);
+                    console.log(err);
                     res.json(row)
                 }
             );
@@ -49,7 +51,7 @@ router
             res.status(200).json(req.body);
     })
 //Supprimer un quizz
-    .delete('/quizzes/:id', 
+    .delete('/quizzes/:id',
         (req, res) => {
             db.run('DELETE FROM quizzes WHERE id=?', [req.params.id]);
             res.redirect(204, "/quizzes");
@@ -65,14 +67,14 @@ router
         );
     })
 ////////////////////////////////////////////
-// Insérer une question 
+// Insérer une question
     .post('/questions',
     (req, res) => {
         db.run("insert into questions(sentence, score, quizzes_id) values(?,?,?)",[name]);
         res.redirect(303, '/questions');
     })
 ////////////////////////////////////////////
-// Insérer une réponse 
+// Insérer une réponse
     .post('/answers',
     (req, res) => {
         db.run("insert into answers(sentence, picture_url, solution, questions_id) values(?,?,?,?)",[name]);
@@ -103,7 +105,7 @@ router
         res.status(200).json(req.body);
     })
 //supprimer une personne
-    .delete('/persons/:id', 
+    .delete('/persons/:id',
         (req, res) => {
             db.run('DELETE FROM persons WHERE id=?', [req.params.id]);
             res.redirect(204, "/persons");
