@@ -1,43 +1,44 @@
-import React from 'react';
+import React, {useState, useEffect, Redirect} from "react";
 import axios from "axios";
 import {Route} from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import {useCookies, withCookies} from 'react-cookie';
+import Home from "./Home.js";
 
 function FormLogin(props) {
-    return (
-        <section className="container_login">
-        <form onSubmit={props.onSignin} className="form_login">
+        return (
+            <section className="container_login">
+            <form onSubmit={props.onSignin} className="form_login">
 
-            <h3>Sign in</h3>
-            <div>
-                <input type="text" id="username" placeholder="username" ref={props.usernameRef}/>
-            </div>
-            <div>
-                <input type="password" name="password" placeholder="password" ref={props.passwordRef}/>
-            </div>
-            <div class="button_form">
-                <button type="submit" name="login">Login</button>
-            </div>
-        </form>
+                <h3>Sign in</h3>
+                <div>
+                    <input type="text" id="username" placeholder="username" ref={props.usernameRef}/>
+                </div>
+                <div>
+                    <input type="password" name="password" placeholder="password" ref={props.passwordRef}/>
+                </div>
+                <div class="button_form">
+                    <button type="submit" name="login">Login</button>
+                </div>
+            </form>
 
-        <form onSubmit={props.onSignin} className="form_register">
-        <h3>Register</h3>
-            <div>
-                <input type="text" id="username" placeholder="username" ref={props.usernameRef}/>
-            </div>
-            <div >
-                <input type="password" name="password" placeholder="password" ref={props.passwordRef}/>
-            </div>
-            <div class="button_form">
-                <button type="button" name="signup" onClick={props.onSignup}>
-                    Sign up
-                </button>
-            </div>
-        </form>
-        </section>
-    );
-}
+            <form onSubmit={props.onSignin} className="form_register">
+            <h3>Register</h3>
+                <div>
+                    <input type="text" id="username" placeholder="username" ref={props.usernameRef}/>
+                </div>
+                <div >
+                    <input type="password" name="password" placeholder="password" ref={props.passwordRef}/>
+                </div>
+                <div class="button_form">
+                    <button type="button" name="signup" onClick={props.onSignup}>
+                        Sign up
+                    </button>
+                </div>
+            </form>
+            </section>
+        );
+    }
 
 function Login() {
 
@@ -81,7 +82,7 @@ function Login() {
             console.error(err)
         }
     }
-
+    
     if (cookies.login && cookies.login.name) {
         return <button id="disconnect" onClick={disconnect}>disconnect</button>;
     }
@@ -108,7 +109,7 @@ function LocalProtectedRoute({component: Component, ...rest}) {
  */
 function LocalProtectedLink({...rest}) {
     if (rest.allCookies && rest.allCookies.login && rest.allCookies.login.username && rest.allCookies.login.token) {
-        return <Link className={rest.className} to={rest.to}>cities</Link>
+        return <Link className={rest.className} to={rest.to}>AddQuizz</Link>
     }else{
         return null;
     }

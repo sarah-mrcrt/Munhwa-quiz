@@ -3,6 +3,7 @@ import React, {useState, useEffect} from "react";
 import axios from 'axios';
 import { HTTP_SERVER_PORT, HTTP_SERVER_PORT_PICTURES,HTTP_SERVER_PORT_VIDEOS} from "../constantes";
 import { Redirect } from 'react-router-dom';
+import Home from "../Home.js";
 
 function Questions (props){
     const [questions , setQuestions] = useState([]);
@@ -53,10 +54,6 @@ function Questions (props){
     // })
 
     if (red) 
-        // return (
-        //     <addQuestions />    
-        // )
- 
         return(
             <div className="quizz">
                 <h1>Add a new question</h1>
@@ -113,7 +110,10 @@ function Questions (props){
                     </div>
                 </form>
             </div>
-        );
+        )
+        return (
+            <Home/>    
+        )
 }
 
 export default Questions;
