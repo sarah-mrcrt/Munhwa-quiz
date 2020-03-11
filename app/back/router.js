@@ -101,7 +101,6 @@ router
             res.redirect(303, '/questions/');
         })
 //Upload une vidéo
-
     .post('/uploadVideo',
         (req, res) => {
         console.log("toto",req.files);
