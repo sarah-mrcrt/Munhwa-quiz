@@ -101,11 +101,8 @@ router
             res.redirect(303, '/questions/');
         })
 //Upload une vidéo
-<<<<<<< HEAD
+
     .post('/uploadVideo',
-=======
-    .post('/uploadVideo',
->>>>>>> 2da6bdbbe955c1ed08f9a33b1ef0ddd70013adb6
         (req, res) => {
         console.log("toto",req.files);
         req.files.file.mv(__dirname + '/public/pictures/videos/qstVideo' + req.files.file.name,
