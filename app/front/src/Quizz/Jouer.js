@@ -9,6 +9,8 @@ import { HTTP_SERVER_PORT, HTTP_SERVER_PORT_PICTURES,HTTP_SERVER_PORT_VIDEOS} fr
       let [quizz, setQuizz ] = useState(null);
       let [questions, setQuestions ] = useState([]);
       let [answers, setAnswers ] = useState([]);
+      let [myAnswer, setMyAnswer ] = useState([]);
+      let [score, setScore ] = useState([]);
       const [current, setCurrent] = useState(0);
 
      async function getQuizz() {  // The function is asynchronous
@@ -32,12 +34,34 @@ import { HTTP_SERVER_PORT, HTTP_SERVER_PORT_PICTURES,HTTP_SERVER_PORT_VIDEOS} fr
 function suivant(e) {
     e.preventDefault();
     setCurrent(current+1);
-}
+    myAnswer.sort();
+    let bonnesReponses = answers.filter(a => a.solution == 1).map(a=> a.id);
+    console.log(bonnesReponses, myAnswer);
+    if(bonnesReponses.length === myAnswer.length && bonnesReponses.every((value, index) => value === myAnswer[index])) {
+      console.log('Gagne');
+      score(value== 0);
+       setScore(questions[current].score);
+       console.log(score);
+
+    } else {
+      console.log('perdu');
+    }
+    // return bonnesReponses=>[];
+    }
+
 function answer(e) {
     e.preventDefault();
-
-
 }
+function checkAnswer(id){
+    if(myAnswer.indexOf(id)==-1){
+      myAnswer.push(id);
+      myAnswer = myAnswer.map(e=>e);
+    }else{
+    myAnswer =   myAnswer.filter( e=> e!=id)
+    }
+    setMyAnswer(myAnswer);
+}
+
 console.log("zz", props);
 
 if(questions.length == null){
@@ -45,18 +69,18 @@ if(questions.length == null){
     }
     if(current >= questions.length)
     return (
-      <div>C fini</div>
+      <div>C fini
+      </div>
     )
    return (
      <div className="Home">
       Bonjour je suis les questions
       <br/> Courage mes petites CSS :*
         <p>{questions[current].sentence} </p>
-        // <li onClick={(e) => answer(e)}>{answers.sentence}</li>
-         <li> {answers.sentence } {console.log(answers)} </li>
+
          {answers.map((item, i) => {
            return(
-             <li>{item.sentence}</li>
+             <div className={myAnswer.indexOf(item.id) != -1 ? "active" : "" } onClick={e => checkAnswer(item.id)}>{item.sentence}</div>
            )
 
          })
