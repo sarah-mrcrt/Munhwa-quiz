@@ -6,10 +6,13 @@ import { HTTP_SERVER_PORT, HTTP_SERVER_PORT_PICTURES,HTTP_SERVER_PORT_VIDEOS} fr
 function Quizz (props){
     // axios.defaults.headers.common['Authorization'] = 'Bearer ' + props.token;
 
-    // const { redirection } = (e) => {
-    //     e.preventDefault();
-    //      this.state;
-    // }
+    // Partie redirection
+    function redirection() {
+        setRed(true);
+    }
+    const [red, setRed] = useState(false);
+   
+    // Partie création d'un quizz
     const [ quizzes, setQuizz] = useState([]);
     async function getQuizz() {
         const data = (await axios.get(HTTP_SERVER_PORT)).data;
@@ -46,17 +49,16 @@ function Quizz (props){
         getQuizz();
     }
 
-
-    return(
-        <>
-                {/* {cities.map(c =>
-   // if (redirection) {
+    // Partie création de questions
+    if (red) 
+        return (
+            <addQuestions/>   
+        )
         return(
-            <>
+        <>
                 {/* {cities.map(c =>
                     <li key={c.id}>{c.id} : {c.cityname}</li>
                 )} */}
-
             <div className="quizz">
                 <h1>Add a new quizz</h1>
                 <br/>
@@ -65,17 +67,12 @@ function Quizz (props){
                 <b>Icone</b><input type="file" name="picture_url" accept="image/*" required/>
                 <p><b>keywords</b><input name="keywords" placeholder="; entre chaque keywords"/></p>
 
-                <button type="submit">Envoyez</button>
-                
-                {/* onClick={this.redirection}
-                <Redirect to='/' />; */}
+                <button type="submit" onClick={ e => redirection()}>Envoyez</button>
                 </form>
             </div>
-
         </>
         )
-
-   // }
+   
 
 }
 

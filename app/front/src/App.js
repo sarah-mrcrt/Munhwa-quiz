@@ -16,14 +16,15 @@ import {BrowserRouter, Switch, Route, Link,useParams} from "react-router-dom";
 
 function App() {
   const [cookies] = useCookies(['login']);
-    const msg = cookies.login && cookies.login.username ? "connection OK" : "Login/Register";
+    const msg = cookies.login && cookies.login.username ? "connection OK" : "Pas co";
   return (
     <div className="App">
         <BrowserRouter>
         <header className="App-header">
           <Link  to={'/'}>Home</Link>
           <Link  to={'/addQuizz'}>AddQuizz</Link>
-          <Link  to={'/login'}>{msg}</Link>
+          <Link  to={'/login'}>Login/Register</Link>
+          {msg}
           {/* if (msg=cookies.login){
             <Link  to={'/login'}>{msg}</Link>
           }else{
