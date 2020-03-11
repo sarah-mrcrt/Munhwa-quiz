@@ -58,7 +58,7 @@ if(questions.length == null){
            return(
              <li>{item.sentence}</li>
            )
-           
+
          })
          }
         <button onClick={e => suivant(e)}>Next</button>
