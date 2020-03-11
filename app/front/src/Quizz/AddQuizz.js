@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, Redirect} from "react";
 import axios from 'axios';
 import { HTTP_SERVER_PORT, HTTP_SERVER_PORT_PICTURES,HTTP_SERVER_PORT_VIDEOS} from "../constantes";
 
@@ -44,6 +44,7 @@ function Quizz (props){
     async function insertQuizz(q) {
         await axios.post( HTTP_SERVER_PORT + "quizzes", q);
         getQuizz();
+        return <Redirect to='/home' />;
     }
 
    

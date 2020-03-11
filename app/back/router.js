@@ -35,7 +35,7 @@ router
             console.log('Quizz');
             const q = req.body;
             db.run("INSERT INTO quizzes(name, picture_url, keywords) values(?,?,?)",[q.name, q.picture_url, q.keywords]);
-            res.redirect(303, '/quizzes/questions');
+            res.redirect(303, '/quizzes');
         })
     // .get("/cities", verify, (req, res) => {
     //     db.all('select * from city',
@@ -92,7 +92,7 @@ router
         (req, res) => {
             const q = req.body;
             db.run("INSERT INTO questions(sentence,video_url,score) values(?,?,?)",[q.sentence, q.video_url, q.score]);
-            res.redirect(303, '/quizzes/');
+            res.redirect(303, '/questions/');
         })
 //Upload une vidéo
 //Supprimer la question

@@ -1,75 +1,65 @@
 // créer une question de quizz
-
-//afficher une question de quizz
-//
-//select * from answers where question_id=?
-
 import React, {useState, useEffect} from "react";
 import axios from 'axios';
 
 const HTTP_SERVER_PORT = "http://localhost:8000/";
 
-let idx = 0;
 
 function Questions (props){
-    const [quizzes , setQuizz] = useState([]);
+    const [questions , setQuestions] = useState([]);
+    // const [anserws , setAnserws] = useState([]);
 
-    async function getQuizz() {
+    async function getQuestions() {
         const data = (await axios.get(HTTP_SERVER_PORT)).data;
-        setQuizz(data);
+        setQuestions(data);
     }
+
     useEffect(() => {
-        getQuizz()
+        getQuestions()
     },[]);
 
-    async function deleteQuizz(e,id){
-        e.preventDefault();
-        await axios.delete(HTTP_SERVER_PORT + "quizzes" + id);
-        getQuizz()
-    }
-
-     async function addQuizz(e){
+     async function addQuestions(e){
         e.preventDefault();
         console.log(e.target);
         let q = {
-            name : e.target.elements[0].value,
-            picture_url : e.target.elements[1].value,
-            keywords : e.target.elements[2].value,
-            // users_id : e.target.elements[3].value
-            // score : e.target.elements[3].value
+            sentence : e.target.elements[0].value,
+            video_url : e.target.elements[1].value,
+            score : e.target.elements[2].value,
+            score : e.target.elements[3].value,
         }
         // if(img) {
         // }
 
         // if(video) {
         // }
-        insertQuizz(q);
+        insertQuestions(q);
     }
 
-    async function insertQuizz(q) {
+    async function insertQuestions(q) {
         console.log(1);
-        await axios.post( HTTP_SERVER_PORT+"quizzes", q);
+        await axios.post( HTTP_SERVER_PORT+"questions", q);
         console.log(2);
-        getQuizz();
+        getQuestions();
     }
-    
+    // handleOptionChange: function (changeEvent) {
+    //     this.setState({
+    //         selectedOption: changeEvent.target.value
+    // })
+
     return(
             <div className="quizz">
                 <h1>Add a new question</h1>
                 <br/>
-                <form id='formadd' action="#" onSubmit={e=> addQuizz(e)}>
+                <form id='formadd' action="#" onSubmit={e=> addQuestions(e)}>
                     <p><b>Text of the questions</b><input name="questionSentence" /></p>
                     
                     <p><b>optional video</b><input type="file" id="video" name="video" accept="image/mp4"/></p>
 
-                    <p><b>How many ansewrs</b><input type='number' step="1" min="1" max="10"  name="score" /></p>
-
-                    <p><b>Keywords</b><input type='text' /></p>
-
+        
                     <p><b>Choose the type of your anserw:</b>
                         <div>
-                            <input type="radio" id="anserwImages" name="anserw" value="anserwImages"
-                                    checked/>
+                            {/* <input type="radio" id="anserwImages" name="anserw" value="anserwImages"
+                                    checked={this.state.selectedOption === 'option1'} onChange={this.handleOptionChange}/> */}
                             <label for="anserwImages">Images</label>
                         </div>
                         <div>
@@ -78,6 +68,13 @@ function Questions (props){
                         </div>
                     </p>
 
+
+
+<p><b>How many ansewrs</b><input type='number' step="1" min="1" max="10"  name="score" /></p>
+
+                    <p><b>Keywords</b><input type='text' /></p>
+
+                    
                 <div class="questions">
                     <p>
                         <b>Text of the questions</b>
