@@ -16,8 +16,6 @@ import { HTTP_SERVER_PORT, HTTP_SERVER_PORT_PICTURES,HTTP_SERVER_PORT_VIDEOS} fr
              }
      async function getQuestions() {  // The function is asynchronous
                  const qt = (await axios.get(HTTP_SERVER_PORT +'questions/'+props.match.params.id)).data;
-                 console.log("aaaaa", props.match.params.id);
-
                  setQuestions(qt);
              }
 
@@ -28,12 +26,12 @@ import { HTTP_SERVER_PORT, HTTP_SERVER_PORT_PICTURES,HTTP_SERVER_PORT_VIDEOS} fr
 
 function suivant(e) {
     e.preventDefault();
-    setCurrent(current+1)
+    setCurrent(current+1);
 }
 console.log("zz", props);
 
 if(questions.length == 0){
-    return 'En cours de chargement'
+    return 'En cours de oute'
     }
     if(current >= questions.length)
     return (
@@ -44,9 +42,10 @@ if(questions.length == 0){
       Bonjour je suis les questions {props.match.params.id}
       <br/>BONJOUR J'AIMERAIS AFFICHER LES QUESTIONS!!!!!!!
         <p>{questions[current].sentence} </p>
+        </div>
+        
+        <button onClick={e => suivant(e)}>Next</button>
 
-<button onClick={e => suivant(e)}>Next</button>
-     </div>
    );
  }
 
