@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const router = express.Router();
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('db/quiz');
-// const verify=require('./connectionRouter').verify;
+const verify=require('./connectionRouter').verify;
 
 router
 //A la racine j'affiche "Hello world!!"
@@ -66,7 +66,8 @@ router
 //Upload l'icône du quizz
     .post('/upload', 
         (req, res) => {
-        req.files.file.mv(__dirname + '/pictures/' + req.files.file.name,
+        console.log("toto",req.files);
+        req.files.file.mv(__dirname + '/public/pictures/icons/quizzesIconsd' + req.files.file.name,
             (err) => {
                 if (err){
                     console.log(err);

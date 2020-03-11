@@ -1,6 +1,7 @@
 const express = require('express');
 const router = require('./router');
-// const connectionRouter = require('./connectionRouter').router;
+const connectionRouter = require('./connectionRouter').router;
+const fileUpload = require('express-fileUpload');
 
 const cors = require('cors');
 const morgan = require('morgan');
@@ -8,7 +9,6 @@ const bodyParser = require("body-parser");
 
 const app = express();
 const port = process.env.PORT || 8000;
-
 
 app.use(morgan('combined')); //to get informations from the requete
 app.use(cors()); //to allow requests from another application
@@ -25,13 +25,14 @@ app.get('/', (req, res) => {
 
 
 console.log("This is the back !! Let's have fun with express.js");
+app.use('/imgs',express.static('/public/'));
+app.use(fileUpload({
+    useTemplates: 'true',
+    tempFileDir: '/tmp/'
+}))
+app.use(connectionRouter);
 
-// app.use('/public/pictures',express.static('data/img'));
-app.use('/imgs',express.static('/public/pictures'));
-
-// app.use(connectionRouter);
-
-app.use(router); // Requests processing will be defined in the file router
+app.use(router);
 app.listen(port, () => {
     console.log('Server app listening on port ' + port);
 });
