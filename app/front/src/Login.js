@@ -82,7 +82,7 @@ function Login() {
         }
     }
 
-    if (cookies.login && cookies.login.username) {
+    if (cookies.login && cookies.login.name) {
         return <button id="disconnect" onClick={disconnect}>disconnect</button>;
     }
     return <FormLogin onSignin={onSignin} onSignup={onSignup} usernameRef={usernameRef} passwordRef={passwordRef}/>
