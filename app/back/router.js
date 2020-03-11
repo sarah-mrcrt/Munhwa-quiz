@@ -64,10 +64,10 @@ router
             res.redirect(204, "/quizzes");
     })
 //Upload l'icône du quizz
-    .post('/upload', 
+    .post('/uploadIcon',
         (req, res) => {
         console.log("toto",req.files);
-        req.files.file.mv(__dirname + '/public/pictures/icons/quizzesIconsd' + req.files.file.name,
+        req.files.file.mv(__dirname + '/public/pictures/icons/' + req.files.file.name,
             (err) => {
                 if (err){
                     console.log(err);
@@ -91,7 +91,7 @@ router
                 }
             );
     })
-// Insérer une question 
+// Insérer une question
     .post('/questions',
         (req, res) => {
             const q = req.body;
@@ -99,6 +99,20 @@ router
             res.redirect(303, '/questions/');
         })
 //Upload une vidéo
+    .post('/uploadVideo',
+        (req, res) => {
+        console.log("toto",req.files);
+        req.files.file.mv(__dirname + '/public/pictures/videos/qstVideo' + req.files.file.name,
+            (err) => {
+                if (err){
+                    console.log(err);
+                    return res.status(500).send(err);
+                }
+                res.json({name: req.files.file.name});
+            }
+        );
+    })
+
 //Supprimer la question
 //Modifier la question
 
@@ -116,7 +130,7 @@ router
                 }
             );
     })
-// Insérer une réponse 
+// Insérer une réponse
     //Si c'est une image j'affiche : picture_url
     //Si c'est du texte j'affiche : sentence
     .post('/answers',
@@ -124,7 +138,7 @@ router
         db.run("insert into answers(sentence, picture_url, solution) values(?,?,?)",[q.sentence, q.picture_url, q.solution]);
         res.redirect(303, '/answers');
     })
-//Suppromer une réponse
+//Supprimer une réponse
 //Modifier une réponse
 //Mettre une image
 
