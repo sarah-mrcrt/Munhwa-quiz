@@ -24,17 +24,9 @@ import axios from 'axios';
        {quizzes.map(q =>
         <QuizzThumbnail id={q.id} name={q.name} picture={q.picture_url} keywords={q.keywords} />)
        }
-<<<<<<< HEAD
 
      </div>
    );
  }
 
  export default Home;
-=======
-     </div>
-   );
- }
-
- export default Home;
->>>>>>> 14aa7facf8a9897856934591312a398f41242837

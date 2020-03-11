@@ -2,35 +2,42 @@ import React,  { useState, useEffect, Component} from "react";
 // import './App.css';
 import { Link} from "react-router-dom";
 import axios from 'axios';
+import { HTTP_SERVER_PORT, HTTP_SERVER_PORT_PICTURES,HTTP_SERVER_PORT_VIDEOS} from "../constantes";
+
 
  function Jouer(props) {
-      let [question, setQuestion ] = useState([]);
+      let [quizz, setQuizz ] = useState(null);
+      let [questions, setQuestions ] = useState([]);
       const [current, setCurrent] = useState(0);
 
-     async function getJouer() {  // The function is asynchronous
-                 const q = (await axios.get('http://localhost:8000/quizz/jouer/id')).data;
-<<<<<<< HEAD
-                 setQuestion(q);
-             }
-=======
+     async function getQuizz() {  // The function is asynchronous
+                 const q = (await axios.get(HTTP_SERVER_PORT +'quizzes/'+props.match.params.id)).data;
                  setQuizz(q);
+             }
+     async function getQuestions() {  // The function is asynchronous
+                 const qt = (await axios.get(HTTP_SERVER_PORT +'questions/'+props.match.params.id)).data;
+                 console.log("aa", props);
 
+                 setQuestions(qt);
              }
 
->>>>>>> 14aa7facf8a9897856934591312a398f41242837
       useEffect(() => {
-              getJouer()
+              getQuizz();
+              getQuestions();
      }, []);
 
 console.log("zz", props);
+
+if(questions.length == 0){
+    return 'En cours de chargement'
+    }
    return (
      <div className="Home">
-<<<<<<< HEAD
-      Bonjour je suis les questions {props.match.params.sentence}
-=======
-      Bonjour je suis le quiz {props.match.params.id}
->>>>>>> 14aa7facf8a9897856934591312a398f41242837
+      Bonjour je suis les questions {props.match.params.id}
+      <br/>BONJOUR J'AIMERAIS AFFICHER LES QUESTIONS!!!!!!!
+        <p>{questions[current].sentence} </p>
 
+        
      </div>
    );
  }

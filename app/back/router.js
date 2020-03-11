@@ -78,9 +78,7 @@ router
     })
 
 ////////////////////////////////////////////
-<<<<<<< HEAD
 // Insérer une question
-=======
 //Afficher toutes les questions du Quizz numéro X
     .get('/questions/:id',
         (req, res) => {
@@ -93,7 +91,6 @@ router
             );
     })
 // Insérer une question 
->>>>>>> 14aa7facf8a9897856934591312a398f41242837
     .post('/questions',
         (req, res) => {
             const q = req.body;
@@ -106,9 +103,7 @@ router
 
 
 ////////////////////////////////////////////
-<<<<<<< HEAD
 // Insérer une réponse
-=======
 //Affiche toutes les réponses de la question X du quizz X
     .get('/answers/:id',
         (req, res) => {
@@ -123,7 +118,6 @@ router
 // Insérer une réponse 
     //Si c'est une image j'affiche : picture_url
     //Si c'est du texte j'affiche : sentence
->>>>>>> 14aa7facf8a9897856934591312a398f41242837
     .post('/answers',
     (req, res) => {
         db.run("insert into answers(sentence, picture_url, solution) values(?,?,?)",[q.sentence, q.picture_url, q.solution]);
