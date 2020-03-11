@@ -50,12 +50,10 @@ function Quizz (props){
     return(
         <>
                 {/* {cities.map(c =>
-=======
    // if (redirection) {
         return(
             <>
                 {/* {cities.map(c =>
->>>>>>> 2da6bdbbe955c1ed08f9a33b1ef0ddd70013adb6
                     <li key={c.id}>{c.id} : {c.cityname}</li>
                 )} */}
 
@@ -67,8 +65,10 @@ function Quizz (props){
                 <b>Icone</b><input type="file" name="picture_url" accept="image/*" required/>
                 <p><b>keywords</b><input name="keywords" placeholder="; entre chaque keywords"/></p>
 
-                <button onClick={this.redirection} type="submit">Envoyez</button>
-                <Redirect to='/' />;
+                <button type="submit">Envoyez</button>
+                
+                {/* onClick={this.redirection}
+                <Redirect to='/' />; */}
                 </form>
             </div>
 
