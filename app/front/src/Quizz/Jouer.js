@@ -49,11 +49,18 @@ if(questions.length == null){
     )
    return (
      <div className="Home">
-      Bonjour je suis les questions {props.match.params.id}
-      <br/>BONJOUR J'AIMERAIS AFFICHER LES QUESTIONS!!!!!!!
+      Bonjour je suis les questions
+      <br/> Courage mes petites CSS 😗
         <p>{questions[current].sentence} </p>
-        <li onClick={(e) => answer(e)}>{}</li>
+        // <li onClick={(e) => answer(e)}>{answers.sentence}</li>
+         <li> {answers.sentence } {console.log(answers)} </li>
+         {answers.map((item, i) => {
+           return(
+             <li>{item.sentence}</li>
+           )
 
+         })
+         }
         <button onClick={e => suivant(e)}>Next</button>
         </div>
 
