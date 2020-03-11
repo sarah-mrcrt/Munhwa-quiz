@@ -1,9 +1,9 @@
 import React, {useState, useEffect, Redirect} from "react";
 import axios from "axios";
-import {Route} from 'react-router-dom';
-import {Link} from 'react-router-dom';
+import {BrowserRouter, Switch, Route, Link} from "react-router-dom";
 import {useCookies, withCookies} from 'react-cookie';
 import Home from "./Home.js";
+import AddQuizz from "./Quizz/AddQuizz.js";
 
 function FormLogin(props) {
         return (
@@ -84,7 +84,11 @@ function Login() {
     }
     
     if (cookies.login && cookies.login.name) {
-        return <button id="disconnect" onClick={disconnect}>disconnect</button>;
+        return (
+        <>
+            <button id="disconnect" onClick={disconnect}>disconnect</button>
+        </>        
+        )
     }
     return <FormLogin onSignin={onSignin} onSignup={onSignup} usernameRef={usernameRef} passwordRef={passwordRef}/>
 }

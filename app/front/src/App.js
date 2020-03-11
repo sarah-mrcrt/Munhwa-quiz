@@ -12,32 +12,58 @@ import Quizz from "./Quizz/Quizz.js";
 import Jouer from "./Quizz/Jouer.js";
 import AddQuizz from "./Quizz/AddQuizz.js";
 import AddQuestion from "./Quizz/AddQuestion.js";
+import error404 from "./error404.js";
 
 function App(props) {
   axios.defaults.headers.common['Authorization'] = 'Bearer ' + props.token;
   const [cookies] = useCookies(['login']);
   const msg = cookies.login && cookies.login.name ? "Disconnet you" : "Connect you";
-  
+  if (cookies.login && cookies.login.name) {
+    return (
+        <>
+        <div className="App">
+          <BrowserRouter>
+          <header className="App-header">
+            <Link  to={'/'}>Home</Link>
+            <Link  to={'/login'}>{msg}</Link>
+            <Link  to={'/addQuizz'}>AddQuizz</Link>          
+          </header>
+            <Switch>
+              <Route exact={true} path="/" component={Home} />
+              <Route exact={true} path="/home" component={Home}/>
+              <Route exact={true} path="/login" component={Login}/>
+            
+              {/* Quizz part */}
+              <Route exact={true} path="/addQuizz" component={AddQuizz} />
+              <Route exact={true} path="/quizz/:id" component={Quizz}/>
+              <Route exact={true} path="/Jouer/:id" component={Jouer}/>
+              {/* Quizz if i am log */}
+              <ProtectedRoute exact={true} path="/addQuizz" component={AddQuizz} />
+              <ProtectedRoute exact={true} path="/AddQuestion" component={AddQuestion} />
+
+            <Route path="*" component={error404} />
+            </Switch>
+          </BrowserRouter>
+      </div>
+        </>        
+        )
+    }
   return (
     <div className="App">
         <BrowserRouter>
         <header className="App-header">
           <Link  to={'/'}>Home</Link>
           <Link  to={'/login'}>{msg}</Link>
-          <Link  to={'/addQuizz'}>AddQuizz</Link>          
         </header>
-        
           <Switch>
             <Route exact={true} path="/" component={Home} />
             <Route exact={true} path="/home" component={Home}/>
+            <Route exact={true} path="/login" component={Login}/>
+            {/* Quizz part */}
             <Route exact={true} path="/addQuizz" component={AddQuizz} />
             <Route exact={true} path="/quizz/:id" component={Quizz}/>
             <Route exact={true} path="/Jouer/:id" component={Jouer}/>
-            <Route exact={true} path="/addQuestion" component={AddQuestion} />
-            <ProtectedRoute exact={true} path="/addQuizz" component={AddQuizz} />
-
-            <Route exact={true} path="/login" component={Login}/>
-            <Route path="*" component={() => <p>Page 404</p>} />
+           <Route path="*" component={() => <p>Page 404</p>} />
            </Switch>
         </BrowserRouter>
     </div>

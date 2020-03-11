@@ -62,7 +62,9 @@ function Quizz (props){
     // Partie création de questions
     if (red) 
         return (
-            <AddQuestion/>   
+        <>
+            <AddQuestion/>
+        </>
         )
         return(
         <>
