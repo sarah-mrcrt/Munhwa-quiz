@@ -26,23 +26,32 @@ function Quizz (props){
         await axios.delete(HTTP_SERVER_PORT + "quizzes" + id);
         getQuizz()
     }
-     async function addQuizz(e){
+    
+    async function addQuizz(e){
         e.preventDefault();
         //Upload d'image
         console.log(e.target.picture_url);
         const selectedFile = e.target.picture_url.files[0];
         console.log(e.target.picture_url.files[0]);
         const data = new FormData();
-        data.append('file', selectedFile, selectedFile.name);
-        axios.post(HTTP_SERVER_PORT + "uploadIcon", data).then(res => console.log("Res", res));
-        console.log(e.target);
-        //Upload sur le serveur
-        let q = {
-            name : e.target.elements[0].value,
-            picture_url :selectedFile.name,
-            keywords : e.target.elements[2].value,
+        if(selectedFile!==undefined) {
+            data.append('file', selectedFile, selectedFile.name);
+            axios.post(HTTP_SERVER_PORT + "uploadIcon", data).then(res => console.log("Res", res));
+            console.log(e.target);
+            let q = {
+                name : e.target.elements[0].value,
+                picture_url : selectedFile.name,
+                keywords : e.target.elements[2].value,
+            }
+            insertQuizz(q);
+        }else{
+            let q = {
+                name : e.target.elements[0].value,
+                picture_url : 'iconDefault.png',
+                keywords : e.target.elements[2].value,
+            }
+            insertQuizz(q); 
         }
-        insertQuizz(q);
     }
     async function insertQuizz(q) {
         await axios.post( HTTP_SERVER_PORT + "quizzes", q);
@@ -50,10 +59,10 @@ function Quizz (props){
     }
 
     // Partie création de questions
-    if (red) 
-        return (
-            <addQuestions/>   
-        )
+    // if (red) 
+    //     return (
+    //         <addQuestions/>   
+    //     )
         return(
         <>
                 {/* {cities.map(c =>
@@ -64,7 +73,7 @@ function Quizz (props){
                 <br/>
                 <form id='formQuizz' action="#" onSubmit={e=> addQuizz(e)}>
                 <p><b>Nom du quizz</b><input name="name" required/></p>
-                <b>Icone</b><input type="file" name="picture_url" accept="image/*" required/>
+                <b>Icone</b><input type="file" name="picture_url" accept="image/*"/>
                 <p><b>keywords</b><input name="keywords" placeholder="; entre chaque keywords"/></p>
 
                 <button type="submit" onClick={ e => redirection()}>Envoyez</button>

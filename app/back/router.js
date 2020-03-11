@@ -64,7 +64,6 @@ router
             res.redirect(204, "/quizzes");
     })
 //Upload l'icône du quizz
-
     .post('/uploadIcon',
         (req, res) => {
         console.log("toto",req.files);
