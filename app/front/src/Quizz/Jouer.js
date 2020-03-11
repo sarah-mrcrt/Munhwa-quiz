@@ -39,10 +39,10 @@ function suivant(e) {
     console.log(bonnesReponses, myAnswer);
     if(bonnesReponses.length === myAnswer.length && bonnesReponses.every((value, index) => value === myAnswer[index])) {
       console.log('Gagne');
-      score(value== 0);
-       setScore(questions[current].score);
-       console.log(score);
 
+       let resultat = setScore(questions[current].score);
+       // console.log(score);
+       console.log(resultat);
     } else {
       console.log('perdu');
     }
@@ -69,8 +69,9 @@ if(questions.length == null){
     }
     if(current >= questions.length)
     return (
-      <div>C fini
+      <div>C fini{score}
       </div>
+
     )
    return (
      <div className="Home">
