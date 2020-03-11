@@ -103,7 +103,7 @@ router
     .post('/uploadVideo',
         (req, res) => {
         console.log("toto",req.files);
-        req.files.file.mv(__dirname + '/public/pictures/videos/qstVideo' + req.files.file.name,
+        req.files.file.mv(__dirname + '/public/videos/' + req.files.file.name,
             (err) => {
                 if (err){
                     console.log(err);
