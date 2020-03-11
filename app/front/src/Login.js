@@ -6,22 +6,36 @@ import {useCookies, withCookies} from 'react-cookie';
 
 function FormLogin(props) {
     return (
-        <form onSubmit={props.onSignin}>
+        <section className="container_login">
+        <form onSubmit={props.onSignin} className="form_login">
+
+            <h3>Sign in</h3>
             <div>
-                <label>Username:</label>
-                <input type="text" id="username" ref={props.usernameRef}/>
+                <input type="text" id="username" placeholder="username" ref={props.usernameRef}/>
             </div>
             <div>
-                <label>Password:</label>
-                <input type="password" name="password" ref={props.passwordRef}/>
+                <input type="password" name="password" placeholder="password" ref={props.passwordRef}/>
             </div>
-            <div>
+            <div class="button_form">
                 <button type="submit" name="login">Login</button>
+            </div>
+        </form>
+
+        <form onSubmit={props.onSignin} className="form_register">
+        <h3>Register</h3>
+            <div>
+                <input type="text" id="username" placeholder="username" ref={props.usernameRef}/>
+            </div>
+            <div >
+                <input type="password" name="password" placeholder="password" ref={props.passwordRef}/>
+            </div>
+            <div class="button_form">
                 <button type="button" name="signup" onClick={props.onSignup}>
                     Sign up
                 </button>
             </div>
         </form>
+        </section>
     );
 }
 
@@ -68,7 +82,7 @@ function Login() {
         }
     }
 
-    if (cookies.login && cookies.login.username) {
+    if (cookies.login && cookies.login.name) {
         return <button id="disconnect" onClick={disconnect}>disconnect</button>;
     }
     return <FormLogin onSignin={onSignin} onSignup={onSignup} usernameRef={usernameRef} passwordRef={passwordRef}/>

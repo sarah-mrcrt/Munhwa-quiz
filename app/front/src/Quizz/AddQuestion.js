@@ -2,12 +2,21 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios';
 import { HTTP_SERVER_PORT, HTTP_SERVER_PORT_PICTURES,HTTP_SERVER_PORT_VIDEOS} from "../constantes";
-
+import { Redirect } from 'react-router-dom';
 
 function Questions (props){
     const [questions , setQuestions] = useState([]);
     // const [anserws , setAnserws] = useState([]);
+    
+    function redirection() {
+       setRed(false);
+   }
+    const [red, setRed] = useState(true);
 
+    //RadioButtun
+    const [checked, setChecked] = useState(true);
+
+    // Partie Questions
     async function getQuestions() {
         const data = (await axios.get(HTTP_SERVER_PORT)).data;
         setQuestions(data);
@@ -16,7 +25,6 @@ function Questions (props){
     useEffect(() => {
         getQuestions()
     },[]);
-
      async function addQuestions(e){
         e.preventDefault();
         console.log(e.target);
@@ -35,9 +43,7 @@ function Questions (props){
     }
 
     async function insertQuestions(q) {
-        console.log(1);
         await axios.post( HTTP_SERVER_PORT+"questions", q);
-        console.log(2);
         getQuestions();
     }
     
@@ -46,7 +52,12 @@ function Questions (props){
     //         selectedOption: changeEvent.target.value
     // })
 
-    return(
+    if (red) 
+        // return (
+        //     <addQuestions />    
+        // )
+ 
+        return(
             <div className="quizz">
                 <h1>Add a new question</h1>
                 <br/>
@@ -58,10 +69,9 @@ function Questions (props){
         
                     <p><b>Choose the type of your anserw:</b>
                         <div>
-                            <input type="radio" id="anserwImages" name="anserw" value="anserwImages"
-                                    checked/>
+                            <input type="radio" id="anserwImages" name="anserw" value="anserwImages" checked />
 
-{/* ={this.state.selectedOption === 'option1'} onChange={this.handleOptionChange} */}
+                        {/* ={this.state.selectedOption === 'option1'} onChange={this.handleOptionChange} */}
                             <label for="anserwImages">Images</label>
                         </div>
                         <div>
