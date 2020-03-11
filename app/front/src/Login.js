@@ -37,12 +37,12 @@ function Login() {
 
     async function onSignup() {
         const user = {
-            username: usernameRef.current.value,
-            password: passwordRef.current.value
+            name: usernameRef.current.value,
+            passwords: passwordRef.current.value
         };
         try {
             const p = (await axios.post('http://localhost:8000/signup', user));
-            if (p.status === 201) {
+            if (p.status === 200) {
                 user.token = p.data.token;
                 setCookie('login', user, '/');
             }
@@ -54,8 +54,8 @@ function Login() {
     async function onSignin(e) {
         e.preventDefault();
         const user = {
-            username: e.target.username.value,
-            password: e.target.password.value
+            name: e.target.username.value,
+            passwords: e.target.password.value
         };
         try {
             const p = (await axios.post('http://localhost:8000/signin', user));

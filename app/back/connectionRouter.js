@@ -91,7 +91,7 @@ router
     .post("/signin", checkBodypersons, (req, res, next) => {
         checkpersonspasswords(req.body, res, next)
     }, sendToken)
-    .post("/signUp", checkBodypersons, (req, res) => {
+    .post("/signup", checkBodypersons, (req, res) => {
         console.log("signup....");
         db.get(
             'select 1 from persons where name=?', req.body.name,
@@ -112,7 +112,7 @@ router
                                     res.status(500).end();
                                 } else {
                                     console.log("created : ", req.body.name);
-                                    res.status(201).end();
+                                    sendToken(req,res);
                                 }
                             }
                         );
