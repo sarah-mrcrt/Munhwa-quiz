@@ -11,7 +11,7 @@ function QuizzThumbnail(props) {
 
       <Link  to={'/quizz/'+props.id}>{props.name}</Link>
 
-      <img src={HTTP_SERVER_PORT_PICTURES + 'icons' + props.picture_url} />
+      <img src={HTTP_SERVER_PORT_PICTURES + props.picture} />
       {/* {props.picture_url} */}
       {/* <img src={HTTP_SERVER_PORT_PICTURES + props.picture_url} />             */}
 

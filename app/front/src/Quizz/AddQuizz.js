@@ -24,9 +24,9 @@ function Quizz (props){
      async function addQuizz(e){
         e.preventDefault();
         //Upload d'image
-        console.log(e.target.picture_url); 
+        console.log(e.target.picture_url);
         const selectedFile = e.target.picture_url.files[0];
-        console.log(e.target.picture_url.files[0]);  
+        console.log(e.target.picture_url.files[0]);
         const data = new FormData();
         data.append('file', selectedFile, selectedFile.name);
         axios.post(HTTP_SERVER_PORT + "upload", data).then(res => console.log("Res", res));
@@ -34,7 +34,7 @@ function Quizz (props){
         //Upload sur le serveur
         let q = {
             name : e.target.elements[0].value,
-            picture_url : e.target.elements[1].value,
+            picture_url :selectedFile.name,
             keywords : e.target.elements[2].value,
         }
         insertQuizz(q);
@@ -47,7 +47,7 @@ function Quizz (props){
 
     return(
         <>
-                {/* {cities.map(c => 
+                {/* {cities.map(c =>
                     <li key={c.id}>{c.id} : {c.cityname}</li>
                 )} */}
             <div className="quizz">
@@ -61,7 +61,7 @@ function Quizz (props){
                 <button type="submit">Envoyez</button>
                 </form>
             </div>
-            
+
         </>
         )
 }
