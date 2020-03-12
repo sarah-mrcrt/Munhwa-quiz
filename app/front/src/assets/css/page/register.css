@@ -2,17 +2,17 @@
 Error: Undefined variable: "$rose".
         on line 9 of assets/scss/page/register.scss
 
-4:    left:50%;
-5:    top: 15%;
-6:    transform: translateX(-50%);
+4:         left: 50%;
+5:         top: 15%;
+6:         transform: translateX(-50%);
 7: 
-8:    .join-us{
-9:        color:$rose;
-10:        width: 70vw;
-11:        position: relative;
-12:         font-size:0.9rem;   
-13:         text-align: center;
-14:     }
+8:         .join-us {
+9:             color: $rose;
+10:             width: 70vw;
+11:             position: relative;
+12:             font-size: 0.9rem;
+13:             text-align: center;
+14:         }
 
 Backtrace:
 assets/scss/page/register.scss:9
@@ -94,4 +94,4 @@ assets/scss/page/register.scss:9
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$rose\".\A         on line 9 of assets/scss/page/register.scss\A \A 4:    left:50%;\A 5:    top: 15%;\A 6:    transform: translateX(-50%);\A 7: \A 8:    .join-us{\A 9:        color:$rose;\A 10:        width: 70vw;\A 11:        position: relative;\A 12:         font-size:0.9rem;   \A 13:         text-align: center;\A 14:     }"; }
+  content: "Error: Undefined variable: \"$rose\".\A         on line 9 of assets/scss/page/register.scss\A \A 4:         left: 50%;\A 5:         top: 15%;\A 6:         transform: translateX(-50%);\A 7: \A 8:         .join-us {\A 9:             color: $rose;\A 10:             width: 70vw;\A 11:             position: relative;\A 12:             font-size: 0.9rem;\A 13:             text-align: center;\A 14:         }"; }

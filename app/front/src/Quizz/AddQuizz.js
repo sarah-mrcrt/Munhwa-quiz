@@ -1,15 +1,19 @@
 import React, {useState, useEffect, Redirect} from "react";
 import axios from 'axios';
+import AddQuestion from './AddQuestion.js';
 import { HTTP_SERVER_PORT, HTTP_SERVER_PORT_PICTURES,HTTP_SERVER_PORT_VIDEOS} from "../constantes";
 // import { Redirect } from 'react-router-dom';
 
 function Quizz (props){
-    // axios.defaults.headers.common['Authorization'] = 'Bearer ' + props.token;
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + props.token;
 
-    // const { redirection } = (e) => {
-    //     e.preventDefault();
-    //      this.state;
-    // }
+    // Partie redirection
+    function redirection() {
+        setRed(true);
+    }
+    const [red, setRed] = useState(false);
+   
+    // Partie création d'un quizz
     const [ quizzes, setQuizz] = useState([]);
     async function getQuizz() {
         const data = (await axios.get(HTTP_SERVER_PORT)).data;
@@ -23,59 +27,64 @@ function Quizz (props){
         await axios.delete(HTTP_SERVER_PORT + "quizzes" + id);
         getQuizz()
     }
-     async function addQuizz(e){
+    
+    async function addQuizz(e){
         e.preventDefault();
         //Upload d'image
         console.log(e.target.picture_url);
         const selectedFile = e.target.picture_url.files[0];
         console.log(e.target.picture_url.files[0]);
         const data = new FormData();
-        data.append('file', selectedFile, selectedFile.name);
-        axios.post(HTTP_SERVER_PORT + "uploadIcon", data).then(res => console.log("Res", res));
-        console.log(e.target);
-        //Upload sur le serveur
-        let q = {
-            name : e.target.elements[0].value,
-            picture_url :selectedFile.name,
-            keywords : e.target.elements[2].value,
+        if(selectedFile!==undefined) {
+            data.append('file', selectedFile, selectedFile.name);
+            axios.post(HTTP_SERVER_PORT + "uploadIcon", data).then(res => console.log("Res", res));
+            console.log(e.target);
+            let q = {
+                name : e.target.elements[0].value,
+                picture_url : selectedFile.name,
+                keywords : e.target.elements[2].value,
+            }
+            insertQuizz(q);
+        }else{
+            let q = {
+                name : e.target.elements[0].value,
+                picture_url : 'iconDefault.png',
+                keywords : e.target.elements[2].value,
+            }
+            insertQuizz(q); 
         }
-        insertQuizz(q);
     }
     async function insertQuizz(q) {
         await axios.post( HTTP_SERVER_PORT + "quizzes", q);
         getQuizz();
     }
 
-
-    return(
+    // Partie création de questions
+    if (red) 
+        return (
         <>
-                {/* {cities.map(c =>
-   // if (redirection) {
+            <AddQuestion/>
+        </>
+        )
         return(
-            <>
+        <>
                 {/* {cities.map(c =>
                     <li key={c.id}>{c.id} : {c.cityname}</li>
                 )} */}
-
             <div className="quizz">
                 <h1>Add a new quizz</h1>
                 <br/>
                 <form id='formQuizz' action="#" onSubmit={e=> addQuizz(e)}>
                 <p><b>Nom du quizz</b><input name="name" required/></p>
-                <b>Icone</b><input type="file" name="picture_url" accept="image/*" required/>
-                <p><b>keywords</b><input name="keywords" placeholder="; entre chaque keywords"/></p>
+                <b>Icone</b><input type="file" name="picture_url" accept="image/*"/>
+                <p><b>keywords</b><input name="keywords" placeholder="keywords separer par ;"/></p>
 
-                <button type="submit">Envoyez</button>
-                
-                {/* onClick={this.redirection}
-                <Redirect to='/' />; */}
+                <button type="submit" onClick={ e => redirection()}>Envoyez</button>
                 </form>
             </div>
-
         </>
         )
-
-   // }
+   
 
 }
 
