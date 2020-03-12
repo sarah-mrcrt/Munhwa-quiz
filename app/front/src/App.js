@@ -16,8 +16,11 @@ import error404 from "./error404.js";
 
 function App(props) {
   axios.defaults.headers.common['Authorization'] = 'Bearer ' + props.token;
-  const [cookies] = useCookies(['login']);
-  const msg = cookies.login && cookies.login.name ? "Disconnet you" : "Connect you";
+  const [cookies, removeCookie] = useCookies(['login']);
+  const msg = cookies.login && cookies.login.name ? "Profile" : "Connect you";
+  function disconnect() {
+        removeCookie('login');
+  }
   if (cookies.login && cookies.login.name) {
     return (
         <>
@@ -26,7 +29,8 @@ function App(props) {
           <header className="App-header">
             <Link  to={'/'}>Home</Link>
             <Link  to={'/login'}>{msg}</Link>
-            <Link  to={'/addQuizz'}>AddQuizz</Link>          
+            <Link  to={'/addQuizz'}>AddQuizz</Link>      
+            <button id="disconnect" onClick={disconnect}>disconnect</button>
           </header>
             <Switch>
               <Route exact={true} path="/" component={Home} />

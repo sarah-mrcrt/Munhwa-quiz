@@ -86,7 +86,11 @@ function Login() {
     if (cookies.login && cookies.login.name) {
         return (
         <>
-            <button id="disconnect" onClick={disconnect}>disconnect</button>
+            <p>Paul</p>
+            <p>Tous vos scoreS</p>
+            {/* <button id="disconnect" onClick={disconnect}>disconnect</button> */}
+            envie d'ajouter un quizz ->
+            <Link  to={'/addQuizz'}>AddQuizz</Link>
         </>        
         )
     }
