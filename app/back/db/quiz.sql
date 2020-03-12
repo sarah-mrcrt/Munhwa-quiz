@@ -46,17 +46,29 @@ CREATE TABLE personsQuizzes (
 
 INSERT INTO quizzes (name,picture_url,keywords)
 VALUES
-   ("quizz1", "Aix/aix.jpg", "brian;people"),
+   ("Sailor Moon Chrystal", "Aix/aix.jpg", "brian;people"),
    ("quizz1", "Aix/aix.jpg", "brian;people"),
    ("quizz2", "Aix/aix.jpsenteng", "toto;people");
 
-INSERT INTO questions (sentence, score, quizzes_id)
+INSERT INTO questions (sentence, video_url, score, quizzes_id)
 VALUES
-   ("where is brian?", 3, 1),
-   ("where is brian?", 3, 1),
-   ("who is brian?", 1, 1),
-   ("where is toto?", 3, 2),
-   ("who is toto?", 1, 2);
+   ("where is brian?",NULL, 3, 3),
+   ("where is brian?","piano.mov", 3, 3),
+   ("who is brian?",NULL, 1, 3),
+   ("where is toto?","piano.mov", 3, 2),
+   ("who is toto?",NULL, 1, 2);
+
+   ("What is the name of Deadly Sins leader ?",NULL, 1, 1),
+   ("What is the name of the second daughter of King Baltras ?",NULL, 1, 1),
+   ("What's King's nature ?",NULL, 2, 1),
+   ("What is the magic technique of meliodas?",NULL, 2, 1),
+   ("What sin does Merlin represent?",NULL, 1, 1),
+   ("When is Excanor vulnerable?",NULL, 2, 1),
+   ("What is Gowther desperately looking for?",NULL, 2, 1),
+   ("What's Gowther's tattoo?",NULL, 1, 1),
+   ("Who is Ban in love with",NULL, 2, 1),
+   ("Why doesn't Meliodas have full power?",NULL, 3, 1),
+   ("From what people does Meliodas come?",NULL, 2, 1);
 
 INSERT INTO answers (sentence, picture_url, solution, questions_id)
 VALUES
