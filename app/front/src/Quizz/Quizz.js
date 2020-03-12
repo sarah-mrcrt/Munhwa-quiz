@@ -28,10 +28,10 @@ if(quizz == null){
     return 'En cours de chargement'
     }
    return (
-     <div className="Home">
-      Bonjour je suis le quiz {props.match.params.id}
-
-        <Link  to={'/Jouer/'+props.match.params.id}>Commencer</Link>
+     <div className="start_quizz">
+    
+        <img src={HTTP_SERVER_PORT_PICTURES + quizz.picture_url} />
+        <Link className="play" to={'/Jouer/'+props.match.params.id}>Commencer</Link>
 
       </div>
    );
