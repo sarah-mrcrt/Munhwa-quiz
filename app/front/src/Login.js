@@ -7,6 +7,9 @@ import {useCookies, withCookies} from 'react-cookie';
 function FormLogin(props) {
     return (
         <section className="container_login">
+
+        <h2 class="join-us">Join Munwha, the first website quizz of asian culture</h2>
+
         <form onSubmit={props.onSignin} className="form_login">
 
             <h3>Sign in</h3>
