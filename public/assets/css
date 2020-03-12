@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
+Errno::ENOENT: No such file or directory @ rb_sysopen - assets/scss
+=======
 Errno::ENOENT: No such file or directory @ rb_sysopen - public/assets/scss
+>>>>>>> 890542a03841b43d3d67cc1cd48f4d62696d9531
 
 Backtrace:
 /Library/Ruby/Gems/2.6.0/gems/sass-3.7.4/lib/sass/plugin/compiler.rb:454:in `read'
@@ -20,4 +24,8 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
+<<<<<<< HEAD
+  content: "Errno::ENOENT: No such file or directory @ rb_sysopen - assets/scss"; }
+=======
   content: "Errno::ENOENT: No such file or directory @ rb_sysopen - public/assets/scss"; }
+>>>>>>> 890542a03841b43d3d67cc1cd48f4d62696d9531

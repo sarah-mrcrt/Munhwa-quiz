@@ -8,8 +8,8 @@ import AddQuizz from "./Quizz/AddQuizz.js";
 function FormLogin(props) {
         return (
             <section className="container_login">
-            <form onSubmit={props.onSignin} className="form_login">
 
+            <form onSubmit={props.onSignin} className="form_login">
                 <h3>Sign in</h3>
                 <div>
                     <input type="text" id="username" placeholder="username" ref={props.usernameRef}/>
