@@ -49,7 +49,7 @@ function Quizz (props){
         }else{
             let q = {
                 name : e.target.elements[0].value,
-                picture_url : 'iconDefault.png',
+                picture_url : 'iconDefault.jpg',
                 keywords : e.target.elements[2].value,
             }
             insertQuizz(q); 
