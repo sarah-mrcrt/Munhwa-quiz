@@ -16,7 +16,6 @@
         h3 {
             font-family: $mont;
             top: 20%;
-    
         }
             form {
                 display: flex;
@@ -25,9 +24,9 @@
                 justify-content: center;
                 align-items: center;
 
-                        input {
-                            width: 55vw;
-                            margin-bottom: 0.3rem;
+                    input {
+                        width: 90vh;
+                        margin-bottom: 0.3rem;
                         }
                 
                     .button_form {
@@ -36,7 +35,7 @@
                     background-color: $bleu;
                     color:$white;
                     border-radius: 1.2rem;
-                    width: 17vw;
+                    width: 27vw;
                     }}
 
                     input {
