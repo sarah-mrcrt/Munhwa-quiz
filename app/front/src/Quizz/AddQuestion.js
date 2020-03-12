@@ -84,13 +84,7 @@ function Questions (props){
         await axios.post( HTTP_SERVER_PORT+"questions", q);
         getQuestions();
     }
-    
-    // handleOptionChange: function (changeEvent) {
-    //     this.setState({
-    //         selectedOption: changeEvent.target.value
-    // })
 
-    // if (checkAnswersType == image) 
       let checkImage = sentenceType === false ? "true" : "false";
       let checkSentence = sentenceType === true ? "true" : "false";
       
