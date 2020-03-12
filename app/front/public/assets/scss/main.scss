@@ -1,0 +1,11 @@
+
+//ensemble du site 
+@import 'base/general.scss';
+
+//page spécifique
+@import 'page/account.scss';
+@import 'page/home.scss';
+@import 'page/register.scss';
+
+//variable
+@import 'variables/color.scss';
