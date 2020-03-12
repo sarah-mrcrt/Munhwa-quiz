@@ -66,7 +66,7 @@ function Reponses(props) {
             <img src={HTTP_SERVER_PORT_PICTURES + item.picture_url} className={myAnswer.indexOf(item.id) != -1 ? "active" : "" } onClick={e => checkAnswer(item.id)} />
             </div>
             )}
-            
+
 
        })
        }
@@ -127,11 +127,15 @@ if(questions.length == 0){
     )
    return (
       <>
-         <p className="question">{questions[current].sentence} </p>
-          <p className="score"> {score} </p>
-         
+         <p className="question">{questions[current].sentence} {questions[current].video_url}
+
+           <video controls autoplay="true" loop src={HTTP_SERVER_PORT_VIDEOS + questions[current].video_url} > super</video>
+
+           </p>
+          <p className="score">Score : {score} </p>
+
           <Reponses question = {questions[current]} suivant = {suivant}/>
-       
+
         </>
 
 
@@ -139,5 +143,3 @@ if(questions.length == 0){
  }
 
  export default Jouer;
-
-
