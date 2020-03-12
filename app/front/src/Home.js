@@ -21,9 +21,9 @@ import axios from 'axios';
 
      console.log(quizzes);
    return (
-     <div className="Home">
+     <div className="grid-container">
        {quizzes.map(q =>
-        <QuizzThumbnail id={q.id} name={q.name} picture={q.picture_url} keywords={q.keywords} />)
+        <QuizzThumbnail  id={q.id} name={q.name} picture={q.picture_url} keywords={q.keywords} />)
 
        }
 

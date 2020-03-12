@@ -12,7 +12,7 @@ Error: Undefined variable: "$noir".
 12:         text-transform: uppercase;
 13:         text-align: center;
 14:         height:3vh;
-15:         padding:0.2rem;
+15:         padding:0.5rem;
 
 Backtrace:
 assets/scss/layout/header.scss:10
@@ -80,4 +80,4 @@ assets/scss/layout/header.scss:10
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$noir\".\A         on line 10 of assets/scss/layout/header.scss\A \A 5:     width: 100vw;\A 6:     a{\A 7:         display: flex;\A 8:         flex-direction: column;\A 9:         text-decoration-line: none;\A 10:         color:$noir;\A 11:         font-family: 'Kayak';\A 12:         text-transform: uppercase;\A 13:         text-align: center;\A 14:         height:3vh;\A 15:         padding:0.2rem;"; }
+  content: "Error: Undefined variable: \"$noir\".\A         on line 10 of assets/scss/layout/header.scss\A \A 5:     width: 100vw;\A 6:     a{\A 7:         display: flex;\A 8:         flex-direction: column;\A 9:         text-decoration-line: none;\A 10:         color:$noir;\A 11:         font-family: 'Kayak';\A 12:         text-transform: uppercase;\A 13:         text-align: center;\A 14:         height:3vh;\A 15:         padding:0.5rem;"; }

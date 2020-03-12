@@ -32,7 +32,7 @@ function Questions (props){
                 <>
                 <p><b>How many ansewrs</b><input type='number' step="1" min="1" max="10"  name="score" /></p>
                 <div>
-                    <input name="setSentence"/>
+                    <input name="setSentence"/> 
                     <label for="correct0">correct</label>
                     <input type="checkbox" id="correct0" name="correct0"/>
                 </div>
@@ -85,36 +85,30 @@ function Questions (props){
         getQuestions();
     }
 
-    // handleOptionChange: function (changeEvent) {
-    //     this.setState({
-    //         selectedOption: changeEvent.target.value
-    // })
-
-    // if (checkAnswersType == image)
       let checkImage = sentenceType === false ? "true" : "false";
       let checkSentence = sentenceType === true ? "true" : "false";
-
+      
         return(
             <div className="quizz">
                 <h1>Add a new question</h1>
                 <br/>
                 <form id='formadd' action="#" onSubmit={e=> addQuestions(e)}>
                     <p><b>Text of the questions</b><input name="sentence" /></p>
-
+                    
                     <p><b>optional video</b><input type="file" name="video_url" accept="video/*"/></p>
 
-
+        
                     <p><b>Choose the type of your anserw:</b>
                         <div>
-                            <input type="radio" name="picture_url"
+                            <input type="radio" name="picture_url" 
                             checked={checkImage}
-                            value="anserwImages"
+                            value="anserwImages" 
                             onChange= {e=> afficherAnswersType(e,false)} />
                             <label for="picture_url">Images</label>
                         </div>
                         <div>
-
-
+                        
+                            
                             <input type="radio" name="sentence"
                             checked={checkSentence}
                              onChange={e=> afficherAnswersType(e, true)}/>
@@ -123,18 +117,18 @@ function Questions (props){
                     </p>
 
                     {diplayImagesOrSentences()}
-                   {/*
-
+                   {/* 
+                    
                 <div class="questions">
                     <p>
                          <b>Text of the questions</b>
                         <br/>
                          if(radio.anserw)
 
-
+  
 
                     </p>
-                </div>
+                </div> 
                     <p>
                         <input type="number" placeholder="1" step="1" min="1" max="10"/>
                     </p>
@@ -147,7 +141,7 @@ function Questions (props){
             </div>
         )
         return (
-            <Home/>
+            <Home/>    
         )
 }
 

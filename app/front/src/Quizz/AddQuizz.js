@@ -1,154 +1,91 @@
-// créer une question de quizz
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, Redirect} from "react";
 import axios from 'axios';
+import AddQuestion from './AddQuestion.js';
 import { HTTP_SERVER_PORT, HTTP_SERVER_PORT_PICTURES,HTTP_SERVER_PORT_VIDEOS} from "../constantes";
-import { Redirect } from 'react-router-dom';
-import Home from "../Home.js";
+// import { Redirect } from 'react-router-dom';
 
-function Questions (props){
-    // Partie Redirection
+function Quizz (props){
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + props.token;
+
+    // Partie redirection
     function redirection() {
-       setRed(false);
+        setRed(true);
     }
-    const [red, setRed] = useState(true);
-
-
-    // Partie Bouttons radios
-    const [sentenceType, setSentenceType] = useState(true);
-    const [anserws, setAnserws] = useState([1]);
-
-    function afficherAnswersType(e, type){
-        e.preventDefault();
-        setSentenceType(type)
-    }
-
-    function ajouterAnserws(e){
-        e.preventDefault();
-        setAnserws(+1)
-    }
-    function  diplayImagesOrSentences() {
-        if (sentenceType == true) {
-            return(
-                <>
-                <p><b>How many ansewrs</b><input type='number' step="1" min="1" max="10"  name="score" /></p>
-                <div>
-                    <input name="setSentence"/>
-                    <label for="correct0">correct</label>
-                    <input type="checkbox" id="correct0" name="correct0"/>
-                </div>
-                </>
-            )
-        }
-        if(sentenceType == false){
-            return(
-            <>
-            <p><b>How many ansewrs</b><input type='number' step="1" min="1" max="10"  name="score" /></p>
-
-            <div>
-                    <input type="file" name="setImage" accept="image/png, image/jpg"/>
-                    <label for="correct1">correct</label>
-                    <input type="checkbox" id="correct1" name="correct1"/>
-            </div>
-            </>
-            )
-        }
-    }
-
-    // Partie Questions
-    const [questions , setQuestions] = useState([]);
-    async function getQuestions() {
+    const [red, setRed] = useState(false);
+   
+    // Partie création d'un quizz
+    const [ quizzes, setQuizz] = useState([]);
+    async function getQuizz() {
         const data = (await axios.get(HTTP_SERVER_PORT)).data;
-        setQuestions(data);
+        setQuizz(data);
     }
     useEffect(() => {
-        getQuestions()
+        getQuizz()
     },[]);
-     async function addQuestions(e){
+    async function deleteQuizz(e,id){
         e.preventDefault();
-        console.log(e.target);
-        // if(video_url != null) {
-        //     const selectedFile = e.target.picture_url.files[0];
-        //     const data = new FormData();
-        //     data.append('file', selectedFile, selectedFile.name);
-        //     axios.post(HTTP_SERVER_PORT + "uploadVideo", data).then(res => console.log("Res", res));
-        // }
-        let q = {
-            sentence : e.target.elements[0].value,
-            video_url : e.target.elements[1].value,
-            score : e.target.elements[2].value,
+        await axios.delete(HTTP_SERVER_PORT + "quizzes" + id);
+        getQuizz()
+    }
+    
+    async function addQuizz(e){
+        e.preventDefault();
+        //Upload d'image
+        console.log(e.target.picture_url);
+        const selectedFile = e.target.picture_url.files[0];
+        console.log(e.target.picture_url.files[0]);
+        const data = new FormData();
+        if(selectedFile!==undefined) {
+            data.append('file', selectedFile, selectedFile.name);
+            axios.post(HTTP_SERVER_PORT + "uploadIcon", data).then(res => console.log("Res", res));
+            console.log(e.target);
+            let q = {
+                name : e.target.elements[0].value,
+                picture_url : selectedFile.name,
+                keywords : e.target.elements[2].value,
+            }
+            insertQuizz(q);
+        }else{
+            let q = {
+                name : e.target.elements[0].value,
+                picture_url : 'iconDefault.png',
+                keywords : e.target.elements[2].value,
+            }
+            insertQuizz(q); 
         }
-        insertQuestions(q);
+    }
+    async function insertQuizz(q) {
+        await axios.post( HTTP_SERVER_PORT + "quizzes", q);
+        getQuizz();
     }
 
-    async function insertQuestions(q) {
-        await axios.post( HTTP_SERVER_PORT+"questions", q);
-        getQuestions();
-    }
-
-    // handleOptionChange: function (changeEvent) {
-    //     this.setState({
-    //         selectedOption: changeEvent.target.value
-    // })
-
-    // if (checkAnswersType == image)
-      let checkImage = sentenceType === false ? "true" : "false";
-      let checkSentence = sentenceType === true ? "true" : "false";
-
+    // Partie création de questions
+    if (red) 
+        return (
+        <>
+            <AddQuestion/>
+        </>
+        )
         return(
+        <>
+                {/* {cities.map(c =>
+                    <li key={c.id}>{c.id} : {c.cityname}</li>
+                )} */}
             <div className="quizz">
-                <h1>Add a new question</h1>
+                <h1>Add a new quizz</h1>
                 <br/>
-                <form id='formadd' action="#" onSubmit={e=> addQuestions(e)}>
-                    <p><b>Text of the questions</b><input name="sentence" /></p>
+                <form id='formQuizz' action="#" onSubmit={e=> addQuizz(e)}>
+                <p><b>Nom du quizz</b><input name="name" required/></p>
+                <b>Icone</b><input type="file" name="picture_url" accept="image/*"/>
+                <p><b>keywords</b><input name="keywords" placeholder="keywords separer par ;"/></p>
 
-                    <p><b>optional video</b><input type="file" name="video_url" accept="video/*"/></p>
-
-
-                    <p><b>Choose the type of your anserw:</b>
-                        <div>
-                            <input type="radio" name="picture_url"
-                            checked={checkImage}
-                            value="anserwImages"
-                            onChange= {e=> afficherAnswersType(e,false)} />
-                            <label for="picture_url">Images</label>
-                        </div>
-                        <div>
-
-
-                            <input type="radio" name="sentence"
-                            checked={checkSentence}
-                             onChange={e=> afficherAnswersType(e, true)}/>
-                            <label for="sentence">Sentences</label>
-                        </div>
-                    </p>
-
-                    {diplayImagesOrSentences()}
-                   {/*
-
-                <div class="questions">
-                    <p>
-                         <b>Text of the questions</b>
-                        <br/>
-                         if(radio.anserw)
-
-
-
-                    </p>
-                </div>
-                    <p>
-                        <input type="number" placeholder="1" step="1" min="1" max="10"/>
-                    </p>
-                */}
-                    <div id="buttons">
-                        <button type="submit">Create</button>
-                        <button id="cancel">Cancel</button>
-                    </div>
+                <button type="submit" onClick={ e => redirection()}>Envoyez</button>
                 </form>
             </div>
+        </>
         )
-        return (
-            <Home/>
-        )
+   
+
 }
 
-export default Questions;
+export default Quizz;

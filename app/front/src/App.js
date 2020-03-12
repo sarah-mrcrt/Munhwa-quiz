@@ -1,5 +1,5 @@
 import React from "react";
-import logo from './logo.svg';
+//import LOGO from "./assets/IMG/LOGO.svg";
 //Import React
 import {BrowserRouter, Switch, Route, Link} from "react-router-dom";
 import {useCookies} from 'react-cookie';
@@ -55,6 +55,9 @@ function App(props) {
   return (
     <div className="App">
         <BrowserRouter>
+        <header >
+          <img id="logo" src="LOGO.svg" />
+        </header>
         <header className="App-header">
           <Link id="home" to={'/'}>Home</Link>
           <Link id="signin" to={'/login'}>{msg}</Link>
