@@ -9,10 +9,10 @@ import axios from 'axios';
       let [quizzes, setQuizzes ] = useState([]);
 
      async function getQuizzes() {  // The function is asynchronous
-                 const q = (await axios.get('http://localhost:8000/quizzes')).data;
-                 setQuizzes(q);
-                console.log(q);
-             }
+      const q = (await axios.get('http://localhost:8000/quizzes')).data;
+      setQuizzes(q);
+      console.log(q);
+  }
 
       useEffect(() => {
               getQuizzes()
