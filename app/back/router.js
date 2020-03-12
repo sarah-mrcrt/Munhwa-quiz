@@ -14,7 +14,7 @@ router
     .get("/quizzes",
         (req, res) => {
             db.all( "SELECT * FROM quizzes", (err, rows) => {
-                console.log(rows);
+                // console.log(rows);
                 res.json(rows);
             });
     })
@@ -25,8 +25,8 @@ router
                 "SELECT * FROM quizzes WHERE id=?",
                 req.params.id,
                 (err, row) => {
-                    console.log(row);
-                    console.log(err);
+                    // console.log(row);
+                    // console.log(err);
                     res.json(row)
                 }
             );
@@ -37,8 +37,8 @@ router
             db.get(
                 "SELECT MAX(id) as nb FROM quizzes",
                 (err, row) => {
-                    console.log(row);
-                    console.log(err);
+                    // console.log(row);
+                    // console.log(err);
                     res.json(row)
                 }
             );
@@ -47,10 +47,10 @@ router
         .get('/maxidquestions',
         (req, res) => {
             db.get(
-                "SELECT MAX(id) as nb FROM questions",
+                "SELECT MAX(id) as nbQ FROM questions",
                 (err, row) => {
-                    console.log(row);
-                    console.log(err);
+                    // console.log(row);
+                    // console.log(err);
                     res.json(row)
                 }
             );
@@ -58,7 +58,7 @@ router
 //Inserer un quizz
     .post('/quizzes',
         (req, res) => {
-            console.log('Quizz');
+            // console.log('Quizz');
             const q = req.body;
             db.run("INSERT INTO quizzes(name, picture_url, keywords) values(?,?,?)",[q.name, q.picture_url, q.keywords]);
             res.redirect(303, '/quizzes');
@@ -90,12 +90,12 @@ router
 //Upload l'icône du quizz
     .post('/uploadIcon',
         (req, res) => {
-        console.log("toto",req.files);
+        // console.log("toto",req.files);
         req.files.file.mv(__dirname + '/public/pictures/icons/' + req.files.file.name,
 
             (err) => {
                 if (err){
-                    console.log(err);
+                    // console.log(err);
                     return res.status(500).send(err);
                 }
                 res.json({name: req.files.file.name});
@@ -120,17 +120,16 @@ router
     .post('/questions',
         (req, res) => {
             const q = req.body;
-            db.run("INSERT INTO questions(sentence,video_url,score,quizzes_id) values(?,?,?, ?)",[q.sentence, q.video_url, q.score, q.quizzes_id]);
+            db.run("INSERT INTO questions(sentence,video_url,score,quizzes_id) values(?,?,?,?)",[q.sentence, q.video_url, q.score, q.quizzes_id]);
             res.redirect(303, '/questions/');
         })
 //Upload une vidéo
     .post('/uploadVideo',
         (req, res) => {
-        console.log("toto",req.files);
         req.files.file.mv(__dirname + '/public/videos/' + req.files.file.name,
             (err) => {
                 if (err){
-                    console.log(err);
+                    // console.log(err);
                     return res.status(500).send(err);
                 }
                 res.json({name: req.files.file.name});
@@ -159,10 +158,12 @@ router
     //Si c'est une image j'affiche : picture_url
     //Si c'est du texte j'affiche : sentence
     .post('/answers',
-    (req, res) => {
-        console.log('toto');
-        db.run("insert into answers(sentence, picture_url, solution) values(?,?,?)",[q.sentence, q.picture_url, q.solution]);
-        res.redirect(303, '/answers');
+        (req, res) => {
+            //En commentaire pour éviter le crash
+            // const q = req.body;
+            console.log(req.body);
+            db.run("INSERT INTO answers(sentence, picture_url,solution,questions_id) values(?,?,?,?)",[q.sentence, q.picture_url, q.solution, q.questions_id]);
+            res.redirect(303, '/answers/');
     })
 //Supprimer une réponse
 //Modifier une réponse

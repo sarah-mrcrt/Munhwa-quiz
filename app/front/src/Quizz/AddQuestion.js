@@ -32,10 +32,7 @@ function Qs(props) {
 
 function Questions (props){
     // Partie Redirection
-    // function redirection() {
-    //    setRed(false);
-    // }
-    // const [red, setRed] = useState(true);
+    const [red, setRed] = useState(false);
 
 
     // Partie Bouttons radios
@@ -64,14 +61,14 @@ function Questions (props){
 
     // Partie Questions
     const [questions , setQuestions] = useState([]);
-    
     async function getQuestions() {
-        const data = (await axios.get(HTTP_SERVER_PORT )).data;
+        const data = (await axios.get(HTTP_SERVER_PORT)).data;
         setQuestions(data);
     }
     useEffect(() => {
         getQuestions()
     },[]);
+
 
     const [answers , setAnswers] = useState([]);
     async function getAnswers() {
@@ -86,10 +83,15 @@ function Questions (props){
          e.preventDefault();
         let sentence = e.target.elements['question[]'].value;
         let score = e.target.elements['score[]'].value;
+        let correct = e.target.elements['correct[]'];
+        let sentences = e.target.elements['sentences[]'];
+
         //Upload Vidéo
         const selectedFile = e.target.video_url.files[0];
+        
         // Je sauve l'id de la question  
         let idQuizz = (await axios.get(HTTP_SERVER_PORT+"maxidquizzes")).data.nb;
+        
         if(selectedFile==undefined) {
             let q = {
                 sentence : sentence,
@@ -112,41 +114,47 @@ function Questions (props){
             } 
             insertQuestions(q)
         }
-        
+
         // Ajouter Réponses
-        
+        //let idQuestion = (await axios.get(HTTP_SERVER_PORT+"maxidquestions")).data.nbQ;
+
+        let idQuestion = (await axios.get(HTTP_SERVER_PORT+"maxidquestions")).data.nbQ;
 
         for(let i = 0; i < 4 ; i++) {
-            let correct = e.target.elements['correct[]'];
-            let sentences = e.target.elements['sentences[]'];
-                    console.log('yoooy' + idQuestion);
-
-            let idQuestion = (await axios.get(HTTP_SERVER_PORT+"maxidquestion")).data.nb;
-
+            // let sentences = e.target.elements['sentences[]'];
             //console.log(sentences[i].value, correct[i].checked);
              let sol = correct[i].checked ? 1 : 0;
              let q = {
                 sentence : sentences[i].value,
-                picture_url : "",
+                picture_url : '',
                 solution : sol,
-                question_id: idQuestion
+                questions_id: idQuestion
             }
             insertAnswers(q);
         }
-        
+        setRed(true);
     }
-        async function insertAnswers(q) {
-            await axios.post( HTTP_SERVER_PORT + "answers", q).data;
-            getAnswers();
-    }
-        async function insertQuestions(q) {
+    async function insertQuestions(q) {
         await axios.post( HTTP_SERVER_PORT+ "questions", q).data;
         getQuestions();
     }
 
+    
+    async function insertAnswers(q) {
+            await axios.post( HTTP_SERVER_PORT+ "answers", q).data;
+            getAnswers();
+    }
+
+
+
       let checkImage = sentenceType === false ? "true" : "false";
       let checkSentence = sentenceType === true ? "true" : "false";
-      
+       if (red) 
+        return (
+        <>
+            <Home/>
+        </>
+        )
         return(
             <div className="quizz">
                 <h1>Add a new question</h1>
@@ -182,9 +190,7 @@ function Questions (props){
                 </form>
             </div>
         )
-        return (
-            <Home/>    
-        )
+ 
 }
 
 export default Questions;

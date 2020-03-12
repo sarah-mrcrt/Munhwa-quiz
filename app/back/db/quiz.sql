@@ -26,7 +26,29 @@ CREATE TABLE answers (
    id INTEGER NOT NULL PRIMARY KEY,
    sentence TEXT,
    picture_url TEXT check((sentence IS NULL AND picture_url IS NOT NULL) OR (sentence IS NOT NULL AND picture_url IS NULL)),
-   solution INTEGER check(solution in (0,1)),
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+    INTEGER check(solution in (0,1)),
    questions_id INTEGER REFERENCES questions(id)
 );
 
