@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,UAAU,CACN,QAAQ,CAAE,QAAQ,CAClB,IAAI,CAAC,GAAG,CACR,SAAS,CAAE,gBAAgB,CAE3B,aAAE,CACE,SAAS,CAAC,MAAM",
+"sources": ["../../scss/page/score.scss"],
+"names": [],
+"file": "score.css"
+}

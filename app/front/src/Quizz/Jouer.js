@@ -51,21 +51,26 @@ function Reponses(props) {
       setMyAnswer([]);
 
     }
-     return (<div>
+     return (<div className="div-grid">
        {answers.map((item, i) => {
          console.log(item);
          if(item.sentence != null){
          return(
+           <div className="card">
            <div className={myAnswer.indexOf(item.id) != -1 ? "active" : "" } onClick={e => checkAnswer(item.id)}>{item.sentence}</div>
+           </div>
          )}
           else if (item.picture_url != null) {
             return(
-            <img src={HTTP_SERVER_PORT_PICTURES + item.picture_url} onClick={e => checkAnswer(item.id)} />
+              <div className="card">
+            <img src={HTTP_SERVER_PORT_PICTURES + item.picture_url} className={myAnswer.indexOf(item.id) != -1 ? "active" : "" } onClick={e => checkAnswer(item.id)} />
+            </div>
             )}
+            
 
        })
        }
-       <button onClick={e => suivant(e)}>Next</button>
+       <button className="next_button" onClick={e => suivant(e)}>Next</button>
 
      </div>)
 }
@@ -114,19 +119,20 @@ if(questions.length == 0){
     }
     if(current >= questions.length)
     return (
-      <div>Score <br/>
-      {score}/{totalPossible}
+      <div className="div-score">
+       <h3> Score </h3>
+      <p className="resultat">{score}/{totalPossible}</p>
       </div>
 
     )
    return (
-     <div className="Home">
-      Bonjour je suis les questions
-      <br/> Courage mes petites CSS :*
-        <p>{questions[current].sentence} </p>
-          {score}
+      <>
+         <p className="question">{questions[current].sentence} </p>
+          <p className="score"> {score} </p>
+         
           <Reponses question = {questions[current]} suivant = {suivant}/>
-        </div>
+       
+        </>
 
 
    );

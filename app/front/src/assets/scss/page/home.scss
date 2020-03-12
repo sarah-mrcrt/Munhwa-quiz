@@ -2,8 +2,8 @@
 
     .grid-container{
         position: absolute;
-       left: 50%;
-       transform: translateX(-50%);
+        left: 50%;
+        transform: translateX(-50%);
         width:80vw;
         top:6em;
         display: grid;
@@ -37,6 +37,7 @@
         }
         img{
             width:9rem;
+            height:8rem;
             border-top-left-radius: 1.2rem;
             border-top-right-radius: 1.2rem;
             z-index:-2;

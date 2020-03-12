@@ -1,0 +1,83 @@
+.div-grid{
+    position: absolute;
+    display: grid;
+    grid-template-columns: 10rem 10rem;
+    grid-template-rows: 10rem 10rem;
+    grid-gap:1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    top:10rem;
+    z-index: -5;
+
+    .card{
+        height:10rem;
+        width: 10rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 1.2rem;
+        background-color: $white;
+        overflow: hidden;
+
+        img{
+            height:12rem;
+        }
+    
+    
+        .active{
+            height: 9.8rem;
+            width: 9.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 1.2rem;
+            background-color: $white;
+            overflow: hidden;
+            border:solid 0.3rem $rose;
+            z-index:10;
+        }
+    }
+
+   
+    
+}
+
+.question{
+    position: absolute;
+    top:4rem;
+    left:50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+    color:$noir;
+    font-family:$mont;
+    font-weight: 600;
+}
+
+.score{
+    background-color: $bleu;
+    position: absolute;
+    top:7rem;
+    left:50%;
+    transform: translateX(-50%);
+    font-size: 1rem;
+    border-radius: 1.2rem;
+    width:15vw;
+    text-align: center;
+    color:$white;
+}
+
+.next_button{
+    left:50%;
+    transform:translateX(-50%);
+    color:$white;
+    height:1.5rem;
+    background-color:$bleu;
+    border-radius:1.2rem;
+    border:none;
+    width:10rem;
+    position: absolute;
+    top:22rem;
+
+}

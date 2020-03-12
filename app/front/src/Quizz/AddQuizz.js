@@ -7,11 +7,11 @@ import { HTTP_SERVER_PORT, HTTP_SERVER_PORT_PICTURES,HTTP_SERVER_PORT_VIDEOS} fr
 function Quizz (props){
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + props.token;
 
-    // Partie redirection
-    function redirection() {
-        setRed(true);
-    }
-    const [red, setRed] = useState(false);
+    // // Partie redirection
+    // function redirection() {
+    //     setRed(true);
+    // }
+     const [red, setRed] = useState(false);
    
     // Partie création d'un quizz
     const [ quizzes, setQuizz] = useState([]);
@@ -45,6 +45,7 @@ function Quizz (props){
                 keywords : e.target.elements[2].value,
             }
             insertQuizz(q);
+
         }else{
             let q = {
                 name : e.target.elements[0].value,
@@ -53,9 +54,11 @@ function Quizz (props){
             }
             insertQuizz(q); 
         }
+        setRed(true);
     }
     async function insertQuizz(q) {
-        await axios.post( HTTP_SERVER_PORT + "quizzes", q);
+        let qid = await axios.post( HTTP_SERVER_PORT + "quizzes", q).data;
+        
         getQuizz();
     }
 
@@ -79,12 +82,11 @@ function Quizz (props){
                 <b>Icone</b><input type="file" name="picture_url" accept="image/*"/>
                 <p><b>keywords</b><input name="keywords" placeholder="keywords separer par ;"/></p>
 
-                <button type="submit" onClick={ e => redirection()}>Envoyez</button>
+                <button type="submit"  >Envoyez</button>
                 </form>
             </div>
         </>
         )
-   
 
 }
 
