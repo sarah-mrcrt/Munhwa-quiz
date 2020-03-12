@@ -82,10 +82,10 @@ router
             res.status(200).json(req.body);
     })
 //Supprimer un quizz
-    .delete('/quizzes/:id',
+    .delete('/deletequizzes/:id',
         (req, res) => {
             db.run('DELETE FROM quizzes WHERE id=?', [req.params.id]);
-            res.redirect(204, "/quizzes");
+            res.redirect(204, "/deletequizzes");
     })
 //Upload l'icône du quizz
     .post('/uploadIcon',
