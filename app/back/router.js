@@ -32,11 +32,10 @@ router
             );
     })
     // SELECT MAX(id) FROM quizzes
-    .get('/quizzes/:id',
+    .get('/maxidquizzes',
         (req, res) => {
             db.get(
-                "SELECT MAX(id) FROM quizzes",
-                req.params.id,
+                "SELECT MAX(id) as nb FROM quizzes",
                 (err, row) => {
                     console.log(row);
                     console.log(err);

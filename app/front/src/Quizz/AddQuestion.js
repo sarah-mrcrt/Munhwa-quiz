@@ -10,7 +10,7 @@ function Qs(props) {
             return(
                 <>
                 <div>
-                    <input name="sentences[]"/> 
+                    <input name="sentences[]" required/> 
                     <label >correct</label>
                     <input type="checkbox"  name="correct[]"/>
                 </div>
@@ -71,38 +71,57 @@ function Questions (props){
     useEffect(() => {
         getQuestions()
     },[]);
+
      async function addQuestions(e){
         e.preventDefault();
+        // Je sauve la question  
+        let idQuizz = (await axios.get(HTTP_SERVER_PORT+"maxidquizzes")).data.nb;
         
+       let q = {
+                sentence : e.target.elements['question'].value,
+                video_url : "",
+                score : 10,
+                quizzes_id: idQuizz
+            }
+            insertQuestions(q);
+            //A FAIRE
+        let idQuestion = (await axios.get(HTTP_SERVER_PORT+"maxidquestion")).data.nb;
+
         let sentences = e.target.elements['sentences[]'];
         let correct = e.target.elements['correct[]'];
-        console.log(sentences);
         for(let i = 0; i < 4 ; i++) {
-            console.log(sentences[i].value, correct[i].checked);
+            //console.log(sentences[i].value, correct[i].checked);
+             let sol = correct[i].checked ? 1 : 0;
+             let q = {
+                sentence : sentence[i].value,
+                video_url : "",
+                solution : sol,
+                question_id: idQuestion
+            }
+            insertAnswer(q);
         }
-
-        let idQ = (await axios.get(HTTP_SERVER_PORT)).data;
-        console.log(idQ +'oute');
-        
-        // if(video_url != null) {
-        //     const selectedFile = e.target.picture_url.files[0];
-        //     const data = new FormData();
-        //     data.append('file', selectedFile, selectedFile.name);
-        //     axios.post(HTTP_SERVER_PORT + "uploadVideo", data).then(res => console.log("Res", res));
-        // }
-        /*let q = {
-            sentence : e.target.elements[0].value,
-            video_url : e.target.elements[1].value,
-            score : e.target.elements[2].value,
-        }
-        insertQuestions(q);
-    */
+        async function insertAnswer(q) {
+            await axios.post( HTTP_SERVER_PORT+"answers", q);
+            getQuestions();
+    }
     }
 
     async function insertQuestions(q) {
         await axios.post( HTTP_SERVER_PORT+"questions", q);
         getQuestions();
     }
+// // if(video_url != null) {
+//         //     const selectedFile = e.target.picture_url.files[0];
+//         //     const data = new FormData();
+//         //     data.append('file', selectedFile, selectedFile.name);
+//         //     axios.post(HTTP_SERVER_PORT + "uploadVideo", data).then(res => console.log("Res", res));
+//         // }
+//         /*let q = {
+//             sentence : e.target.elements[0].value,
+//             video_url : e.target.elements[1].value,
+//             score : e.target.elements[2].value,
+//         }
+
 
       let checkImage = sentenceType === false ? "true" : "false";
       let checkSentence = sentenceType === true ? "true" : "false";
@@ -135,14 +154,8 @@ function Questions (props){
                         </div>
                     </p>
 
-                    <p><b>How many ansewrs</b><input type='number' step="1" min="1" max="10"  name="score" onChange={e=> ajouterAnserws(e)}/></p>
+                    {/* <p><b>How many ansewrs</b><input type='number' step="1" min="1" max="10"  name="score" onChange={e=> ajouterAnserws(e)}/></p> */}
                     {diplayImagesOrSentences()}
-
-                   {/* 
-                    <p>
-                        <input type="number" placeholder="1" step="1" min="1" max="10"/>
-                    </p>
-                */}
                     <div id="buttons">
                         <button type="submit">Create</button>
                         <button id="cancel">Cancel</button>
