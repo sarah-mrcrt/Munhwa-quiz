@@ -5,6 +5,31 @@ import { HTTP_SERVER_PORT, HTTP_SERVER_PORT_PICTURES,HTTP_SERVER_PORT_VIDEOS} fr
 import { Redirect } from 'react-router-dom';
 import Home from "../Home.js";
 
+function Qs(props) {
+    if (props.sentenceType == true) {
+            return(
+                <>
+                <div>
+                    <input name="sentences[]"/> 
+                    <label >correct</label>
+                    <input type="checkbox"  name="correct[]"/>
+                </div>
+                </>
+            )
+        }
+        if(props.sentenceType == false){
+            return(
+            <>
+            <div>
+                    <input type="file" name="image[]" accept="image/png, image/jpg"/>
+                    <label >correct</label>
+                    <input type="checkbox"  name="correct[]"/>
+            </div>
+            </>
+            )
+        }
+}
+
 function Questions (props){
     // Partie Redirection
     function redirection() {
@@ -24,34 +49,17 @@ function Questions (props){
 
     function ajouterAnserws(e){
         e.preventDefault();
-        setAnserws(+1)
+        setAnserws()
     }
     function  diplayImagesOrSentences() {
-        if (sentenceType == true) {
-            return(
-                <>
-                <p><b>How many ansewrs</b><input type='number' step="1" min="1" max="10"  name="score" /></p>
-                <div>
-                    <input name="setSentence"/> 
-                    <label for="correct0">correct</label>
-                    <input type="checkbox" id="correct0" name="correct0"/>
-                </div>
-                </>
-            )
-        }
-        if(sentenceType == false){
-            return(
-            <>
-            <p><b>How many ansewrs</b><input type='number' step="1" min="1" max="10"  name="score" /></p>
-
+        return(
             <div>
-                    <input type="file" name="setImage" accept="image/png, image/jpg"/>
-                    <label for="correct1">correct</label>
-                    <input type="checkbox" id="correct1" name="correct1"/>
+                <Qs sentenceType={sentenceType} />
+                <Qs sentenceType={sentenceType} />
+                <Qs sentenceType={sentenceType} />
+                <Qs sentenceType={sentenceType} />
             </div>
-            </>
-            )
-        }
+        )
     }
 
     // Partie Questions
@@ -65,19 +73,30 @@ function Questions (props){
     },[]);
      async function addQuestions(e){
         e.preventDefault();
-        console.log(e.target);
+        
+        let sentences = e.target.elements['sentences[]'];
+        let correct = e.target.elements['correct[]'];
+        console.log(sentences);
+        for(let i = 0; i < 4 ; i++) {
+            console.log(sentences[i].value, correct[i].checked);
+        }
+
+        let idQ = (await axios.get(HTTP_SERVER_PORT)).data;
+        console.log(idQ +'oute');
+        
         // if(video_url != null) {
         //     const selectedFile = e.target.picture_url.files[0];
         //     const data = new FormData();
         //     data.append('file', selectedFile, selectedFile.name);
         //     axios.post(HTTP_SERVER_PORT + "uploadVideo", data).then(res => console.log("Res", res));
         // }
-        let q = {
+        /*let q = {
             sentence : e.target.elements[0].value,
             video_url : e.target.elements[1].value,
             score : e.target.elements[2].value,
         }
         insertQuestions(q);
+    */
     }
 
     async function insertQuestions(q) {
@@ -116,19 +135,10 @@ function Questions (props){
                         </div>
                     </p>
 
+                    <p><b>How many ansewrs</b><input type='number' step="1" min="1" max="10"  name="score" onChange={e=> ajouterAnserws(e)}/></p>
                     {diplayImagesOrSentences()}
+
                    {/* 
-                    
-                <div class="questions">
-                    <p>
-                         <b>Text of the questions</b>
-                        <br/>
-                         if(radio.anserw)
-
-  
-
-                    </p>
-                </div> 
                     <p>
                         <input type="number" placeholder="1" step="1" min="1" max="10"/>
                     </p>

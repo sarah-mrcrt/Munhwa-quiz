@@ -31,6 +31,19 @@ router
                 }
             );
     })
+    // SELECT MAX(id) FROM quizzes
+    .get('/quizzes/:id',
+        (req, res) => {
+            db.get(
+                "SELECT MAX(id) FROM quizzes",
+                req.params.id,
+                (err, row) => {
+                    console.log(row);
+                    console.log(err);
+                    res.json(row)
+                }
+            );
+    })
 //Inserer un quizz
     .post('/quizzes',
         (req, res) => {
@@ -96,7 +109,7 @@ router
     .post('/questions',
         (req, res) => {
             const q = req.body;
-            db.run("INSERT INTO questions(sentence,video_url,score) values(?,?,?)",[q.sentence, q.video_url, q.score]);
+            db.run("INSERT INTO questions(sentence,video_url,score,quizzes_id) values(?,?,?, ?)",[q.sentence, q.video_url, q.score, q.quizzes_id]);
             res.redirect(303, '/questions/');
         })
 //Upload une vidéo
