@@ -86,25 +86,20 @@ function Questions (props){
         e.preventDefault();
         // Je sauve la question  
         let idQuizz = (await axios.get(HTTP_SERVER_PORT+"maxidquizzes")).data.nb;
+                console.log('target',e);
 
-        // console.log('target',e);
 
-        // if(video_url != null) {
-        //     const selectedFile = e.target.picture_url.files[0];
-        //     const data = new FormData();
-        //     data.append('file', selectedFile, selectedFile.name);
-        //     axios.post(HTTP_SERVER_PORT + "uploadVideo", data).then(res => console.log("Res", res));
-        // }
+        let sentence = e.target.elements['question'];
        let q = {
-                sentence : e.target.elements['question'].value,
+                sentence : sentence.value,
                 video_url : "",
                 score : 10,
                 quizzes_id: idQuizz
             }
             insertQuestions(q);
-        
-        let idQuestion = (await axios.get(HTTP_SERVER_PORT+"maxidquestion")).data.nb;
+console.log(q);
 
+        let idQuestion = (await axios.get(HTTP_SERVER_PORT+"maxidquestion")).data.nb;
         let sentences = e.target.elements['sentences[]'];
         let correct = e.target.elements['correct[]'];
         for(let i = 0; i < 4 ; i++) {
