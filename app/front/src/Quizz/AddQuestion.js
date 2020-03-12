@@ -63,7 +63,7 @@ function Questions (props){
     //         selectedOption: changeEvent.target.value
     // })
 
-    if (red) 
+    // if (checkAnswersType == image) 
         return(
             <div className="quizz">
                 <h1>Add a new question</h1>
@@ -76,7 +76,7 @@ function Questions (props){
         
                     <p><b>Choose the type of your anserw:</b>
                         <div>
-                            <input type="radio" id="anserwImages" name="anserw" value="anserwImages" checked={e=> setAnswersType(e)} />
+                            <input type="radio" id="anserwImages" name="anserw" value="anserwImages" checked={true} />
                             <label for="anserwImages">Images</label>
                         </div>
                         <div>
