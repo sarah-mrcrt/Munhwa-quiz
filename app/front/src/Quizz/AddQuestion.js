@@ -10,7 +10,7 @@ function Qs(props) {
             return(
                 <>
                 <div>
-                    <input name="sentences[]"/> 
+                    <input name="sentences[]" required/> 
                     <label >correct</label>
                     <input type="checkbox"  name="correct[]"/>
                 </div>
@@ -114,11 +114,14 @@ function Questions (props){
             } 
             insertQuestions(q)
         }
-
+        console.log('coucou');
         // Ajouter Réponses
-        let idQuestion = (await axios.get(HTTP_SERVER_PORT+"maxidquestion")).data.nb;
-        let sentences = e.target.elements['sentences[]'];
         let correct = e.target.elements['correct[]'];
+        
+        let idQuestion = (await axios.get(HTTP_SERVER_PORT+"maxidquestion")).data.nb;
+        console.log('non');
+        
+
         for(let i = 0; i < 4 ; i++) {
             let sentences = e.target.elements['sentences[]'];
             //console.log(sentences[i].value, correct[i].checked);
@@ -150,7 +153,7 @@ function Questions (props){
                 <h1>Add a new question</h1>
                 <br/>
                 <form id='formadd' action="#" onSubmit={e=> addQuestions(e)}>
-                    <p><b>Text of the questions</b><input name="question[]" /></p>
+                    <p><b>Text of the questions</b><input name="question[]" required/></p>
                     
                     <p><b>optional video</b><input type="file" name="video_url" accept="video/*"/></p>
 
