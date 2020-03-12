@@ -88,10 +88,8 @@ function Questions (props){
         let score = e.target.elements['score[]'].value;
         //Upload Vidéo
         const selectedFile = e.target.video_url.files[0];
-        
         // Je sauve l'id de la question  
         let idQuizz = (await axios.get(HTTP_SERVER_PORT+"maxidquizzes")).data.nb;
-        console.log('f'+selectedFile);
         if(selectedFile==undefined) {
             let q = {
                 sentence : sentence,
@@ -114,16 +112,17 @@ function Questions (props){
             } 
             insertQuestions(q)
         }
-        console.log('coucou');
-        // Ajouter Réponses
-        let correct = e.target.elements['correct[]'];
         
-        let idQuestion = (await axios.get(HTTP_SERVER_PORT+"maxidquestion")).data.nb;
-        console.log('non');
+        // Ajouter Réponses
         
 
         for(let i = 0; i < 4 ; i++) {
+            let correct = e.target.elements['correct[]'];
             let sentences = e.target.elements['sentences[]'];
+                    console.log('yoooy' + idQuestion);
+
+            let idQuestion = (await axios.get(HTTP_SERVER_PORT+"maxidquestion")).data.nb;
+
             //console.log(sentences[i].value, correct[i].checked);
              let sol = correct[i].checked ? 1 : 0;
              let q = {
