@@ -50,13 +50,13 @@ VALUES
    ("quizz1", "Aix/aix.jpg", "brian;people"),
    ("quizz2", "Aix/aix.jpsenteng", "toto;people");
 
-INSERT INTO questions (sentence, video_url, score, quizzes_id)
+INSERT INTO questions (sentence, score, quizzes_id)
 VALUES
-   ("where is brian?", "lauren.mp4", 3, 1),
-   ("where is brian?", "piano.mov", 3, 1),
-   ("who is brian?", null, 1, 1),
-   ("where is toto?", null,  3, 2),
-   ("who is toto?", null, 1, 2);
+   ("where is brian?", 3, 1),
+   ("where is brian?", 3, 1),
+   ("who is brian?", 1, 1),
+   ("where is toto?", 3, 2),
+   ("who is toto?", 1, 2);
 
 INSERT INTO answers (sentence, picture_url, solution, questions_id)
 VALUES
