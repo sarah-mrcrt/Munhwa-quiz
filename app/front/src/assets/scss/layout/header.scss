@@ -1,0 +1,29 @@
+.App-header{
+    position: absolute;
+    bottom: 0;
+    text-emphasis: center;
+    width: 100vw;
+    a{
+        display: flex;
+        flex-direction: column;
+        text-decoration-line: none;
+        color:$noir;
+        font-family: 'Kayak';
+        text-transform: uppercase;
+        text-align: center;
+        height:3vh;
+        padding:0.2rem;
+        justify-content: center;
+
+    }
+
+    #home{
+        background-color: $rose;
+        color:$white;
+    }
+
+    #signin{
+        background-color: $white;
+        color:$rose;
+    }
+}

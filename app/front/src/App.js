@@ -56,8 +56,8 @@ function App(props) {
     <div className="App">
         <BrowserRouter>
         <header className="App-header">
-          <Link  to={'/'}>Home</Link>
-          <Link  to={'/login'}>{msg}</Link>
+          <Link id="home" to={'/'}>Home</Link>
+          <Link id="signin" to={'/login'}>{msg}</Link>
         </header>
           <Switch>
             <Route exact={true} path="/" component={Home} />
