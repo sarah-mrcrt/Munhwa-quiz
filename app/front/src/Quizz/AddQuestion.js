@@ -64,7 +64,6 @@ function Questions (props){
 
     // Partie Questions
     const [questions , setQuestions] = useState([]);
-    const [answers , setAnswers] = useState([]);
     
     async function getQuestions() {
         const data = (await axios.get(HTTP_SERVER_PORT )).data;
@@ -74,6 +73,7 @@ function Questions (props){
         getQuestions()
     },[]);
 
+    const [answers , setAnswers] = useState([]);
     async function getAnswers() {
         const data = (await axios.get(HTTP_SERVER_PORT)).data;
         setAnswers(data);
@@ -83,22 +83,23 @@ function Questions (props){
     },[]);
 
      async function addQuestions(e){
-        e.preventDefault();
+         e.preventDefault();
+        let sentence = e.target.elements['question[]'].value;
+        let score = e.target.elements['score[]'].value;
+        console.log('target',sentence);
         // Je sauve la question  
         let idQuizz = (await axios.get(HTTP_SERVER_PORT+"maxidquizzes")).data.nb;
-                console.log('target',e);
+        
 
-
-        let sentence = e.target.elements['question'];
-       let q = {
-                sentence : sentence.value,
+        // let sentence = e.target.elements['question[]'];
+        let q = {
+                sentence : sentence,
                 video_url : "",
-                score : 10,
+                score : score,
                 quizzes_id: idQuizz
             }
             insertQuestions(q);
-console.log(q);
-
+        // Ajouter Réponses
         let idQuestion = (await axios.get(HTTP_SERVER_PORT+"maxidquestion")).data.nb;
         let sentences = e.target.elements['sentences[]'];
         let correct = e.target.elements['correct[]'];
@@ -114,14 +115,14 @@ console.log(q);
             }
             insertAnswers(q);
         }
-        async function insertAnswers(q) {
-            await axios.post( HTTP_SERVER_PORT+"answers", q);
-            getAnswers();
-        }
+        
     }
-
-    async function insertQuestions(q) {
-        await axios.post( HTTP_SERVER_PORT+"questions", q);
+        async function insertAnswers(q) {
+            await axios.post( HTTP_SERVER_PORT + "answers", q).data;
+            getAnswers();
+    }
+        async function insertQuestions(q) {
+        await axios.post( HTTP_SERVER_PORT+ "questions", q).data;
         getQuestions();
     }
 
@@ -133,7 +134,7 @@ console.log(q);
                 <h1>Add a new question</h1>
                 <br/>
                 <form id='formadd' action="#" onSubmit={e=> addQuestions(e)}>
-                    <p><b>Text of the questions</b><input name="question" /></p>
+                    <p><b>Text of the questions</b><input name="question[]" /></p>
                     
                     <p><b>optional video</b><input type="file" name="video_url" accept="video/*"/></p>
 
@@ -156,7 +157,7 @@ console.log(q);
                         </div>
                     </p>
                     {diplayImagesOrSentences()}
-                    {/* <p><b>How many ansewrs</b><input type='number' step="1" min="1" max="10"  name="score" onChange={e=> ajouterAnserws(e)}/></p> */}
+                    <p><b>How many points</b><input type='number' step="1" min="1" max="10"  name="score[]"/></p>
                     <div id="buttons">
                         <button type="submit">Create your question</button>
                     </div>

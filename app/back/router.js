@@ -160,6 +160,7 @@ router
     //Si c'est du texte j'affiche : sentence
     .post('/answers',
     (req, res) => {
+        console.log('toto');
         db.run("insert into answers(sentence, picture_url, solution) values(?,?,?)",[q.sentence, q.picture_url, q.solution]);
         res.redirect(303, '/answers');
     })
