@@ -1,0 +1,16 @@
+.div-score{
+    position: absolute;
+    left:50%;
+    transform: translateX(-50%);
+    top:20%;
+
+    h3{
+        text-align: center;
+        font-size:1.5rem;
+        font-family: $mont;
+    }
+
+    .resultat{
+        font-size:5rem;
+    }
+}
