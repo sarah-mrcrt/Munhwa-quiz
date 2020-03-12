@@ -14,20 +14,27 @@ function Questions (props){
 
 
     // Partie Bouttons radios
-   const [sentenceType, setSentenceType] = useState(true);
+    const [sentenceType, setSentenceType] = useState(true);
+    const [anserws, setAnserws] = useState([1]);
+
     function afficherAnswersType(e, type){
         e.preventDefault();
         setSentenceType(type)
+    }
 
+    function ajouterAnserws(e){
+        e.preventDefault();
+        setAnserws(+1)
     }
     function  diplayImagesOrSentences() {
         if (sentenceType == true) {
             return(
                 <>
+                <p><b>How many ansewrs</b><input type='number' step="1" min="1" max="10"  name="score" /></p>
                 <div>
-                    <input type="file" name="setImage" accept="image/png, image/jpg"/>
-                    <label for="correct1">correct</label>
-                    <input type="checkbox" id="correct1" name="correct1"/>
+                    <input name="setSentence"/> 
+                    <label for="correct0">correct</label>
+                    <input type="checkbox" id="correct0" name="correct0"/>
                 </div>
                 </>
             )
@@ -35,10 +42,12 @@ function Questions (props){
         if(sentenceType == false){
             return(
             <>
+            <p><b>How many ansewrs</b><input type='number' step="1" min="1" max="10"  name="score" /></p>
+
             <div>
-                <input name="setSentence"/> 
-                <label for="correct0">correct</label>
-                <input type="checkbox" id="correct0" name="correct0"/>
+                    <input type="file" name="setImage" accept="image/png, image/jpg"/>
+                    <label for="correct1">correct</label>
+                    <input type="checkbox" id="correct1" name="correct1"/>
             </div>
             </>
             )
@@ -114,8 +123,7 @@ function Questions (props){
                     </p>
 
                     {diplayImagesOrSentences()}
-
-                   {/* <p><b>How many ansewrs</b><input type='number' step="1" min="1" max="10"  name="score" /></p>
+                   {/* 
                     
                 <div class="questions">
                     <p>
