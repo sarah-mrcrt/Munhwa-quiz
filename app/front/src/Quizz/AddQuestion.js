@@ -10,7 +10,7 @@ function Qs(props) {
             return(
                 <>
                 <div>
-                    <input name="sentences[]" required/> 
+                    <input name="sentences[]"/> 
                     <label >correct</label>
                     <input type="checkbox"  name="correct[]"/>
                 </div>
@@ -21,8 +21,8 @@ function Qs(props) {
             return(
             <>
             <div>
-                    <input type="file" name="image[]" accept="image/png, image/jpg"/>
-                    <label >correct</label>
+                    <input type="file" name="image[]" accept="image/png, image/jpg" required/>
+                    <label>correct</label>
                     <input type="checkbox"  name="correct[]"/>
             </div>
             </>
@@ -86,19 +86,35 @@ function Questions (props){
          e.preventDefault();
         let sentence = e.target.elements['question[]'].value;
         let score = e.target.elements['score[]'].value;
-        console.log('target',sentence);
-        // Je sauve la question  
-        let idQuizz = (await axios.get(HTTP_SERVER_PORT+"maxidquizzes")).data.nb;
+        //Upload Vidéo
+        const selectedFile = e.target.video_url.files[0];
         
-
-        // let sentence = e.target.elements['question[]'];
-        let q = {
+        // Je sauve l'id de la question  
+        let idQuizz = (await axios.get(HTTP_SERVER_PORT+"maxidquizzes")).data.nb;
+        console.log('f'+selectedFile);
+        if(selectedFile==undefined) {
+            let q = {
                 sentence : sentence,
-                video_url : "",
+                video_url : '',
                 score : score,
                 quizzes_id: idQuizz
-            }
-            insertQuestions(q);
+            }   
+            insertQuestions(q)
+        }
+        if(selectedFile!==undefined) {
+            const data = new FormData();
+            data.append('file', selectedFile, selectedFile.name);
+            axios.post(HTTP_SERVER_PORT + "uploadVideo", data).then(res => console.log("Res", res));
+            let video = selectedFile.name;
+                let q = {
+                sentence : sentence,
+                video_url : video,
+                score : score,
+                quizzes_id: idQuizz
+            } 
+            insertQuestions(q)
+        }
+
         // Ajouter Réponses
         let idQuestion = (await axios.get(HTTP_SERVER_PORT+"maxidquestion")).data.nb;
         let sentences = e.target.elements['sentences[]'];

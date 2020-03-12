@@ -125,33 +125,21 @@ if(questions.length == 0){
       </div>
 
     )
-    if(HTTP_SERVER_PORT_VIDEOS != undefined)
-    return (
-        <>
-          <p className="question">{questions[current].sentence} {questions[current].video_url}
+   return (
+      <>
+         <p className="question">{questions[current].sentence} {questions[current].video_url}
+
+           <video controls autoplay="true" loop src={HTTP_SERVER_PORT_VIDEOS + questions[current].video_url} > super</video>
+
+           </p>
+          <p className="score">Score : {score} </p>
+
+          <Reponses question = {questions[current]} suivant = {suivant}/>
+
+        </>
 
 
-            </p>
-            <p className="score">Score : {score} </p>
-
-            <Reponses question = {questions[current]} suivant = {suivant}/>
-
-          </>
-   )
-    return (
-        <>
-          <p className="question">{questions[current].sentence} {questions[current].video_url}
-
-            <video controls autoplay="true" loop src={HTTP_SERVER_PORT_VIDEOS + questions[current].video_url} > super</video>
-
-            </p>
-            <p className="score">Score : {score} </p>
-
-            <Reponses question = {questions[current]} suivant = {suivant}/>
-
-          </>
-   )
-
+   );
  }
 
  export default Jouer;
