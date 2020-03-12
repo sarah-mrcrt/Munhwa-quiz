@@ -4,67 +4,71 @@ import { Link} from "react-router-dom";
 import axios from 'axios';
 import { HTTP_SERVER_PORT, HTTP_SERVER_PORT_PICTURES,HTTP_SERVER_PORT_VIDEOS} from "../constantes";
 
+let totalPossible =0;
 
 function Reponses(props) {
-  let [answers, setAnswers ] = useState([]);
-  let [myAnswer, setMyAnswer ] = useState([]);
+      let [answers, setAnswers ] = useState([]);
+      let [myAnswer, setMyAnswer ] = useState([]);
 
-  let idQ = props.question.id;
-  async function getAnswers() {
-           const aw = (await axios.get(HTTP_SERVER_PORT +'answers/'+idQ)).data;
-             setAnswers(aw);
-  }
+      let idQ = props.question.id;
+      async function getAnswers() {
+               const aw = (await axios.get(HTTP_SERVER_PORT +'answers/'+idQ)).data;
+                 setAnswers(aw);
+      }
 
-  useEffect(() => {
-          getAnswers();
- }, [idQ]);
+      useEffect(() => {
+              getAnswers();
+     }, [idQ]);
 
-if(answers.length ==0)
-return (<div>Chargement</div>)
- function checkAnswer(id){
-     if(myAnswer.indexOf(id)==-1){
-       myAnswer.push(id);
-       myAnswer = myAnswer.map(e=>e);
-     }else{
-     myAnswer =   myAnswer.filter( e=> e!=id)
+    if(answers.length ==0)
+    return (<div>Chargement</div>)
+     function checkAnswer(id){
+         if(myAnswer.indexOf(id)==-1){
+           myAnswer.push(id);
+           myAnswer = myAnswer.map(e=>e);
+         }else{
+         myAnswer =   myAnswer.filter( e=> e!=id)
+         }
+         setMyAnswer(myAnswer);
      }
-     setMyAnswer(myAnswer);
- }
 
-function suivant(e) {
-  e.preventDefault();
-  myAnswer.sort();
-  let sc = 0;
-  let bonnesReponses = answers.filter(a => a.solution == 1).map(a=> a.id);
-  console.log(bonnesReponses, myAnswer)
-  if(bonnesReponses.length === myAnswer.length && bonnesReponses.every((value, index) => value === myAnswer[index])) {
-    sc =  props.question.score;
-  }
-  console.log("AA", props.question, sc)
-  props.suivant(sc);
+    function suivant(e) {
+      e.preventDefault();
+      myAnswer.sort();
+      let sc = 0;
+      let bonnesReponses = answers.filter(a => a.solution == 1).map(a=> a.id);
+      console.log(bonnesReponses, myAnswer)
+      if(bonnesReponses.length === myAnswer.length && bonnesReponses.every((value, index) => value === myAnswer[index])) {
+        sc =  props.question.score;
+      }
+      // else {
+      //   scoretotal = props.question.score;
+      // }
+      console.log("AA", props.question, sc)
+      props.suivant(sc);
+      totalPossible = totalPossible+ props.question.score;
 
-  setMyAnswer([]);
+      setMyAnswer([]);
 
+    }
+     return (<div>
+       {answers.map((item, i) => {
+         console.log(item);
+         if(item.sentence != null){
+         return(
+           <div className={myAnswer.indexOf(item.id) != -1 ? "active" : "" } onClick={e => checkAnswer(item.id)}>{item.sentence}</div>
+         )}
+          else if (item.picture_url != null) {
+            return(
+            <img src={HTTP_SERVER_PORT_PICTURES + item.picture_url} onClick={e => checkAnswer(item.id)} />
+            )}
+
+       })
+       }
+       <button onClick={e => suivant(e)}>Next</button>
+
+     </div>)
 }
- return (<div>
-   {answers.map((item, i) => {
-     console.log(item);
-     if(item.sentence != null){
-     return(
-       <div className={myAnswer.indexOf(item.id) != -1 ? "active" : "" } onClick={e => checkAnswer(item.id)}>{item.sentence}</div>
-     )}
-      else if (item.picture_url != null) {
-        return(
-        <img src={HTTP_SERVER_PORT_PICTURES + item.picture_url} />
-        )}
-
-   })
-   }
-   <button onClick={e => suivant(e)}>Next</button>
-
- </div>)
-}
-
 
 
  function Jouer(props) {
@@ -75,8 +79,9 @@ function suivant(e) {
       useEffect(() => {
               getQuizz();
               getQuestions();
-     },[]);
+              totalPossible=0;
 
+     },[]);
       if(questions.length ==0)
       return (<div>Chargement</div>)
 
@@ -91,10 +96,9 @@ function suivant(e) {
              }
 
 
-function suivant(sc) {
+function suivant(sc, scoretotal) {
 
     setScore(score+sc);
-
     setCurrent(current+1);
     }
 
@@ -110,14 +114,15 @@ if(questions.length == 0){
     }
     if(current >= questions.length)
     return (
-      <div>C fini {score}
+      <div>Score <br/>
+      {score}/{totalPossible}
       </div>
 
     )
    return (
      <div className="Home">
       Bonjour je suis les questions
-      <br/> Courage mes petites CSS 😗
+      <br/> Courage mes petites CSS :*
         <p>{questions[current].sentence} </p>
           {score}
           <Reponses question = {questions[current]} suivant = {suivant}/>
@@ -128,3 +133,5 @@ if(questions.length == 0){
  }
 
  export default Jouer;
+
+

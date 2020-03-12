@@ -6,25 +6,44 @@ import { Redirect } from 'react-router-dom';
 import Home from "../Home.js";
 
 function Questions (props){
-
-
-    // Partie Bouttons radios
-    const [checkAnswersType, setAnswersType] = useState([true]);
-
-    function afficherAnswersType(e){
-        if (setAnswersType == true){
-            e.preventDefault();
-            // afficherImages(i);
-        }
-    }
-    
-
     // Partie Redirection
     function redirection() {
        setRed(false);
-   }
+    }
     const [red, setRed] = useState(true);
 
+
+    // Partie Bouttons radios
+   const [sentenceType, setSentenceType] = useState(true);
+    function afficherAnswersType(e, type){
+        e.preventDefault();
+        setSentenceType(type)
+
+    }
+    function  diplayImagesOrSentences() {
+        if (sentenceType == true) {
+            return(
+                <>
+                <div>
+                    <input type="file" name="setImage" accept="image/png, image/jpg"/>
+                    <label for="correct1">correct</label>
+                    <input type="checkbox" id="correct1" name="correct1"/>
+                </div>
+                </>
+            )
+        }
+        if(sentenceType == false){
+            return(
+            <>
+            <div>
+                <input name="setSentence"/> 
+                <label for="correct0">correct</label>
+                <input type="checkbox" id="correct0" name="correct0"/>
+            </div>
+            </>
+            )
+        }
+    }
 
     // Partie Questions
     const [questions , setQuestions] = useState([]);
@@ -32,7 +51,6 @@ function Questions (props){
         const data = (await axios.get(HTTP_SERVER_PORT)).data;
         setQuestions(data);
     }
-
     useEffect(() => {
         getQuestions()
     },[]);
@@ -64,6 +82,9 @@ function Questions (props){
     // })
 
     // if (checkAnswersType == image) 
+      let checkImage = sentenceType === false ? "true" : "false";
+      let checkSentence = sentenceType === true ? "true" : "false";
+      
         return(
             <div className="quizz">
                 <h1>Add a new question</h1>
@@ -76,42 +97,40 @@ function Questions (props){
         
                     <p><b>Choose the type of your anserw:</b>
                         <div>
-                            <input type="radio" id="anserwImages" name="anserw" value="anserwImages" checked={true} />
-                            <label for="anserwImages">Images</label>
+                            <input type="radio" name="picture_url" 
+                            checked={checkImage}
+                            value="anserwImages" 
+                            onChange= {e=> afficherAnswersType(e,false)} />
+                            <label for="picture_url">Images</label>
                         </div>
                         <div>
-                            <input type="radio" id="anserwSentence" name="anserw" value="anserwSentence"  checked={false}/>
-                            <label for="anserwSentence">Sentences</label>
+                        
+                            
+                            <input type="radio" name="sentence"
+                            checked={checkSentence}
+                             onChange={e=> afficherAnswersType(e, true)}/>
+                            <label for="sentence">Sentences</label>
                         </div>
                     </p>
 
+                    {diplayImagesOrSentences()}
 
-
-                    <p><b>How many ansewrs</b><input type='number' step="1" min="1" max="10"  name="score" /></p>
+                   {/* <p><b>How many ansewrs</b><input type='number' step="1" min="1" max="10"  name="score" /></p>
                     
                 <div class="questions">
                     <p>
-                        {/* <b>Text of the questions</b>
+                         <b>Text of the questions</b>
                         <br/>
                          if(radio.anserw)
 
-                        <div>
-                            <input name="questionSentence"/> 
-                            <label for="correct0">correct</label>
-                            <input type="checkbox" id="correct0" name="correct0"/>
-                        </div>
   
-                        <div>
-                            <input type="file" id="image" name="image" accept="image/png, image/jpg"/>
-                            <label for="correct1">correct</label>
-                            <input type="checkbox" id="correct1" name="correct1"/>
-                        </div> */}
+
                     </p>
-                </div>
+                </div> 
                     <p>
                         <input type="number" placeholder="1" step="1" min="1" max="10"/>
                     </p>
-
+                */}
                     <div id="buttons">
                         <button type="submit">Create</button>
                         <button id="cancel">Cancel</button>
