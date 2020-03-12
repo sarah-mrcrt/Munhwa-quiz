@@ -40,7 +40,7 @@ function FormLogin(props) {
         );
     }
 
-function Login() {
+function Login(props) {
 
     const [cookies, setCookie, removeCookie] = useCookies(['login']);
     const usernameRef = React.createRef();
@@ -86,7 +86,7 @@ function Login() {
     if (cookies.login && cookies.login.name) {
         return (
         <>
-            <p>Paul</p>
+            <p>{cookies.login.name}</p>
             <p>Tous vos scoreS</p>
             {/* <button id="disconnect" onClick={disconnect}>disconnect</button> */}
             envie d'ajouter un quizz ->

@@ -32,25 +32,25 @@ function Qs(props) {
 
 function Questions (props){
     // Partie Redirection
-    function redirection() {
-       setRed(false);
-    }
-    const [red, setRed] = useState(true);
+    // function redirection() {
+    //    setRed(false);
+    // }
+    // const [red, setRed] = useState(true);
 
 
     // Partie Bouttons radios
     const [sentenceType, setSentenceType] = useState(true);
-    const [anserws, setAnserws] = useState([1]);
+    // const [anserws, setAnserws] = useState([1]);
 
     function afficherAnswersType(e, type){
         e.preventDefault();
         setSentenceType(type)
     }
 
-    function ajouterAnserws(e){
-        e.preventDefault();
-        setAnserws()
-    }
+    // function ajouterAnserws(e){
+    //     e.preventDefault();
+    //     setAnserws()
+    // }
     function  diplayImagesOrSentences() {
         return(
             <div>
@@ -64,19 +64,37 @@ function Questions (props){
 
     // Partie Questions
     const [questions , setQuestions] = useState([]);
+    const [answers , setAnswers] = useState([]);
+    
     async function getQuestions() {
-        const data = (await axios.get(HTTP_SERVER_PORT)).data;
+        const data = (await axios.get(HTTP_SERVER_PORT )).data;
         setQuestions(data);
     }
     useEffect(() => {
         getQuestions()
     },[]);
 
+    async function getAnswers() {
+        const data = (await axios.get(HTTP_SERVER_PORT)).data;
+        setAnswers(data);
+    }
+    useEffect(() => {
+        getAnswers()
+    },[]);
+
      async function addQuestions(e){
         e.preventDefault();
         // Je sauve la question  
         let idQuizz = (await axios.get(HTTP_SERVER_PORT+"maxidquizzes")).data.nb;
-        
+
+        // console.log('target',e);
+
+        // if(video_url != null) {
+        //     const selectedFile = e.target.picture_url.files[0];
+        //     const data = new FormData();
+        //     data.append('file', selectedFile, selectedFile.name);
+        //     axios.post(HTTP_SERVER_PORT + "uploadVideo", data).then(res => console.log("Res", res));
+        // }
        let q = {
                 sentence : e.target.elements['question'].value,
                 video_url : "",
@@ -84,44 +102,33 @@ function Questions (props){
                 quizzes_id: idQuizz
             }
             insertQuestions(q);
-            //A FAIRE
+        
         let idQuestion = (await axios.get(HTTP_SERVER_PORT+"maxidquestion")).data.nb;
 
         let sentences = e.target.elements['sentences[]'];
         let correct = e.target.elements['correct[]'];
         for(let i = 0; i < 4 ; i++) {
+            let sentences = e.target.elements['sentences[]'];
             //console.log(sentences[i].value, correct[i].checked);
              let sol = correct[i].checked ? 1 : 0;
              let q = {
-                sentence : sentence[i].value,
-                video_url : "",
+                sentence : sentences[i].value,
+                picture_url : "",
                 solution : sol,
                 question_id: idQuestion
             }
-            insertAnswer(q);
+            insertAnswers(q);
         }
-        async function insertAnswer(q) {
+        async function insertAnswers(q) {
             await axios.post( HTTP_SERVER_PORT+"answers", q);
-            getQuestions();
-    }
+            getAnswers();
+        }
     }
 
     async function insertQuestions(q) {
         await axios.post( HTTP_SERVER_PORT+"questions", q);
         getQuestions();
     }
-// // if(video_url != null) {
-//         //     const selectedFile = e.target.picture_url.files[0];
-//         //     const data = new FormData();
-//         //     data.append('file', selectedFile, selectedFile.name);
-//         //     axios.post(HTTP_SERVER_PORT + "uploadVideo", data).then(res => console.log("Res", res));
-//         // }
-//         /*let q = {
-//             sentence : e.target.elements[0].value,
-//             video_url : e.target.elements[1].value,
-//             score : e.target.elements[2].value,
-//         }
-
 
       let checkImage = sentenceType === false ? "true" : "false";
       let checkSentence = sentenceType === true ? "true" : "false";
@@ -131,7 +138,7 @@ function Questions (props){
                 <h1>Add a new question</h1>
                 <br/>
                 <form id='formadd' action="#" onSubmit={e=> addQuestions(e)}>
-                    <p><b>Text of the questions</b><input name="sentence" /></p>
+                    <p><b>Text of the questions</b><input name="question" /></p>
                     
                     <p><b>optional video</b><input type="file" name="video_url" accept="video/*"/></p>
 
@@ -153,12 +160,10 @@ function Questions (props){
                             <label for="sentence">Sentences</label>
                         </div>
                     </p>
-
-                    {/* <p><b>How many ansewrs</b><input type='number' step="1" min="1" max="10"  name="score" onChange={e=> ajouterAnserws(e)}/></p> */}
                     {diplayImagesOrSentences()}
+                    {/* <p><b>How many ansewrs</b><input type='number' step="1" min="1" max="10"  name="score" onChange={e=> ajouterAnserws(e)}/></p> */}
                     <div id="buttons">
-                        <button type="submit">Create</button>
-                        <button id="cancel">Cancel</button>
+                        <button type="submit">Create your question</button>
                     </div>
                 </form>
             </div>

@@ -43,6 +43,18 @@ router
                 }
             );
     })
+
+        .get('/maxidquestions',
+        (req, res) => {
+            db.get(
+                "SELECT MAX(id) as nb FROM questions",
+                (err, row) => {
+                    console.log(row);
+                    console.log(err);
+                    res.json(row)
+                }
+            );
+    })
 //Inserer un quizz
     .post('/quizzes',
         (req, res) => {
