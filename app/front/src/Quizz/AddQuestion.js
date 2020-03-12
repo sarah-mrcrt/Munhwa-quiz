@@ -14,44 +14,45 @@ function Questions (props){
 
 
     // Partie Bouttons radios
-   const [checkAnswersType, setAnswersType] = useState(true);
-    function afficherAnswersType(e){
+    const [sentenceType, setSentenceType] = useState(true);
+    const [anserws, setAnserws] = useState([1]);
+
+    function afficherAnswersType(e, type){
         e.preventDefault();
-        if (e.target.name == 'setImage'){
-            setImage = true;
-            setSentence = false;
-        }
-        if (e.target.name == 'setSentence'){
-            setImage == true;
-            setSentence == false;
-        }
+        setSentenceType(type)
     }
-    
+
+    function ajouterAnserws(e){
+        e.preventDefault();
+        setAnserws(+1)
+    }
     function  diplayImagesOrSentences() {
-        if (checkAnswersType == setImage) {
+        if (sentenceType == true) {
             return(
                 <>
+                <p><b>How many ansewrs</b><input type='number' step="1" min="1" max="10"  name="score" /></p>
                 <div>
-                    <input type="file" name="setImage" accept="image/png, image/jpg"/>
-                    <label for="correct1">correct</label>
-                    <input type="checkbox" id="correct1" name="correct1"/>
+                    <input name="setSentence"/>
+                    <label for="correct0">correct</label>
+                    <input type="checkbox" id="correct0" name="correct0"/>
                 </div>
                 </>
             )
         }
-        if(checkAnswersType == setSentence){
+        if(sentenceType == false){
             return(
             <>
+            <p><b>How many ansewrs</b><input type='number' step="1" min="1" max="10"  name="score" /></p>
+
             <div>
-                <input name="setSentence"/> 
-                <label for="correct0">correct</label>
-                <input type="checkbox" id="correct0" name="correct0"/>
+                    <input type="file" name="setImage" accept="image/png, image/jpg"/>
+                    <label for="correct1">correct</label>
+                    <input type="checkbox" id="correct1" name="correct1"/>
             </div>
             </>
             )
         }
     }
-
 
     // Partie Questions
     const [questions , setQuestions] = useState([]);
@@ -59,7 +60,6 @@ function Questions (props){
         const data = (await axios.get(HTTP_SERVER_PORT)).data;
         setQuestions(data);
     }
-
     useEffect(() => {
         getQuestions()
     },[]);
@@ -84,48 +84,57 @@ function Questions (props){
         await axios.post( HTTP_SERVER_PORT+"questions", q);
         getQuestions();
     }
-    
+
     // handleOptionChange: function (changeEvent) {
     //     this.setState({
     //         selectedOption: changeEvent.target.value
     // })
 
-    // if (checkAnswersType == image) 
+    // if (checkAnswersType == image)
+      let checkImage = sentenceType === false ? "true" : "false";
+      let checkSentence = sentenceType === true ? "true" : "false";
+
         return(
             <div className="quizz">
                 <h1>Add a new question</h1>
                 <br/>
                 <form id='formadd' action="#" onSubmit={e=> addQuestions(e)}>
                     <p><b>Text of the questions</b><input name="sentence" /></p>
-                    
+
                     <p><b>optional video</b><input type="file" name="video_url" accept="video/*"/></p>
 
-        
+
                     <p><b>Choose the type of your anserw:</b>
                         <div>
-                            <input type="radio" id="anserwImages" name="anserw" value="anserwImages" onChange={e=> afficherAnswersType(e)} />
-                            <label for="anserwImages">Images</label>
+                            <input type="radio" name="picture_url"
+                            checked={checkImage}
+                            value="anserwImages"
+                            onChange= {e=> afficherAnswersType(e,false)} />
+                            <label for="picture_url">Images</label>
                         </div>
                         <div>
-                            <input type="radio" id="anserwSentence" name="anserw" value="anserwSentence"  onChange={e=> afficherAnswersType(e)}/>
-                            <label for="anserwSentence">Sentences</label>
+
+
+                            <input type="radio" name="sentence"
+                            checked={checkSentence}
+                             onChange={e=> afficherAnswersType(e, true)}/>
+                            <label for="sentence">Sentences</label>
                         </div>
                     </p>
 
                     {diplayImagesOrSentences()}
+                   {/*
 
-                   {/* <p><b>How many ansewrs</b><input type='number' step="1" min="1" max="10"  name="score" /></p>
-                    
                 <div class="questions">
                     <p>
                          <b>Text of the questions</b>
                         <br/>
                          if(radio.anserw)
 
-  
+
 
                     </p>
-                </div> 
+                </div>
                     <p>
                         <input type="number" placeholder="1" step="1" min="1" max="10"/>
                     </p>
@@ -138,7 +147,7 @@ function Questions (props){
             </div>
         )
         return (
-            <Home/>    
+            <Home/>
         )
 }
 
