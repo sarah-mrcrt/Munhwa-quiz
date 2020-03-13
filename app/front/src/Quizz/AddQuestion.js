@@ -10,7 +10,7 @@ function Qs(props) {
             return(
                 <>
                 <div>
-                    <input name="sentences[]" required/> 
+                    <input name="sentences[]"/> 
                     <label >correct</label>
                     <input type="checkbox"  name="correct[]"/>
                 </div>

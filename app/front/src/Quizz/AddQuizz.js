@@ -19,6 +19,7 @@ function Quizz (props){
         const data = (await axios.get(HTTP_SERVER_PORT)).data;
         setQuizz(data);
     }
+    //Initialization
     useEffect(() => {
         getQuizz()
     },[]);
@@ -44,6 +45,7 @@ function Quizz (props){
                 picture_url : selectedFile.name,
                 keywords : e.target.elements[2].value,
             }
+            //recover fields 
             insertQuizz(q);
 
         }else{
@@ -57,8 +59,8 @@ function Quizz (props){
         setRed(true);
     }
     async function insertQuizz(q) {
+        //server
         let qid = await axios.post( HTTP_SERVER_PORT + "quizzes", q).data;
-        
         getQuizz();
     }
 
