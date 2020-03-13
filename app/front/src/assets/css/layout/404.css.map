@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AACA,SAAS,CACR,UAAU,CAAE,MAAM,CAClB,QAAQ,CAAE,QAAQ,CAClB,IAAI,CAAC,GAAG,CACR,GAAG,CAAC,GAAG,CACP,SAAS,CAAC,gBAAgB,CAEzB,KAAK,CACH,KAAK,CAAE,GAAG,CACV,OAAO,CAAE,OAAO,CAGd,SAAS,CACP,KAAK,CAAC,KAAK",
+"sources": ["../../scss/layout/404.scss"],
+"names": [],
+"file": "404.css"
+}

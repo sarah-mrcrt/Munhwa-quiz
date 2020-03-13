@@ -1,0 +1,52 @@
+.add_quizz{
+    text-align: center;
+    margin-top:14rem;
+
+    h2{
+        color:$rose;
+    }
+#formQuizz{
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    color:$rose;
+    margin-top:-2rem;
+
+    input{
+        width:15rem;
+        margin-top:1rem;
+        height:1.2rem;
+    }
+    button{
+        background-color: $bleu;
+        color:$white;
+        border-radius: 1.2rem;
+        border:none;
+        padding-left:1.5rem;
+        padding-right:1.5rem;
+        height:1.5rem;
+    }
+}
+}
+
+#disconnect{
+    position: absolute;
+    top:1rem;
+    right:2rem;
+    color:$rose;
+}
+
+#hey{
+    position: absolute;
+    top:6rem;
+    left:3.5rem;
+    font-size: 1.3rem;
+}
+
+#formadd{
+    position: absolute;
+    top:10rem;
+    left:50%;
+    transform: translateX(-50%);
+}

@@ -43,7 +43,9 @@
    
     
 }
-
+img{
+    object-fit: cover;
+}
 .question{
     position: absolute;
     top:4rem;
@@ -58,6 +60,9 @@
 .score{
     background-color: $bleu;
     position: absolute;
+    white-space: nowrap;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
     top:7rem;
     left:50%;
     transform: translateX(-50%);

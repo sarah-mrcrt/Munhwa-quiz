@@ -86,11 +86,10 @@ function Login(props) {
     if (cookies.login && cookies.login.name) {
         return (
         <>
-            <p>{cookies.login.name}</p>
-            <p>Tous vos scoreS</p>
+            <h2 id="hey">Hey <b>{cookies.login.name}</b>, <br/> create a new quizz ! </h2>
             {/* <button id="disconnect" onClick={disconnect}>disconnect</button> */}
-            envie d'ajouter un quizz ->
-            <Link  to={'/addQuizz'}>AddQuizz</Link>
+            <AddQuizz/>
+            {/* <Link  to={'/addQuizz'}>AddQuizz</Link> */}
         </>        
         )
     }

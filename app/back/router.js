@@ -32,17 +32,17 @@ router
             );
     })
     // SELECT MAX(id) FROM quizzes
-    // .get('/maxidquizzes',
-    //     (req, res) => {
-    //         db.get(
-    //             "SELECT MAX(id) as nb FROM quizzes",
-    //             (err, row) => {
-    //                 console.log(row);
-    //                 console.log(err);
-    //                 res.json(row)
-    //             }
-    //         );
-    // })
+    .get('/maxidquizzes',
+        (req, res) => {
+            db.get(
+                "SELECT MAX(id) as nb FROM quizzes",
+                (err, row) => {
+                    console.log(row);
+                    console.log(err);
+                    res.json(row)
+                }
+            );
+    })
 
         .get('/maxidquestions',
         (req, res) => {
@@ -160,6 +160,7 @@ router
     //Si c'est du texte j'affiche : sentence
     .post('/answers',
     (req, res) => {
+        console.log('toto');
         db.run("insert into answers(sentence, picture_url, solution) values(?,?,?)",[q.sentence, q.picture_url, q.solution]);
         res.redirect(303, '/answers');
     })

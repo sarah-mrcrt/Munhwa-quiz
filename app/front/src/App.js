@@ -26,12 +26,16 @@ function App(props) {
         <>
         <div className="App">
           <BrowserRouter>
-          <header className="App-header">
-            <Link  to={'/'}>Home</Link>
-            <Link  to={'/login'}>{msg}</Link>
-            <Link  to={'/addQuizz'}>AddQuizz</Link>      
-            <button id="disconnect" onClick={disconnect}>Log out</button>
+          <header >
+          <img id="logo" src="/LOGO.svg" />
+        </header>
+        <header className="App-header">
+          <Link id="home" to={'/'}>Home</Link>
+          <Link id="signin" to={'/login'}>{msg}</Link>
           </header>
+          <footer>
+          <button id="disconnect" onClick={disconnect}>Log out</button>
+          </footer>
             <Switch>
               <Route exact={true} path="/" component={Home} />
               <Route exact={true} path="/home" component={Home}/>

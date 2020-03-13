@@ -24,3 +24,13 @@
         border:solid 0.1rem $rose;
     }
 }
+
+.chargement{
+    color:$rose;
+    position: absolute;
+    font-family: 'kayak';
+    top:15rem;
+    left:50%;
+    font-size:2.5rem;
+    transform: translateX(-50%);
+}

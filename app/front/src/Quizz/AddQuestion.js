@@ -21,8 +21,8 @@ function Qs(props) {
             return(
             <>
             <div>
-                    <input type="file" name="image[]" accept="image/png, image/jpg"/>
-                    <label >correct</label>
+                    <input type="file" name="image[]" accept="image/png, image/jpg" required/>
+                    <label>correct</label>
                     <input type="checkbox"  name="correct[]"/>
             </div>
             </>
@@ -64,7 +64,6 @@ function Questions (props){
 
     // Partie Questions
     const [questions , setQuestions] = useState([]);
-    const [answers , setAnswers] = useState([]);
     
     async function getQuestions() {
         const data = (await axios.get(HTTP_SERVER_PORT )).data;
@@ -74,6 +73,7 @@ function Questions (props){
         getQuestions()
     },[]);
 
+    const [answers , setAnswers] = useState([]);
     async function getAnswers() {
         const data = (await axios.get(HTTP_SERVER_PORT)).data;
         setAnswers(data);
@@ -83,32 +83,46 @@ function Questions (props){
     },[]);
 
      async function addQuestions(e){
-        e.preventDefault();
-        // Je sauve la question  
+         e.preventDefault();
+        let sentence = e.target.elements['question[]'].value;
+        let score = e.target.elements['score[]'].value;
+        //Upload Vidéo
+        const selectedFile = e.target.video_url.files[0];
+        // Je sauve l'id de la question  
         let idQuizz = (await axios.get(HTTP_SERVER_PORT+"maxidquizzes")).data.nb;
-
-        // console.log('target',e);
-
-        // if(video_url != null) {
-        //     const selectedFile = e.target.picture_url.files[0];
-        //     const data = new FormData();
-        //     data.append('file', selectedFile, selectedFile.name);
-        //     axios.post(HTTP_SERVER_PORT + "uploadVideo", data).then(res => console.log("Res", res));
-        // }
-       let q = {
-                sentence : e.target.elements['question'].value,
-                video_url : "",
-                score : 10,
+        if(selectedFile==undefined) {
+            let q = {
+                sentence : sentence,
+                video_url : '',
+                score : score,
                 quizzes_id: idQuizz
-            }
-            insertQuestions(q);
+            }   
+            insertQuestions(q)
+        }
+        if(selectedFile!==undefined) {
+            const data = new FormData();
+            data.append('file', selectedFile, selectedFile.name);
+            axios.post(HTTP_SERVER_PORT + "uploadVideo", data).then(res => console.log("Res", res));
+            let video = selectedFile.name;
+                let q = {
+                sentence : sentence,
+                video_url : video,
+                score : score,
+                quizzes_id: idQuizz
+            } 
+            insertQuestions(q)
+        }
         
-        let idQuestion = (await axios.get(HTTP_SERVER_PORT+"maxidquestion")).data.nb;
+        // Ajouter Réponses
+        
 
-        let sentences = e.target.elements['sentences[]'];
-        let correct = e.target.elements['correct[]'];
         for(let i = 0; i < 4 ; i++) {
+            let correct = e.target.elements['correct[]'];
             let sentences = e.target.elements['sentences[]'];
+                    console.log('yoooy' + idQuestion);
+
+            let idQuestion = (await axios.get(HTTP_SERVER_PORT+"maxidquestion")).data.nb;
+
             //console.log(sentences[i].value, correct[i].checked);
              let sol = correct[i].checked ? 1 : 0;
              let q = {
@@ -119,14 +133,14 @@ function Questions (props){
             }
             insertAnswers(q);
         }
-        async function insertAnswers(q) {
-            await axios.post( HTTP_SERVER_PORT+"answers", q);
-            getAnswers();
-        }
+        
     }
-
-    async function insertQuestions(q) {
-        await axios.post( HTTP_SERVER_PORT+"questions", q);
+        async function insertAnswers(q) {
+            await axios.post( HTTP_SERVER_PORT + "answers", q).data;
+            getAnswers();
+    }
+        async function insertQuestions(q) {
+        await axios.post( HTTP_SERVER_PORT+ "questions", q).data;
         getQuestions();
     }
 
@@ -135,15 +149,15 @@ function Questions (props){
       
         return(
             <div className="quizz">
-                <h1>Add a new question</h1>
+                {/* <h1>Add a new question</h1> */}
                 <br/>
                 <form id='formadd' action="#" onSubmit={e=> addQuestions(e)}>
-                    <p><b>Text of the questions</b><input name="question" /></p>
+                    <p><b>Text of the question</b><input name="question[]" required/></p>
                     
                     <p><b>optional video</b><input type="file" name="video_url" accept="video/*"/></p>
 
         
-                    <p><b>Choose the type of your anserw:</b>
+                    <p><b>Choose the type of your answer:</b>
                         <div>
                             <input type="radio" name="picture_url" 
                             checked={checkImage}
@@ -161,7 +175,7 @@ function Questions (props){
                         </div>
                     </p>
                     {diplayImagesOrSentences()}
-                    {/* <p><b>How many ansewrs</b><input type='number' step="1" min="1" max="10"  name="score" onChange={e=> ajouterAnserws(e)}/></p> */}
+                    <p><b>How many points</b><input type='number' step="1" min="1" max="10"  name="score[]"/></p>
                     <div id="buttons">
                         <button type="submit">Create your question</button>
                     </div>

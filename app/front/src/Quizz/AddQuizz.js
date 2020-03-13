@@ -74,13 +74,13 @@ function Quizz (props){
                 {/* {cities.map(c =>
                     <li key={c.id}>{c.id} : {c.cityname}</li>
                 )} */}
-            <div className="quizz">
-                <h1>Add a new quizz</h1>
-                <br/>
+            <div className="add_quizz">
+                {/* <h2>Add a new quizz</h2> */}
                 <form id='formQuizz' action="#" onSubmit={e=> addQuizz(e)}>
-                <p><b>Nom du quizz</b><input name="name" required/></p>
-                <b>Icone</b><input type="file" name="picture_url" accept="image/*"/>
-                <p><b>keywords</b><input name="keywords" placeholder="keywords separer par ;"/></p>
+                <br/><b>Quizz Name</b>
+                <input placeholder="Quizz name" name="name" required/>
+                <br/><b>Icon</b><input type="file" name="picture_url" accept="image/*"/>
+                <p><b>keywords</b><br/><input name="keywords" placeholder="keywords separated by ;"/></p>
 
                 <button type="submit"  >Envoyez</button>
                 </form>
