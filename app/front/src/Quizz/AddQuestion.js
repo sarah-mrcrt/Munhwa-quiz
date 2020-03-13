@@ -157,15 +157,15 @@ function Questions (props){
         )
         return(
             <div className="quizz">
-                <h1>Add a new question</h1>
+                {/* <h1>Add a new question</h1> */}
                 <br/>
                 <form id='formadd' action="#" onSubmit={e=> addQuestions(e)}>
-                    <p><b>Text of the questions</b><input name="question[]" required/></p>
+                    <p><b>Text of the question</b><input name="question[]" required/></p>
                     
                     <p><b>optional video</b><input type="file" name="video_url" accept="video/*"/></p>
 
         
-                    <p><b>Choose the type of your anserw:</b>
+                    <p><b>Choose the type of your answer:</b>
                         <div>
                             <input type="radio" name="picture_url" 
                             checked={checkImage}

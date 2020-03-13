@@ -88,7 +88,7 @@ function Reponses(props) {
 
      },[]);
       if(questions.length ==0)
-      return (<div>Chargement</div>)
+      return (<div class="chargement">Chargement...</div>)
 
 
      async function getQuizz() {  // The function is asynchronous
