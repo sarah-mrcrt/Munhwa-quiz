@@ -18,8 +18,8 @@ import axios from 'axios';
               getQuizzes()
      }, []);
 
-
-     console.log(quizzes);
+//reverse()
+    //  console.log(quizzes);
    return (
      <div className="grid-container">
        {quizzes.reverse().map(q =>
