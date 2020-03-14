@@ -133,7 +133,7 @@ if(questions.length == 0){
 
         <Reponses question = {questions[current]} suivant = {suivant}/>
         </>);
-      
+
     }
    return (
       <>
